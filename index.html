@@ -13,7 +13,7 @@
       box-sizing: border-box;
     }
 
-    /* FONDO OSCURO CON EFECTOS SUTILES */
+    /* FONDO ILUSTRADO VISIBLE */
     .hu-tao-background {
       position: fixed;
       top: 0;
@@ -21,75 +21,29 @@
       width: 100%;
       height: 100%;
       z-index: -2;
-      background: 
-        radial-gradient(circle at 20% 80%, #1E1E22 0%, transparent 70%),
-        radial-gradient(circle at 80% 20%, #2B2F36 0%, transparent 70%),
-        radial-gradient(circle at 40% 40%, #3A2F3F 0%, transparent 70%),
-        linear-gradient(135deg, #1E1E22 0%, #2B2F36 50%, #1E1E22 100%);
-      animation: backgroundMove 20s ease-in-out infinite;
-      filter: blur(1px);
+      background-image: url('https://images.wallpapersden.com/image/download/genshin-impact-hu-tao-2023-art_bW5lZ2eUmZqaraWkpJRobWllrWdma2U.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: brightness(0.8) contrast(1.1);
     }
 
-    /* Detalles sutiles en bordes */
-    .background-details {
+    /* Overlay oscuro muy sutil para mejorar legibilidad */
+    .background-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: -1;
-      opacity: 0.1;
-      background-image: 
-        radial-gradient(2px 2px at 10% 15%, #7A2E2E 1px, transparent 2px),
-        radial-gradient(2px 2px at 90% 85%, #7A2E2E 1px, transparent 2px),
-        radial-gradient(3px 3px at 85% 10%, #3F4A55 1px, transparent 3px),
-        radial-gradient(3px 3px at 15% 90%, #3F4A55 1px, transparent 3px);
-      background-size: 200px 200px, 150px 150px, 180px 180px, 170px 170px;
-      animation: floatDetails 30s infinite linear;
-    }
-
-    /* Niebla ligera */
-    .fog-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: 
-        radial-gradient(circle at 30% 20%, rgba(63, 74, 85, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 70% 80%, rgba(43, 47, 54, 0.07) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    @keyframes backgroundMove {
-      0%, 100% {
-        background-position: 0% 0%;
-        transform: scale(1);
-      }
-      33% {
-        background-position: 100% 0%;
-        transform: scale(1.01);
-      }
-      66% {
-        background-position: 100% 100%;
-        transform: scale(1);
-      }
-    }
-
-    @keyframes floatDetails {
-      0% {
-        background-position: 0px 0px, 100px 100px, 50px 50px, 150px 150px;
-      }
-      100% {
-        background-position: 200px 200px, 300px 300px, 250px 250px, 350px 350px;
-      }
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(2px);
     }
 
     body {
       font-family: 'Poppins', sans-serif;
       background: transparent;
-      color: #E0E0E0;
+      color: #FFFFFF;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -102,27 +56,72 @@
       position: relative;
     }
 
-    .content-overlay {
+    /* VENTANA FLOTANTE DE VIDRIO */
+    .glass-panel {
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 1200px;
-      background: rgba(43, 47, 54, 0.85); /* Gris oscuro frío */
-      backdrop-filter: blur(15px);
-      border-radius: 20px;
-      padding: 40px 20px;
+      max-width: 900px;
+      background: rgba(20, 20, 25, 0.15); /* Oscuro translúcido */
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-radius: 24px;
+      padding: 50px 40px;
       margin: 20px;
-      border: 1px solid rgba(122, 46, 46, 0.2); /* Borde rojo carmín sutil */
+      border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 
-        0 20px 50px rgba(30, 30, 34, 0.7),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        0 25px 60px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Contorno luminoso sutil */
+    .glass-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 24px;
+      padding: 1px;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.025)
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* Efecto de vidrio interno */
+    .glass-panel::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.03) 0%,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 0.02) 100%
+      );
+      border-radius: 24px;
+      pointer-events: none;
     }
     
     @keyframes fadeInBody {
       to { opacity: 1; }
     }
     
-    /* Puertas de entrada oscuras */
+    /* Puertas de entrada - muy transparentes */
     .door-overlay {
       position: fixed;
       top: 0;
@@ -136,23 +135,21 @@
     
     .door {
       flex: 1;
-      background: linear-gradient(135deg, #2B2F36 0%, #1E1E22 100%);
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
       transform: scaleY(1);
       transform-origin: top;
       animation: doorOpen 0.8s ease 1s forwards;
-      box-shadow: 0 0 30px rgba(30, 30, 34, 0.8);
     }
     
     .door-left {
       transform-origin: left;
       animation: doorOpenLeft 0.8s ease 1s forwards;
-      border-right: 1px solid rgba(122, 46, 46, 0.3);
     }
     
     .door-right {
       transform-origin: right;
       animation: doorOpenRight 0.8s ease 1s forwards;
-      border-left: 1px solid rgba(122, 46, 46, 0.3);
     }
     
     @keyframes doorOpenLeft {
@@ -167,7 +164,7 @@
     
     header {
       text-align: center;
-      padding: 30px 20px;
+      padding: 20px 0 30px;
       max-width: 800px;
       opacity: 0;
       transform: translateY(20px);
@@ -185,13 +182,14 @@
     header h1 {
       font-size: 3.5rem;
       margin-bottom: 10px;
-      background: linear-gradient(90deg, #E0E0E0, #7A2E2E, #E0E0E0);
+      background: linear-gradient(90deg, #FFFFFF, #FF9999, #FFFFFF);
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: gradient 4s ease infinite;
-      text-shadow: 0 2px 10px rgba(30, 30, 34, 0.5);
+      text-shadow: 0 2px 15px rgba(255, 150, 150, 0.3);
       letter-spacing: 1px;
+      font-weight: 700;
     }
     
     @keyframes gradient {
@@ -202,39 +200,59 @@
     
     header p {
       font-size: 1.3rem;
-      color: #B0B0B0;
+      color: rgba(255, 255, 255, 0.9);
       margin-bottom: 20px;
       font-weight: 300;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
     }
     
     .description {
-      background: rgba(58, 47, 63, 0.6); /* Gris violáceo oscuro */
-      border-radius: 15px;
+      background: rgba(30, 30, 35, 0.3);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
       padding: 25px;
       margin: 20px auto 40px;
       max-width: 800px;
       text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 
-        0 10px 30px rgba(30, 30, 34, 0.5),
+        0 10px 30px rgba(0, 0, 0, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(122, 46, 46, 0.2);
       opacity: 0;
       transform: translateY(20px);
       animation: slideUpFade 0.8s ease 1.2s forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .description::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.02) 0%,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 0.01) 100%
+      );
+      pointer-events: none;
     }
     
     .description h2 {
       font-size: 1.8rem;
       margin-bottom: 15px;
-      color: #D0D0D0;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      color: #FFFFFF;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+      font-weight: 500;
     }
     
     .description p {
       font-size: 1.1rem;
       line-height: 1.6;
-      color: #B8B8B8;
+      color: rgba(255, 255, 255, 0.85);
     }
     
     .buttons {
@@ -251,22 +269,24 @@
     
     .btn {
       padding: 14px 32px;
-      background: rgba(63, 74, 85, 0.5); /* Azul grisáceo apagado */
-      border: 1.5px solid rgba(122, 46, 46, 0.4);
-      border-radius: 8px;
-      color: #E0E0E0;
+      background: rgba(40, 40, 50, 0.4);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      color: #FFFFFF;
       font-weight: 500;
       text-decoration: none;
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 5px 15px rgba(30, 30, 34, 0.4);
+      box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
       font-size: 1.1rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       position: relative;
       overflow: hidden;
       cursor: pointer;
-      backdrop-filter: blur(10px);
     }
     
     .btn::before {
@@ -276,15 +296,17 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(122, 46, 46, 0.15), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 100, 100, 0.1), transparent);
       transition: all 0.8s ease;
     }
     
     .btn:hover {
-      background: rgba(122, 46, 46, 0.3); /* Rojo carmín oscuro */
-      box-shadow: 0 8px 25px rgba(122, 46, 46, 0.3);
+      background: rgba(60, 60, 70, 0.5);
+      border-color: rgba(255, 150, 150, 0.3);
+      box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
       transform: translateY(-3px);
-      border-color: rgba(122, 46, 46, 0.6);
     }
     
     .btn:hover::before {
@@ -292,26 +314,26 @@
     }
     
     .btn-animations {
-      background: rgba(43, 47, 54, 0.6);
-      border-color: rgba(122, 46, 46, 0.5);
+      background: rgba(50, 30, 40, 0.4);
+      border-color: rgba(255, 120, 120, 0.25);
     }
     
     .btn-animations:hover {
-      background: rgba(122, 46, 46, 0.25);
-      box-shadow: 0 8px 25px rgba(122, 46, 46, 0.4);
+      background: rgba(70, 40, 50, 0.5);
+      border-color: rgba(255, 140, 140, 0.35);
     }
     
     .btn-prices {
-      background: rgba(58, 47, 63, 0.6);
-      border-color: rgba(122, 46, 46, 0.4);
+      background: rgba(40, 30, 50, 0.4);
+      border-color: rgba(200, 100, 150, 0.25);
     }
     
     .btn-prices:hover {
-      background: rgba(122, 46, 46, 0.25);
-      box-shadow: 0 8px 25px rgba(122, 46, 46, 0.4);
+      background: rgba(60, 40, 70, 0.5);
+      border-color: rgba(220, 120, 170, 0.35);
     }
     
-    /* Modal de precios */
+    /* Modal de precios - también glassmorphism */
     .modal {
       display: none;
       position: fixed;
@@ -319,7 +341,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(30, 30, 34, 0.95);
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
       z-index: 1000;
       justify-content: center;
       align-items: center;
@@ -332,20 +355,42 @@
     }
     
     .modal-content {
-      background: linear-gradient(135deg, rgba(43, 47, 54, 0.95) 0%, rgba(58, 47, 63, 0.95) 100%);
-      border-radius: 15px;
-      padding: 30px;
+      background: rgba(25, 25, 35, 0.7);
+      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      border-radius: 20px;
+      padding: 35px;
       max-width: 500px;
       width: 90%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 
-        0 20px 40px rgba(30, 30, 34, 0.8),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(122, 46, 46, 0.3);
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
       position: relative;
       transform: scale(0.8) translateY(-20px);
       opacity: 0;
       transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      backdrop-filter: blur(20px);
+      overflow: hidden;
+    }
+
+    .modal-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.05)
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
     }
     
     .modal.active .modal-content {
@@ -358,30 +403,32 @@
       top: 15px;
       right: 20px;
       font-size: 1.5rem;
-      color: #7A2E2E;
+      color: rgba(255, 255, 255, 0.7);
       cursor: pointer;
       transition: all 0.3s ease;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background: rgba(122, 46, 46, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(5px);
     }
     
     .close-modal:hover {
-      color: #B0B0B0;
+      color: #FFFFFF;
       transform: rotate(90deg);
-      background: rgba(122, 46, 46, 0.2);
+      background: rgba(255, 255, 255, 0.1);
     }
     
     .modal h2 {
       text-align: center;
       margin-bottom: 25px;
-      color: #D0D0D0;
+      color: #FFFFFF;
       font-size: 1.8rem;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+      font-weight: 500;
     }
     
     .price-list {
@@ -391,13 +438,15 @@
     }
     
     .price-item {
-      background: rgba(63, 74, 85, 0.3);
-      border-radius: 8px;
+      background: rgba(40, 40, 50, 0.4);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
       padding: 20px;
-      border-left: 3px solid #7A2E2E;
+      border-left: 3px solid rgba(255, 120, 120, 0.5);
       transform: translateX(-20px);
       opacity: 0;
       transition: all 0.4s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
     
     .modal.active .price-item:nth-child(1) {
@@ -418,20 +467,21 @@
     .price-item h3 {
       font-size: 1.3rem;
       margin-bottom: 10px;
-      color: #E0E0E0;
+      color: #FFFFFF;
+      font-weight: 500;
     }
     
     .price-item p {
       font-size: 1.1rem;
-      color: #B8B8B8;
-      font-weight: 500;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 400;
     }
     
     .modal-note {
       margin-top: 20px;
       text-align: center;
       font-size: 0.9rem;
-      color: #9AA3AA;
+      color: rgba(255, 255, 255, 0.6);
       font-style: italic;
       opacity: 0;
       transform: translateY(10px);
@@ -446,7 +496,7 @@
     footer {
       margin-top: 40px;
       text-align: center;
-      color: #7A2E2E;
+      color: rgba(255, 255, 255, 0.7);
       font-size: 0.9rem;
       padding-bottom: 20px;
       opacity: 0;
@@ -456,38 +506,38 @@
     
     .discord {
       margin-top: 10px;
-      color: #D0D0D0;
+      color: #FFFFFF;
       font-weight: 600;
       font-size: 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
       transition: all 0.4s ease;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
     }
     
     .discord:hover {
       transform: scale(1.05);
-      color: #7A2E2E;
+      color: #FFCCCC;
     }
     
     .discord-icon {
-      width: 24px;
-      height: 24px;
-      fill: #D0D0D0;
+      width: 26px;
+      height: 26px;
+      fill: #FFFFFF;
       transition: all 0.4s ease;
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
     }
     
     .discord:hover .discord-icon {
       transform: rotate(10deg) scale(1.2);
-      fill: #7A2E2E;
-      filter: drop-shadow(0 0 3px rgba(122, 46, 46, 0.3));
+      fill: #FFCCCC;
     }
     
     .publisher-note {
       margin-top: 10px;
-      color: #7A2E2E;
+      color: rgba(255, 255, 255, 0.5);
       font-size: 0.9rem;
       font-style: italic;
     }
@@ -495,7 +545,7 @@
     /* Responsive */
     @media (max-width: 768px) {
       header h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
       }
       
       header p {
@@ -503,7 +553,7 @@
       }
       
       .description h2 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
       }
       
       .description p {
@@ -516,18 +566,19 @@
       }
       
       .modal-content {
-        padding: 20px;
+        padding: 25px;
       }
       
-      .content-overlay {
-        padding: 30px 15px;
-        margin: 10px;
+      .glass-panel {
+        padding: 40px 25px;
+        margin: 15px;
+        border-radius: 20px;
       }
     }
     
     @media (max-width: 480px) {
       header h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
       
       .buttons {
@@ -540,22 +591,28 @@
         width: 100%;
         justify-content: center;
       }
+      
+      .glass-panel {
+        padding: 30px 20px;
+        margin: 10px;
+        border-radius: 18px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Fondo oscuro atmosférico -->
+  <!-- Fondo ilustrado claramente visible -->
   <div class="hu-tao-background"></div>
-  <div class="background-details"></div>
-  <div class="fog-overlay"></div>
+  <div class="background-overlay"></div>
   
-  <!-- Puertas de entrada -->
+  <!-- Puertas de entrada transparentes -->
   <div class="door-overlay">
     <div class="door door-left"></div>
     <div class="door door-right"></div>
   </div>
   
-  <div class="content-overlay">
+  <!-- Panel de vidrio flotante -->
+  <div class="glass-panel">
     <header>
       <h1>Moonar</h1>
       <p>@just_moonar</p>
@@ -597,7 +654,7 @@
     </footer>
   </div>
   
-  <!-- Modal de precios -->
+  <!-- Modal de precios con glassmorphism -->
   <div id="pricesModal" class="modal">
     <div class="modal-content">
       <span class="close-modal">&times;</span>
