@@ -13,7 +13,7 @@
       box-sizing: border-box;
     }
 
-    /* FONDO DE HU TAO */
+    /* FONDO OSCURO CON EFECTOS SUTILES */
     .hu-tao-background {
       position: fixed;
       top: 0;
@@ -21,17 +21,75 @@
       width: 100%;
       height: 100%;
       z-index: -2;
-      background-image: url('https://images.wallpapersden.com/image/download/genshin-impact-hu-tao-2023-art_bW5lZ2eUmZqaraWkpJRobWllrWdma2U.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      filter: brightness(0.9) contrast(1.1);
+      background: 
+        radial-gradient(circle at 20% 80%, #1E1E22 0%, transparent 70%),
+        radial-gradient(circle at 80% 20%, #2B2F36 0%, transparent 70%),
+        radial-gradient(circle at 40% 40%, #3A2F3F 0%, transparent 70%),
+        linear-gradient(135deg, #1E1E22 0%, #2B2F36 50%, #1E1E22 100%);
+      animation: backgroundMove 20s ease-in-out infinite;
+      filter: blur(1px);
+    }
+
+    /* Detalles sutiles en bordes */
+    .background-details {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.1;
+      background-image: 
+        radial-gradient(2px 2px at 10% 15%, #7A2E2E 1px, transparent 2px),
+        radial-gradient(2px 2px at 90% 85%, #7A2E2E 1px, transparent 2px),
+        radial-gradient(3px 3px at 85% 10%, #3F4A55 1px, transparent 3px),
+        radial-gradient(3px 3px at 15% 90%, #3F4A55 1px, transparent 3px);
+      background-size: 200px 200px, 150px 150px, 180px 180px, 170px 170px;
+      animation: floatDetails 30s infinite linear;
+    }
+
+    /* Niebla ligera */
+    .fog-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: 
+        radial-gradient(circle at 30% 20%, rgba(63, 74, 85, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(43, 47, 54, 0.07) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    @keyframes backgroundMove {
+      0%, 100% {
+        background-position: 0% 0%;
+        transform: scale(1);
+      }
+      33% {
+        background-position: 100% 0%;
+        transform: scale(1.01);
+      }
+      66% {
+        background-position: 100% 100%;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes floatDetails {
+      0% {
+        background-position: 0px 0px, 100px 100px, 50px 50px, 150px 150px;
+      }
+      100% {
+        background-position: 200px 200px, 300px 300px, 250px 250px, 350px 350px;
+      }
     }
 
     body {
       font-family: 'Poppins', sans-serif;
       background: transparent;
-      color: #333;
+      color: #E0E0E0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -49,20 +107,22 @@
       z-index: 1;
       width: 100%;
       max-width: 1200px;
-      background: rgba(242, 242, 242, 0.85); /* Blanco roto */
-      backdrop-filter: blur(10px);
+      background: rgba(43, 47, 54, 0.85); /* Gris oscuro frío */
+      backdrop-filter: blur(15px);
       border-radius: 20px;
       padding: 40px 20px;
       margin: 20px;
-      border: 1px solid rgba(201, 208, 214, 0.6); /* Gris azulado */
-      box-shadow: 0 20px 50px rgba(154, 163, 170, 0.3);
+      border: 1px solid rgba(122, 46, 46, 0.2); /* Borde rojo carmín sutil */
+      box-shadow: 
+        0 20px 50px rgba(30, 30, 34, 0.7),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
     
     @keyframes fadeInBody {
       to { opacity: 1; }
     }
     
-    /* Puertas de entrada - en tonos grises */
+    /* Puertas de entrada oscuras */
     .door-overlay {
       position: fixed;
       top: 0;
@@ -76,21 +136,23 @@
     
     .door {
       flex: 1;
-      background: linear-gradient(135deg, #E6E6E6 0%, #C9D0D6 100%); /* Gris claro a azulado */
+      background: linear-gradient(135deg, #2B2F36 0%, #1E1E22 100%);
       transform: scaleY(1);
       transform-origin: top;
       animation: doorOpen 0.8s ease 1s forwards;
-      box-shadow: 0 0 30px rgba(154, 163, 170, 0.4);
+      box-shadow: 0 0 30px rgba(30, 30, 34, 0.8);
     }
     
     .door-left {
       transform-origin: left;
       animation: doorOpenLeft 0.8s ease 1s forwards;
+      border-right: 1px solid rgba(122, 46, 46, 0.3);
     }
     
     .door-right {
       transform-origin: right;
       animation: doorOpenRight 0.8s ease 1s forwards;
+      border-left: 1px solid rgba(122, 46, 46, 0.3);
     }
     
     @keyframes doorOpenLeft {
@@ -123,12 +185,13 @@
     header h1 {
       font-size: 3.5rem;
       margin-bottom: 10px;
-      background: linear-gradient(90deg, #9AA3AA, #8B2C2C, #9AA3AA); /* Gris medio con acento rojo oscuro */
+      background: linear-gradient(90deg, #E0E0E0, #7A2E2E, #E0E0E0);
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: gradient 3s ease infinite;
-      text-shadow: 0 2px 8px rgba(139, 44, 44, 0.15);
+      animation: gradient 4s ease infinite;
+      text-shadow: 0 2px 10px rgba(30, 30, 34, 0.5);
+      letter-spacing: 1px;
     }
     
     @keyframes gradient {
@@ -139,20 +202,23 @@
     
     header p {
       font-size: 1.3rem;
-      color: #8B2C2C; /* Rojo oscuro (acento) */
+      color: #B0B0B0;
       margin-bottom: 20px;
       font-weight: 300;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     }
     
     .description {
-      background: rgba(201, 208, 214, 0.6); /* Gris azulado suave */
+      background: rgba(58, 47, 63, 0.6); /* Gris violáceo oscuro */
       border-radius: 15px;
       padding: 25px;
       margin: 20px auto 40px;
       max-width: 800px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(154, 163, 170, 0.2);
-      border: 1px solid rgba(139, 44, 44, 0.3); /* Borde rojo oscuro sutil */
+      box-shadow: 
+        0 10px 30px rgba(30, 30, 34, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(122, 46, 46, 0.2);
       opacity: 0;
       transform: translateY(20px);
       animation: slideUpFade 0.8s ease 1.2s forwards;
@@ -161,13 +227,14 @@
     .description h2 {
       font-size: 1.8rem;
       margin-bottom: 15px;
-      color: #8B2C2C; /* Rojo oscuro */
+      color: #D0D0D0;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     }
     
     .description p {
       font-size: 1.1rem;
       line-height: 1.6;
-      color: #5A5A5A; /* Gris oscuro para texto */
+      color: #B8B8B8;
     }
     
     .buttons {
@@ -184,14 +251,14 @@
     
     .btn {
       padding: 14px 32px;
-      background: rgba(242, 242, 242, 0.8); /* Blanco roto */
-      border: 2px solid #9AA3AA; /* Gris medio */
-      border-radius: 50px;
-      color: #333;
+      background: rgba(63, 74, 85, 0.5); /* Azul grisáceo apagado */
+      border: 1.5px solid rgba(122, 46, 46, 0.4);
+      border-radius: 8px;
+      color: #E0E0E0;
       font-weight: 500;
       text-decoration: none;
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 0 10px rgba(154, 163, 170, 0.2);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 5px 15px rgba(30, 30, 34, 0.4);
       font-size: 1.1rem;
       display: flex;
       align-items: center;
@@ -199,7 +266,7 @@
       position: relative;
       overflow: hidden;
       cursor: pointer;
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(10px);
     }
     
     .btn::before {
@@ -209,16 +276,15 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(139, 44, 44, 0.1), transparent);
+      background: linear-gradient(90deg, transparent, rgba(122, 46, 46, 0.15), transparent);
       transition: all 0.8s ease;
     }
     
     .btn:hover {
-      background: #9AA3AA; /* Gris medio */
-      box-shadow: 0 0 20px rgba(154, 163, 170, 0.4);
-      transform: translateY(-5px);
-      color: #F2F2F2; /* Blanco roto */
-      border-color: #8B2C2C; /* Rojo oscuro al hover */
+      background: rgba(122, 46, 46, 0.3); /* Rojo carmín oscuro */
+      box-shadow: 0 8px 25px rgba(122, 46, 46, 0.3);
+      transform: translateY(-3px);
+      border-color: rgba(122, 46, 46, 0.6);
     }
     
     .btn:hover::before {
@@ -226,27 +292,23 @@
     }
     
     .btn-animations {
-      background: rgba(230, 230, 230, 0.8); /* Gris claro */
-      border-color: #8B2C2C; /* Rojo oscuro */
-      box-shadow: 0 0 10px rgba(139, 44, 44, 0.2);
+      background: rgba(43, 47, 54, 0.6);
+      border-color: rgba(122, 46, 46, 0.5);
     }
     
     .btn-animations:hover {
-      background: #8B2C2C; /* Rojo oscuro */
-      box-shadow: 0 0 25px rgba(139, 44, 44, 0.4);
-      color: #F2F2F2;
+      background: rgba(122, 46, 46, 0.25);
+      box-shadow: 0 8px 25px rgba(122, 46, 46, 0.4);
     }
     
     .btn-prices {
-      background: rgba(201, 208, 214, 0.8); /* Gris azulado */
-      border-color: #A33A3A; /* Rojo carmín */
-      box-shadow: 0 0 10px rgba(163, 58, 58, 0.2);
+      background: rgba(58, 47, 63, 0.6);
+      border-color: rgba(122, 46, 46, 0.4);
     }
     
     .btn-prices:hover {
-      background: #A33A3A; /* Rojo carmín */
-      box-shadow: 0 0 25px rgba(163, 58, 58, 0.4);
-      color: #F2F2F2;
+      background: rgba(122, 46, 46, 0.25);
+      box-shadow: 0 8px 25px rgba(122, 46, 46, 0.4);
     }
     
     /* Modal de precios */
@@ -257,7 +319,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(154, 163, 170, 0.95); /* Gris medio con transparencia */
+      background-color: rgba(30, 30, 34, 0.95);
       z-index: 1000;
       justify-content: center;
       align-items: center;
@@ -270,13 +332,15 @@
     }
     
     .modal-content {
-      background: linear-gradient(135deg, rgba(242, 242, 242, 0.95) 0%, rgba(230, 230, 230, 0.95) 100%);
+      background: linear-gradient(135deg, rgba(43, 47, 54, 0.95) 0%, rgba(58, 47, 63, 0.95) 100%);
       border-radius: 15px;
       padding: 30px;
       max-width: 500px;
       width: 90%;
-      box-shadow: 0 20px 40px rgba(139, 44, 44, 0.25);
-      border: 1px solid rgba(139, 44, 44, 0.3);
+      box-shadow: 
+        0 20px 40px rgba(30, 30, 34, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(122, 46, 46, 0.3);
       position: relative;
       transform: scale(0.8) translateY(-20px);
       opacity: 0;
@@ -294,7 +358,7 @@
       top: 15px;
       right: 20px;
       font-size: 1.5rem;
-      color: #8B2C2C;
+      color: #7A2E2E;
       cursor: pointer;
       transition: all 0.3s ease;
       width: 30px;
@@ -303,20 +367,21 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background: rgba(139, 44, 44, 0.1);
+      background: rgba(122, 46, 46, 0.1);
     }
     
     .close-modal:hover {
-      color: #A33A3A;
+      color: #B0B0B0;
       transform: rotate(90deg);
-      background: rgba(139, 44, 44, 0.2);
+      background: rgba(122, 46, 46, 0.2);
     }
     
     .modal h2 {
       text-align: center;
       margin-bottom: 25px;
-      color: #8B2C2C;
+      color: #D0D0D0;
       font-size: 1.8rem;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     }
     
     .price-list {
@@ -326,10 +391,10 @@
     }
     
     .price-item {
-      background: rgba(201, 208, 214, 0.5);
-      border-radius: 10px;
+      background: rgba(63, 74, 85, 0.3);
+      border-radius: 8px;
       padding: 20px;
-      border-left: 4px solid #8B2C2C;
+      border-left: 3px solid #7A2E2E;
       transform: translateX(-20px);
       opacity: 0;
       transition: all 0.4s ease;
@@ -353,12 +418,12 @@
     .price-item h3 {
       font-size: 1.3rem;
       margin-bottom: 10px;
-      color: #5A5A5A;
+      color: #E0E0E0;
     }
     
     .price-item p {
       font-size: 1.1rem;
-      color: #8B2C2C;
+      color: #B8B8B8;
       font-weight: 500;
     }
     
@@ -381,7 +446,7 @@
     footer {
       margin-top: 40px;
       text-align: center;
-      color: #9AA3AA;
+      color: #7A2E2E;
       font-size: 0.9rem;
       padding-bottom: 20px;
       opacity: 0;
@@ -391,7 +456,7 @@
     
     .discord {
       margin-top: 10px;
-      color: #8B2C2C;
+      color: #D0D0D0;
       font-weight: 600;
       font-size: 1.1rem;
       display: flex;
@@ -399,28 +464,30 @@
       justify-content: center;
       gap: 8px;
       transition: all 0.4s ease;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     }
     
     .discord:hover {
       transform: scale(1.05);
-      text-shadow: 0 0 5px rgba(139, 44, 44, 0.3);
+      color: #7A2E2E;
     }
     
     .discord-icon {
       width: 24px;
       height: 24px;
-      fill: #8B2C2C;
+      fill: #D0D0D0;
       transition: all 0.4s ease;
     }
     
     .discord:hover .discord-icon {
       transform: rotate(10deg) scale(1.2);
-      filter: drop-shadow(0 0 3px rgba(139, 44, 44, 0.3));
+      fill: #7A2E2E;
+      filter: drop-shadow(0 0 3px rgba(122, 46, 46, 0.3));
     }
     
     .publisher-note {
       margin-top: 10px;
-      color: #9AA3AA;
+      color: #7A2E2E;
       font-size: 0.9rem;
       font-style: italic;
     }
@@ -477,8 +544,10 @@
   </style>
 </head>
 <body>
-  <!-- Fondo de Hu Tao -->
+  <!-- Fondo oscuro atmosférico -->
   <div class="hu-tao-background"></div>
+  <div class="background-details"></div>
+  <div class="fog-overlay"></div>
   
   <!-- Puertas de entrada -->
   <div class="door-overlay">
