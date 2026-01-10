@@ -13,21 +13,37 @@
       box-sizing: border-box;
     }
 
-    /* Fondo PS3 animado con rojos y negros */
-    .ps3-background {
+    /* FONDO DE HU TAO */
+    .hu-tao-background {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: -2;
-      background: 
-        radial-gradient(circle at 20% 80%, rgba(120, 0, 0, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(200, 0, 0, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(150, 0, 0, 0.25) 0%, transparent 50%),
-        linear-gradient(45deg, #0a0a0a 0%, #1a0000 50%, #0a0a0a 100%);
-      animation: backgroundMove 20s ease-in-out infinite;
-      filter: blur(8px);
+      background-image: url('https://images.wallpapersden.com/image/download/genshin-impact-hu-tao-2023-art_bW5lZ2eUmZqaraWkpJRobWllrWdma2U.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: brightness(0.4) contrast(1.2);
+    }
+
+    /* Overlay para mejorar legibilidad */
+    .background-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(
+        45deg,
+        rgba(94, 0, 30, 0.7) 0%,
+        rgba(138, 0, 48, 0.5) 25%,
+        rgba(70, 0, 24, 0.8) 50%,
+        rgba(45, 0, 15, 0.9) 75%,
+        rgba(25, 0, 8, 0.95) 100%
+      );
     }
 
     .ps3-particles {
@@ -37,33 +53,15 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      opacity: 0.6;
+      opacity: 0.4;
     }
 
     .particle {
       position: absolute;
-      background: rgba(255, 0, 0, 0.1);
+      background: rgba(255, 100, 150, 0.15);
       border-radius: 50%;
       animation: float 15s infinite linear;
-    }
-
-    @keyframes backgroundMove {
-      0%, 100% {
-        background-position: 0% 0%;
-        transform: scale(1);
-      }
-      25% {
-        background-position: 100% 0%;
-        transform: scale(1.02);
-      }
-      50% {
-        background-position: 100% 100%;
-        transform: scale(1);
-      }
-      75% {
-        background-position: 0% 100%;
-        transform: scale(1.02);
-      }
+      box-shadow: 0 0 20px rgba(255, 80, 140, 0.3);
     }
 
     @keyframes float {
@@ -116,7 +114,7 @@
       to { opacity: 1; }
     }
     
-    /* Puertas de entrada futuristas */
+    /* Puertas de entrada */
     .door-overlay {
       position: fixed;
       top: 0;
@@ -130,11 +128,11 @@
     
     .door {
       flex: 1;
-      background: linear-gradient(135deg, #ff0000 0%, #800000 100%);
+      background: linear-gradient(135deg, #ff3864 0%, #8b0030 100%);
       transform: scaleY(1);
       transform-origin: top;
       animation: doorOpen 0.8s ease 1s forwards;
-      box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+      box-shadow: 0 0 30px rgba(255, 56, 100, 0.6);
     }
     
     .door-left {
@@ -177,16 +175,17 @@
     header h1 {
       font-size: 3.5rem;
       margin-bottom: 15px;
-      background: linear-gradient(90deg, #ff0000, #8b0000, #ff0000);
+      background: linear-gradient(90deg, #ff5c8d, #ff3864, #c8003d);
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: glow 4s ease-in-out infinite alternate, gradient 3s ease infinite;
+      text-shadow: 0 5px 15px rgba(138, 0, 48, 0.3);
     }
     
     @keyframes glow {
-      from { text-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
-      to { text-shadow: 0 0 30px rgba(255, 0, 0, 0.8); }
+      from { text-shadow: 0 0 10px rgba(255, 56, 100, 0.5); }
+      to { text-shadow: 0 0 30px rgba(255, 56, 100, 0.8), 0 0 40px rgba(200, 0, 61, 0.4); }
     }
     
     @keyframes gradient {
@@ -197,20 +196,21 @@
     
     header p {
       font-size: 1.3rem;
-      color: #ff6666;
+      color: #ff8fab;
       margin-bottom: 20px;
+      font-weight: 300;
     }
     
     .description {
-      background: rgba(255, 0, 0, 0.05);
+      background: rgba(94, 0, 30, 0.25);
       border-radius: 15px;
       padding: 25px;
       margin: 20px auto 40px;
       max-width: 800px;
       text-align: center;
-      box-shadow: 0 10px 20px rgba(139, 0, 0, 0.3);
+      box-shadow: 0 10px 30px rgba(70, 0, 24, 0.4);
       backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 0, 0, 0.2);
+      border: 1px solid rgba(255, 100, 150, 0.3);
       opacity: 0;
       transform: translateY(20px);
       animation: slideUpFade 0.8s ease 1.2s forwards;
@@ -219,13 +219,13 @@
     .description h2 {
       font-size: 1.8rem;
       margin-bottom: 15px;
-      color: #ff3333;
+      color: #ff5c8d;
     }
     
     .description p {
       font-size: 1.1rem;
       line-height: 1.6;
-      color: #ff9999;
+      color: #ffb3c6;
     }
     
     .buttons {
@@ -242,14 +242,14 @@
     
     .btn {
       padding: 14px 32px;
-      background: rgba(255, 0, 0, 0.1);
-      border: 2px solid #ff3333;
+      background: rgba(138, 0, 48, 0.25);
+      border: 2px solid #ff3864;
       border-radius: 50px;
       color: #fff;
       font-weight: 500;
       text-decoration: none;
       transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+      box-shadow: 0 0 15px rgba(255, 56, 100, 0.4);
       font-size: 1.1rem;
       display: flex;
       align-items: center;
@@ -267,15 +267,15 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 100, 150, 0.4), transparent);
       transition: all 0.8s ease;
     }
     
     .btn:hover {
-      background: #ff3333;
-      box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+      background: #ff3864;
+      box-shadow: 0 0 40px rgba(255, 56, 100, 0.8);
       transform: translateY(-8px) scale(1.05);
-      color: #000;
+      color: #1a000a;
     }
     
     .btn:hover::before {
@@ -283,27 +283,25 @@
     }
     
     .btn-animations {
-      background: rgba(255, 0, 0, 0.1);
-      border-color: #ff3333;
-      box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+      background: rgba(138, 0, 48, 0.3);
+      border-color: #ff5c8d;
+      box-shadow: 0 0 15px rgba(255, 92, 141, 0.5);
     }
     
     .btn-animations:hover {
-      background: #ff3333;
-      box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
-      color: #000;
+      background: #ff5c8d;
+      box-shadow: 0 0 40px rgba(255, 92, 141, 0.9);
     }
     
     .btn-prices {
-      background: rgba(139, 0, 0, 0.1);
-      border-color: #8b0000;
-      box-shadow: 0 0 8px rgba(139, 0, 0, 0.4);
+      background: rgba(94, 0, 30, 0.4);
+      border-color: #c8003d;
+      box-shadow: 0 0 15px rgba(200, 0, 61, 0.5);
     }
     
     .btn-prices:hover {
-      background: #8b0000;
-      box-shadow: 0 0 30px rgba(139, 0, 0, 0.8);
-      transform: translateY(-8px) scale(1.05);
+      background: #c8003d;
+      box-shadow: 0 0 40px rgba(200, 0, 61, 0.9);
       color: #fff;
     }
     
@@ -315,7 +313,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: rgba(25, 0, 8, 0.95);
       z-index: 1000;
       justify-content: center;
       align-items: center;
@@ -328,13 +326,13 @@
     }
     
     .modal-content {
-      background: linear-gradient(135deg, rgba(26, 0, 0, 0.95) 0%, rgba(42, 0, 0, 0.95) 100%);
+      background: linear-gradient(135deg, rgba(45, 0, 15, 0.95) 0%, rgba(70, 0, 24, 0.95) 100%);
       border-radius: 15px;
       padding: 30px;
       max-width: 500px;
       width: 90%;
-      box-shadow: 0 15px 30px rgba(139, 0, 0, 0.5);
-      border: 1px solid rgba(255, 0, 0, 0.3);
+      box-shadow: 0 20px 40px rgba(138, 0, 48, 0.6);
+      border: 1px solid rgba(255, 100, 150, 0.4);
       position: relative;
       transform: scale(0.8) translateY(-20px);
       opacity: 0;
@@ -352,7 +350,7 @@
       top: 15px;
       right: 20px;
       font-size: 1.5rem;
-      color: #ff3333;
+      color: #ff5c8d;
       cursor: pointer;
       transition: all 0.3s ease;
       width: 30px;
@@ -361,19 +359,19 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background: rgba(255, 0, 0, 0.1);
+      background: rgba(255, 92, 141, 0.15);
     }
     
     .close-modal:hover {
-      color: #ff6666;
+      color: #ff8fab;
       transform: rotate(90deg);
-      background: rgba(255, 0, 0, 0.2);
+      background: rgba(255, 92, 141, 0.3);
     }
     
     .modal h2 {
       text-align: center;
       margin-bottom: 25px;
-      color: #ff3333;
+      color: #ff5c8d;
       font-size: 1.8rem;
     }
     
@@ -384,10 +382,10 @@
     }
     
     .price-item {
-      background: rgba(255, 0, 0, 0.08);
+      background: rgba(138, 0, 48, 0.2);
       border-radius: 10px;
       padding: 20px;
-      border-left: 4px solid #8b0000;
+      border-left: 4px solid #ff3864;
       transform: translateX(-20px);
       opacity: 0;
       transition: all 0.4s ease;
@@ -411,12 +409,12 @@
     .price-item h3 {
       font-size: 1.3rem;
       margin-bottom: 10px;
-      color: #ff6666;
+      color: #ff8fab;
     }
     
     .price-item p {
       font-size: 1.1rem;
-      color: #ff3333;
+      color: #ff5c8d;
       font-weight: 500;
     }
     
@@ -424,7 +422,7 @@
       margin-top: 20px;
       text-align: center;
       font-size: 0.9rem;
-      color: #ff9999;
+      color: #ffb3c6;
       font-style: italic;
       opacity: 0;
       transform: translateY(10px);
@@ -439,7 +437,7 @@
     footer {
       margin-top: 40px;
       text-align: center;
-      color: #8b0000;
+      color: #8b0030;
       font-size: 0.9rem;
       padding-bottom: 40px;
       opacity: 0;
@@ -449,7 +447,7 @@
     
     .discord {
       margin-top: 10px;
-      color: #ff3333;
+      color: #ff5c8d;
       font-weight: 600;
       font-size: 1.1rem;
       display: flex;
@@ -461,19 +459,19 @@
     
     .discord:hover {
       transform: scale(1.05);
-      text-shadow: 0 0 10px #ff3333;
+      text-shadow: 0 0 10px #ff3864;
     }
     
     .discord-icon {
       width: 24px;
       height: 24px;
-      fill: #ff3333;
+      fill: #ff5c8d;
       transition: all 0.4s ease;
     }
     
     .discord:hover .discord-icon {
       transform: rotate(10deg) scale(1.2);
-      filter: drop-shadow(0 0 5px #ff3333);
+      filter: drop-shadow(0 0 5px #ff3864);
     }
     
     /* Responsive */
@@ -519,12 +517,17 @@
         width: 100%;
         justify-content: center;
       }
+      
+      .hu-tao-background {
+        background-position: 60% center;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Fondo PS3 animado -->
-  <div class="ps3-background"></div>
+  <!-- Fondo de Hu Tao -->
+  <div class="hu-tao-background"></div>
+  <div class="background-overlay"></div>
   <div class="ps3-particles" id="particles"></div>
   
   <!-- Puertas de entrada futuristas -->
@@ -594,17 +597,17 @@
   </div>
 
   <script>
-    // Crear partículas para el fondo PS3
+    // Crear partículas para el fondo
     function createParticles() {
       const particlesContainer = document.getElementById('particles');
-      const particleCount = 15;
+      const particleCount = 12;
       
       for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         
         // Tamaño aleatorio
-        const size = Math.random() * 100 + 50;
+        const size = Math.random() * 80 + 40;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
         
@@ -615,12 +618,18 @@
         // Opacidad aleatoria
         particle.style.opacity = Math.random() * 0.1 + 0.05;
         
-        // Color rojo variado
-        const redIntensity = Math.random() * 100 + 100;
-        particle.style.backgroundColor = `rgba(${redIntensity}, 0, 0, ${Math.random() * 0.15 + 0.05})`;
+        // Color basado en la paleta de Hu Tao
+        const colors = [
+          'rgba(255, 56, 100, 0.15)',
+          'rgba(255, 92, 141, 0.12)',
+          'rgba(200, 0, 61, 0.1)',
+          'rgba(138, 0, 48, 0.08)'
+        ];
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
         
         // Animación con delay aleatorio
         particle.style.animationDelay = `${Math.random() * 20}s`;
+        particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
         
         particlesContainer.appendChild(particle);
       }
@@ -676,6 +685,4 @@
     document.addEventListener('DOMContentLoaded', createParticles);
   </script>
 </body>
-
 </html>
-
