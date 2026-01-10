@@ -25,13 +25,13 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      filter: brightness(0.85);
+      filter: brightness(0.9) contrast(1.1);
     }
 
     body {
       font-family: 'Poppins', sans-serif;
       background: transparent;
-      color: #fff;
+      color: #333;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -49,20 +49,20 @@
       z-index: 1;
       width: 100%;
       max-width: 1200px;
-      background: rgba(40, 15, 25, 0.85); /* Morado oscuro del lado derecho */
-      backdrop-filter: blur(12px);
+      background: rgba(242, 242, 242, 0.85); /* Blanco roto */
+      backdrop-filter: blur(10px);
       border-radius: 20px;
       padding: 40px 20px;
       margin: 20px;
-      border: 1px solid rgba(255, 200, 150, 0.15); /* Borde dorado suave */
-      box-shadow: 0 20px 50px rgba(80, 20, 40, 0.6);
+      border: 1px solid rgba(201, 208, 214, 0.6); /* Gris azulado */
+      box-shadow: 0 20px 50px rgba(154, 163, 170, 0.3);
     }
     
     @keyframes fadeInBody {
       to { opacity: 1; }
     }
     
-    /* Puertas de entrada - Colores de los lados del fondo */
+    /* Puertas de entrada - en tonos grises */
     .door-overlay {
       position: fixed;
       top: 0;
@@ -76,11 +76,11 @@
     
     .door {
       flex: 1;
-      background: linear-gradient(135deg, #6a1b9a 0%, #4527a0 100%); /* Morados del lado izquierdo */
+      background: linear-gradient(135deg, #E6E6E6 0%, #C9D0D6 100%); /* Gris claro a azulado */
       transform: scaleY(1);
       transform-origin: top;
       animation: doorOpen 0.8s ease 1s forwards;
-      box-shadow: 0 0 30px rgba(106, 27, 154, 0.7);
+      box-shadow: 0 0 30px rgba(154, 163, 170, 0.4);
     }
     
     .door-left {
@@ -90,8 +90,6 @@
     
     .door-right {
       transform-origin: right;
-      background: linear-gradient(135deg, #ff7043 0%, #ff5722 100%); /* Naranjas del lado derecho */
-      box-shadow: 0 0 30px rgba(255, 112, 67, 0.7);
       animation: doorOpenRight 0.8s ease 1s forwards;
     }
     
@@ -125,12 +123,12 @@
     header h1 {
       font-size: 3.5rem;
       margin-bottom: 10px;
-      background: linear-gradient(90deg, #ff9800, #ff5722, #ff9800); /* Naranjas del fuego derecho */
+      background: linear-gradient(90deg, #9AA3AA, #8B2C2C, #9AA3AA); /* Gris medio con acento rojo oscuro */
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: gradient 3s ease infinite;
-      text-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+      text-shadow: 0 2px 8px rgba(139, 44, 44, 0.15);
     }
     
     @keyframes gradient {
@@ -141,20 +139,20 @@
     
     header p {
       font-size: 1.3rem;
-      color: #ffab91; /* Naranja claro del fuego */
+      color: #8B2C2C; /* Rojo oscuro (acento) */
       margin-bottom: 20px;
       font-weight: 300;
     }
     
     .description {
-      background: rgba(74, 20, 140, 0.4); /* Morado del lado izquierdo */
+      background: rgba(201, 208, 214, 0.6); /* Gris azulado suave */
       border-radius: 15px;
       padding: 25px;
       margin: 20px auto 40px;
       max-width: 800px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(74, 20, 140, 0.5);
-      border: 1px solid rgba(186, 104, 200, 0.3); /* Lila claro */
+      box-shadow: 0 10px 30px rgba(154, 163, 170, 0.2);
+      border: 1px solid rgba(139, 44, 44, 0.3); /* Borde rojo oscuro sutil */
       opacity: 0;
       transform: translateY(20px);
       animation: slideUpFade 0.8s ease 1.2s forwards;
@@ -163,13 +161,13 @@
     .description h2 {
       font-size: 1.8rem;
       margin-bottom: 15px;
-      color: #ffab91; /* Naranja claro */
+      color: #8B2C2C; /* Rojo oscuro */
     }
     
     .description p {
       font-size: 1.1rem;
       line-height: 1.6;
-      color: #f8bbd0; /* Rosa muy claro */
+      color: #5A5A5A; /* Gris oscuro para texto */
     }
     
     .buttons {
@@ -186,14 +184,14 @@
     
     .btn {
       padding: 14px 32px;
-      background: rgba(106, 27, 154, 0.5); /* Morado izquierdo */
-      border: 2px solid #ba68c8; /* Lila */
+      background: rgba(242, 242, 242, 0.8); /* Blanco roto */
+      border: 2px solid #9AA3AA; /* Gris medio */
       border-radius: 50px;
-      color: #fff;
+      color: #333;
       font-weight: 500;
       text-decoration: none;
       transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 0 15px rgba(186, 104, 200, 0.4);
+      box-shadow: 0 0 10px rgba(154, 163, 170, 0.2);
       font-size: 1.1rem;
       display: flex;
       align-items: center;
@@ -211,15 +209,16 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(186, 104, 200, 0.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(139, 44, 44, 0.1), transparent);
       transition: all 0.8s ease;
     }
     
     .btn:hover {
-      background: #ba68c8;
-      box-shadow: 0 0 30px rgba(186, 104, 200, 0.8);
+      background: #9AA3AA; /* Gris medio */
+      box-shadow: 0 0 20px rgba(154, 163, 170, 0.4);
       transform: translateY(-5px);
-      color: #4a148c;
+      color: #F2F2F2; /* Blanco roto */
+      border-color: #8B2C2C; /* Rojo oscuro al hover */
     }
     
     .btn:hover::before {
@@ -227,26 +226,27 @@
     }
     
     .btn-animations {
-      background: rgba(74, 20, 140, 0.6); /* Morado más oscuro */
-      border-color: #ab47bc; /* Lila medio */
-      box-shadow: 0 0 15px rgba(171, 71, 188, 0.5);
+      background: rgba(230, 230, 230, 0.8); /* Gris claro */
+      border-color: #8B2C2C; /* Rojo oscuro */
+      box-shadow: 0 0 10px rgba(139, 44, 44, 0.2);
     }
     
     .btn-animations:hover {
-      background: #ab47bc;
-      box-shadow: 0 0 40px rgba(171, 71, 188, 0.9);
+      background: #8B2C2C; /* Rojo oscuro */
+      box-shadow: 0 0 25px rgba(139, 44, 44, 0.4);
+      color: #F2F2F2;
     }
     
     .btn-prices {
-      background: rgba(255, 87, 34, 0.3); /* Naranja del lado derecho */
-      border-color: #ff9800; /* Naranja vibrante */
-      box-shadow: 0 0 15px rgba(255, 152, 0, 0.5);
+      background: rgba(201, 208, 214, 0.8); /* Gris azulado */
+      border-color: #A33A3A; /* Rojo carmín */
+      box-shadow: 0 0 10px rgba(163, 58, 58, 0.2);
     }
     
     .btn-prices:hover {
-      background: #ff9800;
-      box-shadow: 0 0 40px rgba(255, 152, 0, 0.9);
-      color: #311b92;
+      background: #A33A3A; /* Rojo carmín */
+      box-shadow: 0 0 25px rgba(163, 58, 58, 0.4);
+      color: #F2F2F2;
     }
     
     /* Modal de precios */
@@ -257,7 +257,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(26, 35, 126, 0.95); /* Azul/morado oscuro */
+      background-color: rgba(154, 163, 170, 0.95); /* Gris medio con transparencia */
       z-index: 1000;
       justify-content: center;
       align-items: center;
@@ -270,13 +270,13 @@
     }
     
     .modal-content {
-      background: linear-gradient(135deg, rgba(74, 20, 140, 0.95) 0%, rgba(106, 27, 154, 0.95) 100%);
+      background: linear-gradient(135deg, rgba(242, 242, 242, 0.95) 0%, rgba(230, 230, 230, 0.95) 100%);
       border-radius: 15px;
       padding: 30px;
       max-width: 500px;
       width: 90%;
-      box-shadow: 0 20px 40px rgba(106, 27, 154, 0.7);
-      border: 1px solid rgba(186, 104, 200, 0.5);
+      box-shadow: 0 20px 40px rgba(139, 44, 44, 0.25);
+      border: 1px solid rgba(139, 44, 44, 0.3);
       position: relative;
       transform: scale(0.8) translateY(-20px);
       opacity: 0;
@@ -294,7 +294,7 @@
       top: 15px;
       right: 20px;
       font-size: 1.5rem;
-      color: #ffab91;
+      color: #8B2C2C;
       cursor: pointer;
       transition: all 0.3s ease;
       width: 30px;
@@ -303,19 +303,19 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background: rgba(255, 171, 145, 0.2);
+      background: rgba(139, 44, 44, 0.1);
     }
     
     .close-modal:hover {
-      color: #ffccbc;
+      color: #A33A3A;
       transform: rotate(90deg);
-      background: rgba(255, 171, 145, 0.3);
+      background: rgba(139, 44, 44, 0.2);
     }
     
     .modal h2 {
       text-align: center;
       margin-bottom: 25px;
-      color: #ffab91;
+      color: #8B2C2C;
       font-size: 1.8rem;
     }
     
@@ -326,10 +326,10 @@
     }
     
     .price-item {
-      background: rgba(171, 71, 188, 0.2);
+      background: rgba(201, 208, 214, 0.5);
       border-radius: 10px;
       padding: 20px;
-      border-left: 4px solid #ff9800;
+      border-left: 4px solid #8B2C2C;
       transform: translateX(-20px);
       opacity: 0;
       transition: all 0.4s ease;
@@ -353,12 +353,12 @@
     .price-item h3 {
       font-size: 1.3rem;
       margin-bottom: 10px;
-      color: #f8bbd0;
+      color: #5A5A5A;
     }
     
     .price-item p {
       font-size: 1.1rem;
-      color: #ffab91;
+      color: #8B2C2C;
       font-weight: 500;
     }
     
@@ -366,7 +366,7 @@
       margin-top: 20px;
       text-align: center;
       font-size: 0.9rem;
-      color: #f8bbd0;
+      color: #9AA3AA;
       font-style: italic;
       opacity: 0;
       transform: translateY(10px);
@@ -381,7 +381,7 @@
     footer {
       margin-top: 40px;
       text-align: center;
-      color: #ba68c8;
+      color: #9AA3AA;
       font-size: 0.9rem;
       padding-bottom: 20px;
       opacity: 0;
@@ -391,7 +391,7 @@
     
     .discord {
       margin-top: 10px;
-      color: #ffab91;
+      color: #8B2C2C;
       font-weight: 600;
       font-size: 1.1rem;
       display: flex;
@@ -403,24 +403,24 @@
     
     .discord:hover {
       transform: scale(1.05);
-      text-shadow: 0 0 10px #ff9800;
+      text-shadow: 0 0 5px rgba(139, 44, 44, 0.3);
     }
     
     .discord-icon {
       width: 24px;
       height: 24px;
-      fill: #ffab91;
+      fill: #8B2C2C;
       transition: all 0.4s ease;
     }
     
     .discord:hover .discord-icon {
       transform: rotate(10deg) scale(1.2);
-      filter: drop-shadow(0 0 5px #ff9800);
+      filter: drop-shadow(0 0 3px rgba(139, 44, 44, 0.3));
     }
     
     .publisher-note {
       margin-top: 10px;
-      color: #ce93d8;
+      color: #9AA3AA;
       font-size: 0.9rem;
       font-style: italic;
     }
@@ -480,7 +480,7 @@
   <!-- Fondo de Hu Tao -->
   <div class="hu-tao-background"></div>
   
-  <!-- Puertas de entrada - ahora con colores diferentes para cada lado -->
+  <!-- Puertas de entrada -->
   <div class="door-overlay">
     <div class="door door-left"></div>
     <div class="door door-right"></div>
