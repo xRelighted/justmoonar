@@ -50,7 +50,7 @@
       height: 100%;
       z-index: -2;
       backdrop-filter: blur(0px);
-      transition: backdrop-filter 0.05s linear;
+      transition: backdrop-filter 0.1s linear;
       pointer-events: none;
     }
 
@@ -62,7 +62,7 @@
       transform: translate(-50%, -50%);
       width: 100%;
       max-width: 850px;
-      background: rgba(20, 20, 25, 0.7); /* Más transparente */
+      background: rgba(20, 20, 25, 0.7);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       border-radius: 18px;
@@ -70,11 +70,9 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 
         0 15px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06),
-        0 0 0 1px rgba(255, 255, 255, 0.03);
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
       cursor: grab;
-      transition: box-shadow 0.15s ease;
-      will-change: transform, left, top;
+      transition: box-shadow 0.2s ease;
       z-index: 100;
       overflow: hidden;
     }
@@ -84,8 +82,7 @@
       cursor: grabbing;
       box-shadow: 
         0 20px 50px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 0 30px rgba(255, 100, 100, 0.08);
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     /* Contorno luminoso */
@@ -101,8 +98,7 @@
       background: linear-gradient(
         135deg,
         rgba(255, 255, 255, 0.06),
-        rgba(255, 255, 255, 0.03),
-        rgba(255, 255, 255, 0.01)
+        rgba(255, 255, 255, 0.03)
       );
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
@@ -113,31 +109,39 @@
     /* Partículas de movimiento */
     .motion-particle {
       position: absolute;
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 150, 150, 0.3);
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 150, 150, 0.4);
       border-radius: 50%;
       pointer-events: none;
-      z-index: -1;
+      z-index: 99;
       filter: blur(1px);
+      animation: particleFade 0.8s ease-out forwards;
     }
 
-    /* Áreas no arrastrables */
-    .no-drag, .no-drag * {
+    @keyframes particleFade {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+    }
+
+    /* Áreas NO arrastrables */
+    .no-drag {
       cursor: default !important;
-      user-select: text !important;
-      -webkit-user-select: text !important;
+      -webkit-user-select: text;
+      user-select: text;
     }
 
+    /* Botones normales */
     .btn, button, a {
       cursor: pointer !important;
-    }
-
-    /* Contenido dentro de la ventana */
-    .window-content {
-      pointer-events: auto;
-      position: relative;
-      z-index: 2;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
     body {
@@ -307,7 +311,6 @@
       gap: 8px;
       position: relative;
       overflow: hidden;
-      cursor: pointer;
     }
     
     .btn::before {
@@ -373,6 +376,7 @@
     }
     
     .modal.active {
+      display: flex;
       opacity: 1;
       pointer-events: all;
     }
@@ -389,13 +393,13 @@
         0 18px 45px rgba(0, 0, 0, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.06);
       position: relative;
-      transform: scale(0.92) translateY(-15px);
+      transform: scale(0.92);
       opacity: 0;
       transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
     .modal.active .modal-content {
-      transform: scale(1) translateY(0);
+      transform: scale(1);
       opacity: 1;
     }
     
@@ -445,7 +449,6 @@
       border-left: 3px solid rgba(255, 115, 115, 0.45);
       transform: translateX(-18px);
       opacity: 0;
-      transition: all 0.35s ease;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
     
@@ -608,23 +611,6 @@
         padding: 15px;
       }
     }
-
-    /* Animación de entrada suave */
-    @keyframes gentleAppear {
-      0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.98);
-      }
-      100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-    }
-
-    .draggable-window {
-      animation: gentleAppear 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-      animation-delay: 0.3s;
-    }
   </style>
 </head>
 <body>
@@ -640,7 +626,7 @@
     <div class="door door-right"></div>
   </div>
   
-  <!-- VENTANA ARRASTRABLE SUPER SMOOTH -->
+  <!-- VENTANA ARRASTRABLE -->
   <div class="draggable-window" id="draggableWindow">
     <div class="window-content">
       <header>
@@ -705,73 +691,62 @@
   </div>
 
   <script>
-    // ========== SISTEMA SUPER SMOOTH CON EFECTOS ==========
+    // ========== SISTEMA DE ARRASTRE SIMPLE Y FUNCIONAL ==========
     
-    class SuperSmoothDraggable {
+    class SimpleDraggable {
       constructor(windowElement, blurLayer) {
         this.window = windowElement;
         this.blurLayer = blurLayer;
         this.isDragging = false;
-        
-        // Posición y física
-        this.pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-        this.vel = { x: 0, y: 0 };
-        this.acc = { x: 0, y: 0 };
-        
-        // Historial para trail
-        this.positionHistory = [];
-        this.maxHistory = 5;
+        this.currentX = 0;
+        this.currentY = 0;
+        this.initialX = 0;
+        this.initialY = 0;
         
         // Física
-        this.airResistance = 0.92; // Resistencia del aire
-        this.bounceFactor = 0.7;   // Elasticidad en bordes
-        this.mass = 1.0;
+        this.velocityX = 0;
+        this.velocityY = 0;
+        this.lastX = 0;
+        this.lastY = 0;
+        this.lastTime = 0;
         
         // Efectos
-        this.currentBlur = 0;
-        this.targetBlur = 0;
         this.particles = [];
-        this.lastParticleTime = 0;
-        this.particleInterval = 50; // ms entre partículas
-        
-        // Para smoothness
-        this.lastTime = 0;
-        this.rafId = null;
-        this.isAnimating = false;
+        this.animationId = null;
         
         this.init();
-        this.startAnimationLoop();
       }
       
       init() {
-        // Posición inicial centrada
-        const rect = this.window.getBoundingClientRect();
-        this.pos.x = window.innerWidth / 2 - rect.width / 2;
-        this.pos.y = window.innerHeight / 2 - rect.height / 2;
-        this.updateWindowPosition();
+        // Posición inicial
+        this.window.style.left = '50%';
+        this.window.style.top = '50%';
+        this.window.style.transform = 'translate(-50%, -50%)';
         
-        // Event listeners optimizados
+        // Event listeners
         this.window.addEventListener('mousedown', this.startDrag.bind(this));
-        this.window.addEventListener('touchstart', this.startDrag.bind(this), { passive: false });
+        this.window.addEventListener('touchstart', this.startDrag.bind(this));
         
         document.addEventListener('mousemove', this.drag.bind(this));
-        document.addEventListener('touchmove', this.drag.bind(this), { passive: false });
+        document.addEventListener('touchmove', this.drag.bind(this));
         
         document.addEventListener('mouseup', this.stopDrag.bind(this));
         document.addEventListener('touchend', this.stopDrag.bind(this));
         document.addEventListener('touchcancel', this.stopDrag.bind(this));
         
-        // Prevenir arrastre desde elementos interactivos
-        document.querySelectorAll('.no-drag, .btn, button, a, .close-modal').forEach(el => {
-          el.addEventListener('mousedown', e => e.stopPropagation());
-          el.addEventListener('touchstart', e => e.stopPropagation());
+        // Evitar que los botones inicien arrastre
+        document.querySelectorAll('.no-drag, .btn, button, a').forEach(el => {
+          el.addEventListener('mousedown', (e) => {
+            e.stopPropagation();
+          });
+          el.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+          });
         });
-        
-        // Prevenir zoom y scroll
-        this.preventZoomAndScroll();
       }
       
       startDrag(e) {
+        // No arrastrar si es un botón
         if (e.target.closest('.no-drag') || e.target.closest('.btn') || 
             e.target.closest('button') || e.target.closest('a')) {
           return;
@@ -779,15 +754,25 @@
         
         this.isDragging = true;
         this.window.classList.add('dragging');
-        this.vel.x = 0;
-        this.vel.y = 0;
+        this.window.style.cursor = 'grabbing';
         
-        // Iniciar animación si no está activa
-        if (!this.isAnimating) {
-          this.startAnimationLoop();
-        }
+        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+        
+        // Obtener posición actual
+        const rect = this.window.getBoundingClientRect();
+        this.initialX = clientX - rect.left;
+        this.initialY = clientY - rect.top;
+        
+        // Resetear velocidad
+        this.velocityX = 0;
+        this.velocityY = 0;
+        this.lastX = clientX;
+        this.lastY = clientY;
+        this.lastTime = Date.now();
         
         e.preventDefault();
+        return false;
       }
       
       drag(e) {
@@ -796,29 +781,38 @@
         const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
         const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
         
-        // Calcular velocidad suavizada
-        const deltaX = clientX - this.pos.x - this.window.offsetWidth / 2;
-        const deltaY = clientY - this.pos.y - this.window.offsetHeight / 2;
+        // Calcular nueva posición
+        const newX = clientX - this.initialX;
+        const newY = clientY - this.initialY;
         
-        // Suavizado extremo con interpolación
-        this.vel.x = deltaX * 0.5 + this.vel.x * 0.5;
-        this.vel.y = deltaY * 0.5 + this.vel.y * 0.5;
+        // Calcular velocidad para efectos
+        const now = Date.now();
+        const deltaTime = now - this.lastTime;
         
-        // Actualizar posición
-        this.pos.x = clientX - this.window.offsetWidth / 2;
-        this.pos.y = clientY - this.window.offsetHeight / 2;
+        if (deltaTime > 0) {
+          this.velocityX = (clientX - this.lastX) / deltaTime * 16;
+          this.velocityY = (clientY - this.lastY) / deltaTime * 16;
+        }
         
-        // Añadir al historial para trail
-        this.addToHistory(this.pos.x, this.pos.y);
+        this.lastX = clientX;
+        this.lastY = clientY;
+        this.lastTime = now;
+        
+        // Aplicar posición
+        this.window.style.left = newX + 'px';
+        this.window.style.top = newY + 'px';
+        this.window.style.transform = 'translate(0, 0)';
+        
+        // Efecto de blur basado en velocidad
+        const speed = Math.sqrt(this.velocityX * this.velocityX + this.velocityY * this.velocityY);
+        const blurAmount = Math.min(speed * 0.3, 15);
+        this.blurLayer.style.backdropFilter = `blur(${blurAmount}px)`;
         
         // Crear partículas de movimiento
-        this.createMotionParticles();
-        
-        // Actualizar desenfoque basado en velocidad
-        const speed = Math.sqrt(this.vel.x * this.vel.x + this.vel.y * this.vel.y);
-        this.targetBlur = Math.min(speed * 0.15, 8); // Máximo 8px de blur
+        this.createParticle(newX + this.window.offsetWidth / 2, newY + this.window.offsetHeight / 2);
         
         e.preventDefault();
+        return false;
       }
       
       stopDrag() {
@@ -826,107 +820,127 @@
         
         this.isDragging = false;
         this.window.classList.remove('dragging');
-        this.targetBlur = 0;
+        this.window.style.cursor = 'grab';
+        this.blurLayer.style.backdropFilter = 'blur(0px)';
         
-        // Aplicar inercia con resistencia del aire
+        // Aplicar inercia
         this.applyInertia();
       }
       
       applyInertia() {
-        // La inercia ya está en this.vel
-        // Se aplica en el animation loop
-      }
-      
-      startAnimationLoop() {
-        if (this.isAnimating) return;
-        
-        this.isAnimating = true;
-        const animate = (currentTime) => {
-          if (!this.isAnimating) return;
+        const applyFrame = () => {
+          // Reducir velocidad gradualmente (resistencia del aire)
+          this.velocityX *= 0.92;
+          this.velocityY *= 0.92;
           
-          const deltaTime = Math.min(currentTime - this.lastTime, 16) / 16; // Normalizado a 60fps
-          this.lastTime = currentTime;
-          
-          // ========== FÍSICA SMOOTH ==========
-          
-          // Aplicar resistencia del aire
-          if (!this.isDragging) {
-            this.vel.x *= this.airResistance;
-            this.vel.y *= this.airResistance;
-            
-            // Actualizar posición con velocidad
-            this.pos.x += this.vel.x * deltaTime;
-            this.pos.y += this.vel.y * deltaTime;
-            
-            // Elasticidad en bordes
-            this.applyBoundaryElasticity();
+          // Si la velocidad es muy baja, detener
+          if (Math.abs(this.velocityX) < 0.1 && Math.abs(this.velocityY) < 0.1) {
+            this.velocityX = 0;
+            this.velocityY = 0;
+            cancelAnimationFrame(this.animationId);
+            this.animationId = null;
+            return;
           }
           
-          // ========== EFECTOS VISUALES ==========
+          // Obtener posición actual
+          const currentX = parseFloat(this.window.style.left) || 0;
+          const currentY = parseFloat(this.window.style.top) || 0;
           
-          // Suavizar desenfoque
-          this.currentBlur += (this.targetBlur - this.currentBlur) * 0.15;
-          this.blurLayer.style.backdropFilter = `blur(${this.currentBlur}px)`;
+          // Calcular nueva posición
+          let newX = currentX + this.velocityX;
+          let newY = currentY + this.velocityY;
           
-          // Actualizar partículas
-          this.updateParticles(deltaTime);
+          // Elasticidad en bordes
+          const windowWidth = window.innerWidth;
+          const windowHeight = window.innerHeight;
+          const elementWidth = this.window.offsetWidth;
+          const elementHeight = this.window.offsetHeight;
           
-          // ========== ACTUALIZAR POSICIÓN ==========
+          // Rebotar en bordes
+          if (newX < 0) {
+            newX = 0;
+            this.velocityX = -this.velocityX * 0.7;
+          }
+          if (newX + elementWidth > windowWidth) {
+            newX = windowWidth - elementWidth;
+            this.velocityX = -this.velocityX * 0.7;
+          }
+          if (newY < 0) {
+            newY = 0;
+            this.velocityY = -this.velocityY * 0.7;
+          }
+          if (newY + elementHeight > windowHeight) {
+            newY = windowHeight - elementHeight;
+            this.velocityY = -this.velocityY * 0.7;
+          }
           
-          this.updateWindowPosition();
+          // Aplicar nueva posición
+          this.window.style.left = newX + 'px';
+          this.window.style.top = newY + 'px';
+          
+          // Crear partículas durante la inercia
+          if (Math.random() > 0.7) {
+            this.createParticle(newX + elementWidth / 2, newY + elementHeight / 2);
+          }
           
           // Continuar animación
-          this.rafId = requestAnimationFrame(animate);
+          this.animationId = requestAnimationFrame(applyFrame);
         };
         
-        this.lastTime = performance.now();
-        this.rafId = requestAnimationFrame(animate);
+        this.animationId = requestAnimationFrame(applyFrame);
       }
       
-      applyBoundaryElasticity() {
-        const rect = this.window.getBoundingClientRect();
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-        
-        // Rebotar suavemente en los bordes
-        if (this.pos.x < 0) {
-          this.pos.x = 0;
-          this.vel.x = -this.vel.x * this.bounceFactor;
-        }
-        if (this.pos.x + rect.width > windowWidth) {
-          this.pos.x = windowWidth - rect.width;
-          this.vel.x = -this.vel.x * this.bounceFactor;
-        }
-        if (this.pos.y < 0) {
-          this.pos.y = 0;
-          this.vel.y = -this.vel.y * this.bounceFactor;
-        }
-        if (this.pos.y + rect.height > windowHeight) {
-          this.pos.y = windowHeight - rect.height;
-          this.vel.y = -this.vel.y * this.bounceFactor;
-        }
-      }
-      
-      addToHistory(x, y) {
-        this.positionHistory.push({ x, y, time: Date.now() });
-        if (this.positionHistory.length > this.maxHistory) {
-          this.positionHistory.shift();
-        }
-      }
-      
-      createMotionParticles() {
-        const now = Date.now();
-        if (now - this.lastParticleTime < this.particleInterval) return;
-        
-        this.lastParticleTime = now;
-        
-        // Crear partícula en la posición actual
+      createParticle(x, y) {
         const particle = document.createElement('div');
         particle.className = 'motion-particle';
         
-        // Posición aleatoria cerca del cursor
-        const offsetX = (Math.random() - 0.5) * 20;
-        const offsetY = (Math.random() - 0.5) * 20;
+        // Posición aleatoria cerca del punto dado
+        const offsetX = (Math.random() - 0.5) * 30;
+        const offsetY = (Math.random() - 0.5) * 30;
         
-        particle.style.left = `${this.pos.x + this.window.offsetWidth / 2 + offsetX}px`;
-        particle.style.top = `${this.pos
+        particle.style.left = `${x + offsetX}px`;
+        particle.style.top = `${y + offsetY}px`;
+        
+        // Color aleatorio
+        const hue = 340 + Math.random() * 20;
+        particle.style.backgroundColor = `hsla(${hue}, 70%, 65%, 0.4)`;
+        
+        document.body.appendChild(particle);
+        
+        // Remover después de la animación
+        setTimeout(() => {
+          if (particle.parentNode) {
+            particle.parentNode.removeChild(particle);
+          }
+        }, 800);
+      }
+    }
+
+    // ========== INICIALIZAR TODO CUANDO LA PÁGINA CARGA ==========
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      // Inicializar sistema de arrastre
+      const draggable = new SimpleDraggable(
+        document.getElementById('draggableWindow'),
+        document.getElementById('blurLayer')
+      );
+      
+      // ========== MODAL DE PRECIOS ==========
+      const pricesBtn = document.getElementById('pricesBtn');
+      const pricesModal = document.getElementById('pricesModal');
+      const closeModal = document.querySelector('.close-modal');
+      
+      // Abrir modal
+      pricesBtn.addEventListener('click', () => {
+        pricesModal.classList.add('active');
+      });
+      
+      // Cerrar modal
+      closeModal.addEventListener('click', () => {
+        pricesModal.classList.remove('active');
+      });
+      
+      // Cerrar al hacer clic fuera
+      window.addEventListener('click', (event) => {
+        if (event.target === pricesModal) {
+          pricesModal.classList.remove('
