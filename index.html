@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andrea Gomez | Nutrición Futurista</title>
+    <title>Andrea Gomez | Nutricionista Profesional</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Variables de colores futuristas */
+        /* Variables de colores formales */
         :root {
-            --neon-blue: #00f3ff;
-            --neon-purple: #9d00ff;
-            --neon-pink: #ff00ff;
-            --dark-bg: #0a0a0f;
-            --darker-bg: #05050a;
-            --card-bg: rgba(20, 20, 30, 0.8);
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0ff;
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #1abc9c;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #6c757d;
+            --text-dark: #343a40;
+            --text-light: #495057;
+            --white: #ffffff;
+            --border-color: #dee2e6;
         }
         
         /* Estilos generales */
@@ -24,35 +25,14 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Arial', sans-serif;
         }
         
         body {
-            background-color: var(--dark-bg);
-            color: var(--text-primary);
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-dark);
             line-height: 1.6;
             min-height: 100vh;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(0, 243, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(157, 0, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(255, 0, 255, 0.05) 0%, transparent 50%);
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, transparent 50%, rgba(0, 243, 255, 0.03) 50%),
-                linear-gradient(180deg, transparent 50%, rgba(157, 0, 255, 0.03) 50%);
-            background-size: 30px 30px;
-            pointer-events: none;
-            z-index: -1;
         }
         
         .container {
@@ -61,198 +41,135 @@
             padding: 20px;
         }
         
-        /* Partículas de fondo */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-        
-        /* Header futurista */
+        /* Header elegante */
         header {
-            padding: 120px 20px 100px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
+            color: var(--white);
+            padding: 100px 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
         
-        .header-glow {
+        .header-overlay {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80vw;
-            height: 80vw;
-            max-width: 800px;
-            max-height: 800px;
-            background: radial-gradient(circle, var(--neon-blue) 0%, transparent 70%);
-            opacity: 0.1;
-            filter: blur(60px);
-            z-index: -1;
-            animation: pulseGlow 8s ease-in-out infinite alternate;
-        }
-        
-        @keyframes pulseGlow {
-            0% { opacity: 0.05; transform: translate(-50%, -50%) scale(0.8); }
-            100% { opacity: 0.15; transform: translate(-50%, -50%) scale(1.2); }
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.03)"/><path d="M0,100 L100,0 L100,100 Z" fill="rgba(255,255,255,0.02)"/></svg>');
+            opacity: 0.3;
         }
         
         .main-title {
-            font-size: 4rem;
-            margin-bottom: 30px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
-            animation: titleGlow 3s ease-in-out infinite alternate;
+            font-size: 3.2rem;
+            margin-bottom: 25px;
+            font-weight: 300;
+            letter-spacing: 1px;
             position: relative;
-            display: inline-block;
+            animation: fadeIn 1s ease-out;
         }
         
-        @keyframes titleGlow {
-            0% { text-shadow: 0 0 20px rgba(0, 243, 255, 0.3), 0 0 40px rgba(0, 243, 255, 0.1); }
-            100% { text-shadow: 0 0 30px rgba(157, 0, 255, 0.4), 0 0 60px rgba(157, 0, 255, 0.2); }
+        .main-title strong {
+            font-weight: 600;
+            color: var(--white);
         }
         
-        .main-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--neon-blue), var(--neon-purple), transparent);
-            border-radius: 2px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .tagline {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             max-width: 800px;
-            margin: 0 auto 50px;
-            color: var(--text-secondary);
-            text-shadow: 0 0 10px rgba(176, 176, 255, 0.3);
-            line-height: 1.8;
+            margin: 0 auto 40px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            animation: fadeIn 1s ease-out 0.3s both;
         }
         
-        /* Botón futurista */
+        /* Botón elegante */
         .btn {
             display: inline-block;
-            background: transparent;
-            color: var(--neon-blue);
-            padding: 18px 45px;
-            border-radius: 50px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 16px 40px;
+            border-radius: 4px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            border: 2px solid var(--neon-blue);
-            transition: all 0.4s ease;
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
-            text-transform: uppercase;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
-            transition: left 0.7s;
-            z-index: -1;
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            animation: fadeIn 1s ease-out 0.6s both;
+            box-shadow: 0 4px 12px rgba(26, 188, 156, 0.2);
         }
         
         .btn:hover {
-            color: var(--dark-bg);
-            background: var(--neon-blue);
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.5), 0 0 60px rgba(0, 243, 255, 0.2);
-            transform: translateY(-5px);
+            background-color: #16a085;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(26, 188, 156, 0.3);
         }
         
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        /* Secciones con efecto vidrio */
+        /* Sección de contenido */
         section {
             margin: 80px 0;
             position: relative;
         }
         
         .section-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 50px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 60px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
         }
         
-        .section-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 243, 255, 0.05) 0%, rgba(157, 0, 255, 0.05) 100%);
-            z-index: -1;
-        }
-        
         .section-title {
-            color: var(--neon-blue);
-            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-size: 2.2rem;
             margin-bottom: 30px;
-            font-weight: 700;
+            font-weight: 400;
             position: relative;
-            display: inline-block;
-            text-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            padding-bottom: 15px;
+            letter-spacing: 0.5px;
         }
         
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: 0;
             left: 0;
             width: 60px;
             height: 3px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            border-radius: 2px;
+            background-color: var(--accent-color);
         }
         
         .offer-text {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin-bottom: 30px;
-            color: var(--text-secondary);
+            color: var(--text-light);
             line-height: 1.8;
         }
         
         .purpose-box {
-            background: var(--glass-bg);
+            background-color: var(--light-gray);
             padding: 40px;
-            border-radius: 15px;
-            border-left: 4px solid var(--neon-purple);
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
             margin-top: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
         }
         
         .purpose-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
-        /* Perfil futurista */
+        /* Perfil profesional */
         .profile-section {
             display: flex;
             flex-wrap: wrap;
@@ -269,35 +186,27 @@
         .profile-img::before {
             content: '';
             position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
-            border-radius: 20px;
+            top: 20px;
+            left: 20px;
+            width: 100%;
+            height: 100%;
+            background-color: var(--medium-gray);
+            border-radius: 8px;
             z-index: -1;
-            opacity: 0.5;
-            filter: blur(15px);
-            animation: rotateHue 8s linear infinite;
-        }
-        
-        @keyframes rotateHue {
-            0% { filter: blur(15px) hue-rotate(0deg); }
-            100% { filter: blur(15px) hue-rotate(360deg); }
         }
         
         .profile-img img {
             width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-            transition: transform 0.5s ease;
-            border: 2px solid transparent;
-            background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
-                        linear-gradient(45deg, var(--neon-blue), var(--neon-purple)) border-box;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            filter: grayscale(20%);
         }
         
         .profile-img img:hover {
-            transform: scale(1.02);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            filter: grayscale(0%);
         }
         
         .profile-info {
@@ -306,114 +215,87 @@
         }
         
         .profile-name {
-            font-size: 2.8rem;
+            font-size: 2.4rem;
             margin-bottom: 10px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 20px rgba(157, 0, 255, 0.3);
+            color: var(--primary-color);
+            font-weight: 300;
         }
         
         .profile-title {
-            color: var(--neon-blue);
-            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-size: 1.3rem;
             margin-bottom: 25px;
-            font-weight: 600;
+            font-weight: 500;
             letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
         }
         
         .contact-info {
             margin-top: 40px;
-            padding: 25px;
-            background: var(--glass-bg);
-            border-radius: 15px;
-            border: 1px solid rgba(0, 243, 255, 0.2);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+            padding: 30px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            border-top: 3px solid var(--accent-color);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .contact-info::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--neon-blue), var(--neon-purple));
         }
         
         .contact-info:hover {
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
-            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
         .contact-info h3 {
-            color: var(--neon-blue);
+            color: var(--primary-color);
             margin-bottom: 20px;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
+            font-weight: 500;
         }
         
         .phone-number {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--neon-pink);
-            text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--primary-color);
             transition: all 0.3s ease;
             display: inline-block;
         }
         
         .phone-number:hover {
-            transform: scale(1.05);
-            text-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            color: var(--accent-color);
         }
         
         .phone-icon {
-            color: var(--neon-blue);
+            color: var(--accent-color);
             margin-right: 15px;
             font-size: 1.3rem;
-            animation: pulseIcon 2s infinite;
         }
         
-        @keyframes pulseIcon {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        /* Footer futurista */
+        /* Footer formal */
         footer {
             text-align: center;
             padding: 40px 20px;
             margin-top: 100px;
-            background: rgba(5, 5, 10, 0.8);
-            border-top: 1px solid rgba(0, 243, 255, 0.1);
+            background-color: var(--primary-color);
+            color: var(--white);
             position: relative;
-        }
-        
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
         }
         
         .footer-text {
             font-size: 1rem;
-            color: var(--text-secondary);
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 1px;
+            font-weight: 300;
         }
         
-        /* Efectos de aparición */
+        /* Líneas divisorias elegantes */
+        hr {
+            border: none;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 50px 0;
+        }
+        
+        /* Efectos de aparición suaves */
         .fade-in {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
         
@@ -425,7 +307,7 @@
         /* Responsive */
         @media (max-width: 768px) {
             .main-title {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
             }
             
             .section-card {
@@ -437,20 +319,52 @@
             }
             
             .profile-name {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
+            
+            header {
+                padding: 80px 20px;
+            }
+        }
+        
+        /* Estilos tipográficos refinados */
+        h1, h2, h3, h4 {
+            font-weight: 300;
+            line-height: 1.3;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Mejoras de espaciado */
+        .spacing-large {
+            margin-top: 80px;
+            margin-bottom: 80px;
+        }
+        
+        .spacing-medium {
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        
+        /* Tarjeta con efecto de elevación */
+        .elevated-card {
+            transition: all 0.3s ease;
+        }
+        
+        .elevated-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
         }
     </style>
 </head>
 <body>
-    <!-- Partículas de fondo -->
-    <div id="particles-js"></div>
-    
-    <!-- Header futurista -->
+    <!-- Header elegante -->
     <header>
-        <div class="header-glow"></div>
+        <div class="header-overlay"></div>
         <div class="container">
-            <h1 class="main-title">Mantené un estilo de vida saludable</h1>
+            <h1 class="main-title">Mantené un estilo de vida <strong>saludable</strong></h1>
             
             <p class="tagline">Viví tu alimentación de una forma distinta, cambiando tus hábitos y mejorando tu estilo de vida sin renunciar al placer de comer rico!</p>
             
@@ -460,8 +374,8 @@
     
     <main class="container">
         <!-- Sección de oferta -->
-        <section class="fade-in">
-            <div class="section-card">
+        <section class="fade-in spacing-large">
+            <div class="section-card elevated-card">
                 <h2 class="section-title">LO QUE TE OFREZCO</h2>
                 
                 <p class="offer-text">Si te alimentás mejor, podes disfrutar de una vida saludable.</p>
@@ -474,9 +388,12 @@
             </div>
         </section>
         
+        <!-- Línea divisoria -->
+        <hr class="spacing-medium">
+        
         <!-- Sección de perfil -->
-        <section class="fade-in">
-            <div class="section-card">
+        <section class="fade-in spacing-large">
+            <div class="section-card elevated-card">
                 <div class="profile-section">
                     <div class="profile-img">
                         <img src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/c9c9034c485398e4ce0ae69ac28fa096~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=4b7ab61a&x-expires=1770166800&x-signature=ytnyj%2BcQFqgfC146DbzttA4Yy6Y%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=sg1" alt="Andrea Gomez - Licenciada en Nutrición">
@@ -505,44 +422,8 @@
         </div>
     </footer>
     
-    <!-- Script de partículas -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Configuración de partículas
-        particlesJS("particles-js", {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#00f3ff" },
-                shape: { type: "circle" },
-                opacity: { value: 0.3, random: true },
-                size: { value: 3, random: true },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: "#9d00ff",
-                    opacity: 0.2,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: "none",
-                    random: true,
-                    straight: false,
-                    out_mode: "out",
-                    bounce: false
-                }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: {
-                    onhover: { enable: true, mode: "repulse" },
-                    onclick: { enable: true, mode: "push" }
-                }
-            }
-        });
-        
-        // Suavizar el desplazamiento
+        // Suavizar el desplazamiento al hacer clic en enlaces internos
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -575,7 +456,7 @@
             fadeObserver.observe(element);
         });
         
-        // Efecto de escritura en el título
+        // Efecto sutil de aparición para el título
         const title = document.querySelector('.main-title');
         const originalText = title.textContent;
         title.textContent = '';
@@ -585,13 +466,20 @@
             if (i < originalText.length) {
                 title.textContent += originalText.charAt(i);
                 i++;
-                setTimeout(typeWriter, 50);
+                setTimeout(typeWriter, 30);
             }
         }
         
         // Iniciar efecto de escritura después de cargar
         window.addEventListener('load', () => {
-            setTimeout(typeWriter, 500);
+            setTimeout(typeWriter, 300);
+        });
+        
+        // Añadir clase de elevación a las tarjetas al hacer hover
+        document.querySelectorAll('.elevated-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.3s ease';
+            });
         });
     </script>
 </body>
