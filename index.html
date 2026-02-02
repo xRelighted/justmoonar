@@ -182,93 +182,6 @@
             }
         }
         
-        /* Botón con ANIMACIÓN EN BUCLE y efecto smooth mejorado - CON ANIMACIÓN DE DESAPARICIÓN */
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--white);
-            padding: 18px 45px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 6px 20px rgba(26, 188, 156, 0.3);
-            opacity: 0;
-            transform: translateY(30px) scale(0.95);
-            animation: popIn 0.8s 1.3s forwards;
-            position: relative;
-            overflow: hidden;
-            z-index: 10;
-        }
-        
-        /* ANIMACIÓN EN BUCLE para el botón */
-        @keyframes btnFloat {
-            0%, 100% {
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                transform: translateY(-5px) scale(1.02);
-            }
-        }
-        
-        .btn.animated {
-            animation: btnFloat 3s ease-in-out infinite 2s;
-        }
-        
-        @keyframes popIn {
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        /* ANIMACIÓN DE DESAPARICIÓN para el botón */
-        @keyframes fadeOutBtn {
-            0% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-20px) scale(0.9);
-                visibility: hidden;
-            }
-        }
-        
-        .btn.hidden {
-            animation: fadeOutBtn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            pointer-events: none;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-                        height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-        
-        .btn:hover {
-            background-color: #16a085;
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(26, 188, 156, 0.4);
-        }
-        
         /* Animación de flecha para indicar scroll - EN BUCLE */
         .scroll-indicator {
             position: absolute;
@@ -987,8 +900,7 @@
                 
                 <p class="tagline">Viví tu alimentación de una forma distinta, cambiando tus hábitos y mejorando tu estilo de vida sin renunciar al placer de comer rico!</p>
                 
-                <!-- Botón COMENZÁ HOY ahora visible y con enlace -->
-                <a href="https://justmoonar.vercel.app/#oferta" class="btn" id="smoothScrollBtn" target="_blank"> </a>
+                <!-- BOTÓN ELIMINADO -->
             </div>
         </div>
         
@@ -1080,32 +992,6 @@
         window.addEventListener('beforeunload', function() {
             window.scrollTo(0, 0);
         });
-        
-        // ============================================
-        // BOTÓN "COMENZÁ HOY" QUE DESAPARECE
-        // ============================================
-        
-        // Obtener el botón
-        const comenzarBtn = document.getElementById('smoothScrollBtn');
-        
-        // Función para hacer desaparecer el botón después de su animación
-        function hideComenzarBtn() {
-            // Primero, remover la animación de flotación si existe
-            comenzarBtn.classList.remove('animated');
-            
-            // Añadir clase para animación de desaparición
-            comenzarBtn.classList.add('hidden');
-            
-            // Después de que termine la animación de desaparición, remover el botón completamente
-            setTimeout(() => {
-                comenzarBtn.style.display = 'none';
-            }, 1000); // Tiempo igual a la duración de la animación fadeOutBtn
-        }
-        
-        // Programar la desaparición del botón
-        // El botón aparece después de 1.3s (delay de popIn) + 0.8s (duración de popIn) = 2.1s
-        // Le damos 4 segundos adicionales para que el usuario pueda verlo y después desaparece
-        setTimeout(hideComenzarBtn, 6000); // 6 segundos después de cargar la página
         
         // ============================================
         // BOTÓN PARA VOLVER ARRIBA
@@ -1208,9 +1094,6 @@
             if (anchor.id === 'backToTop') return;
             
             anchor.addEventListener('click', function(e) {
-                // Si el enlace tiene target="_blank", no hacer scroll suave
-                if (this.getAttribute('target') === '_blank') return;
-                
                 e.preventDefault();
                 
                 const targetId = this.getAttribute('href');
@@ -1233,11 +1116,6 @@
             setTimeout(() => {
                 document.querySelector('.main-title').classList.add('loaded');
             }, 500);
-            
-            // Botón con animación en bucle (antes de desaparecer)
-            setTimeout(() => {
-                comenzarBtn.classList.add('animated');
-            }, 2500);
             
             // Crear partículas
             createParticles();
@@ -1433,4 +1311,3 @@
     </script>
 </body>
 </html>
-
