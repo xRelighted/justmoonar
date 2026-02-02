@@ -18,12 +18,12 @@
             --text-light: #495057;
             --white: #ffffff;
             --border-color: #dee2e6;
+            --scroll-speed: 0.8s;
         }
         
-        /* Estilos generales con scroll suave */
+        /* Estilos generales con scroll ultra suave */
         html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 100px;
+            scroll-behavior: auto; /* Desactivamos el nativo para usar nuestro propio */
         }
         
         * {
@@ -39,15 +39,22 @@
             line-height: 1.6;
             min-height: 100vh;
             overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        /* Suavizar TODAS las transiciones y animaciones */
+        * {
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* Header elegante con efecto parallax */
+        /* Header elegante con efecto parallax mejorado */
         header {
             background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
             color: var(--white);
@@ -59,6 +66,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .parallax-bg {
@@ -68,17 +76,18 @@
             width: 100%;
             height: 120%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
             transform: translateZ(0);
             will-change: transform;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .header-content {
             position: relative;
             z-index: 2;
             transform: translateY(0);
-            transition: transform 0.5s ease-out;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform;
         }
         
@@ -88,16 +97,14 @@
             font-weight: 300;
             letter-spacing: 1.5px;
             position: relative;
-            animation: floatIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        @keyframes floatIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .main-title.loaded {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .title-word {
@@ -118,6 +125,20 @@
             }
         }
         
+        /* ANIMACIÓN EN BUCLE para el título principal */
+        @keyframes titleGlow {
+            0%, 100% { 
+                text-shadow: 0 0 0 rgba(255, 255, 255, 0.1);
+            }
+            50% { 
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            }
+        }
+        
+        .main-title.loaded {
+            animation: titleGlow 4s ease-in-out infinite;
+        }
+        
         .main-title strong {
             font-weight: 600;
             color: var(--white);
@@ -133,7 +154,7 @@
             height: 3px;
             background-color: var(--accent-color);
             transform: scaleX(0);
-            animation: expandLine 1s 1.5s forwards;
+            animation: expandLine 1.2s 1.5s forwards;
             transform-origin: left;
         }
         
@@ -161,7 +182,7 @@
             }
         }
         
-        /* Botón elegante con animación */
+        /* Botón con ANIMACIÓN EN BUCLE y efecto smooth mejorado */
         .btn {
             display: inline-block;
             background-color: var(--accent-color);
@@ -172,15 +193,29 @@
             font-weight: 500;
             font-size: 1.1rem;
             letter-spacing: 0.5px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
             cursor: pointer;
             box-shadow: 0 6px 20px rgba(26, 188, 156, 0.3);
             opacity: 0;
-            transform: translateY(30px) scale(0.9);
+            transform: translateY(30px) scale(0.95);
             animation: popIn 0.8s 1.3s forwards;
             position: relative;
             overflow: hidden;
+        }
+        
+        /* ANIMACIÓN EN BUCLE para el botón */
+        @keyframes btnFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-5px) scale(1.02);
+            }
+        }
+        
+        .btn.animated {
+            animation: btnFloat 3s ease-in-out infinite 2s;
         }
         
         @keyframes popIn {
@@ -198,9 +233,10 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                        height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .btn:hover::before {
@@ -210,19 +246,19 @@
         
         .btn:hover {
             background-color: #16a085;
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 12px 25px rgba(26, 188, 156, 0.4);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(26, 188, 156, 0.4);
         }
         
-        /* Animación de flecha para indicar scroll */
+        /* Animación de flecha para indicar scroll - EN BUCLE */
         .scroll-indicator {
             position: absolute;
             bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
-            animation: bounce 2s infinite;
+            animation: bounce 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0.7;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 10;
         }
         
@@ -235,10 +271,10 @@
                 transform: translateY(0) translateX(-50%);
             }
             40% {
-                transform: translateY(-20px) translateX(-50%);
+                transform: translateY(-25px) translateX(-50%);
             }
             60% {
-                transform: translateY(-10px) translateX(-50%);
+                transform: translateY(-12px) translateX(-50%);
             }
         }
         
@@ -247,14 +283,28 @@
             color: var(--white);
         }
         
-        /* Sección de contenido con animaciones al scroll */
+        /* ANIMACIÓN EN BUCLE para la flecha */
+        @keyframes arrowPulse {
+            0%, 100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        
+        .scroll-indicator i {
+            animation: arrowPulse 2s ease-in-out infinite;
+        }
+        
+        /* Secciones con scroll super smooth */
         section {
             margin: 100px 0;
             position: relative;
             opacity: 0;
             transform: translateY(60px);
-            transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                        transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         section.visible {
@@ -270,7 +320,7 @@
             border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .section-card::before {
@@ -283,7 +333,7 @@
             background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
             transform: scaleX(0);
             transform-origin: left;
-            transition: transform 1s 0.3s;
+            transition: transform 1.2s 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .section-card.animated::before {
@@ -300,12 +350,27 @@
             letter-spacing: 0.5px;
             opacity: 0;
             transform: translateX(-30px);
-            transition: opacity 0.8s 0.3s, transform 0.8s 0.3s;
+            transition: opacity 0.9s 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.9s 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .section-card.animated .section-title {
             opacity: 1;
             transform: translateX(0);
+        }
+        
+        /* ANIMACIÓN EN BUCLE para títulos de sección */
+        @keyframes sectionTitleGlow {
+            0%, 100% {
+                text-shadow: 0 0 0 rgba(44, 62, 80, 0.1);
+            }
+            50% {
+                text-shadow: 0 0 10px rgba(44, 62, 80, 0.15);
+            }
+        }
+        
+        .section-card.animated .section-title {
+            animation: sectionTitleGlow 5s ease-in-out infinite 1s;
         }
         
         .section-title::after {
@@ -318,7 +383,7 @@
             background-color: var(--accent-color);
             transform: scaleX(0);
             transform-origin: left;
-            transition: transform 1s 0.5s;
+            transition: transform 1.2s 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .section-card.animated .section-title::after {
@@ -332,7 +397,8 @@
             line-height: 1.8;
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.8s 0.5s, transform 0.8s 0.5s;
+            transition: opacity 0.9s 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.9s 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .section-card.animated .offer-text {
@@ -346,7 +412,7 @@
             border-radius: 8px;
             border-left: 5px solid var(--accent-color);
             margin-top: 40px;
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             transform: translateY(30px);
         }
@@ -357,12 +423,23 @@
             transition-delay: 0.7s;
         }
         
-        .purpose-box:hover {
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            transform: translateY(-5px);
+        /* ANIMACIÓN EN BUCLE para la caja de propósito */
+        @keyframes purposeBoxFloat {
+            0%, 100% {
+                transform: translateY(0);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            }
+            50% {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            }
         }
         
-        /* Perfil profesional con animaciones escalonadas */
+        .section-card.animated .purpose-box {
+            animation: purposeBoxFloat 6s ease-in-out infinite 2s;
+        }
+        
+        /* Perfil profesional */
         .profile-section {
             display: flex;
             flex-wrap: wrap;
@@ -376,7 +453,8 @@
             position: relative;
             opacity: 0;
             transform: translateX(-50px) rotate(-5deg);
-            transition: opacity 0.8s 0.3s, transform 0.8s 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: opacity 0.9s 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.9s 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .section-card.animated .profile-img {
@@ -394,7 +472,7 @@
             background-color: var(--medium-gray);
             border-radius: 10px;
             z-index: -1;
-            transition: all 0.5s ease;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .profile-img:hover::before {
@@ -406,15 +484,30 @@
             width: 100%;
             border-radius: 10px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             filter: grayscale(20%);
             transform: perspective(1000px) rotateY(0deg);
+        }
+        
+        /* ANIMACIÓN EN BUCLE para la imagen */
+        @keyframes imgFloat {
+            0%, 100% {
+                transform: perspective(1000px) rotateY(0deg) translateY(0);
+            }
+            50% {
+                transform: perspective(1000px) rotateY(2deg) translateY(-5px);
+            }
+        }
+        
+        .section-card.animated .profile-img img {
+            animation: imgFloat 8s ease-in-out infinite 1s;
         }
         
         .profile-img:hover img {
             transform: perspective(1000px) rotateY(10deg) translateZ(20px);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
             filter: grayscale(0%);
+            animation-play-state: paused;
         }
         
         .profile-info {
@@ -429,12 +522,27 @@
             font-weight: 300;
             opacity: 0;
             transform: translateX(30px);
-            transition: opacity 0.8s 0.5s, transform 0.8s 0.5s;
+            transition: opacity 0.9s 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.9s 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .section-card.animated .profile-name {
             opacity: 1;
             transform: translateX(0);
+        }
+        
+        /* ANIMACIÓN EN BUCLE para el nombre */
+        @keyframes nameGlow {
+            0%, 100% {
+                text-shadow: 0 0 0 rgba(44, 62, 80, 0.1);
+            }
+            50% {
+                text-shadow: 0 0 8px rgba(44, 62, 80, 0.15);
+            }
+        }
+        
+        .section-card.animated .profile-name {
+            animation: nameGlow 5s ease-in-out infinite 1.5s;
         }
         
         .profile-title {
@@ -445,7 +553,8 @@
             letter-spacing: 1px;
             opacity: 0;
             transform: translateX(30px);
-            transition: opacity 0.8s 0.6s, transform 0.8s 0.6s;
+            transition: opacity 0.9s 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.9s 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .section-card.animated .profile-title {
@@ -460,7 +569,8 @@
             margin-bottom: 20px;
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.8s 0.7s, transform 0.8s 0.7s;
+            transition: opacity 0.9s 0.7s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.9s 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .section-card.animated .profile-description {
@@ -474,7 +584,7 @@
             background-color: var(--light-gray);
             border-radius: 10px;
             border-top: 4px solid var(--accent-color);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             transform: translateY(30px);
         }
@@ -485,9 +595,24 @@
             transition-delay: 0.8s;
         }
         
+        /* ANIMACIÓN EN BUCLE para el contacto */
+        @keyframes contactPulse {
+            0%, 100% {
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            }
+            50% {
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            }
+        }
+        
+        .section-card.animated .contact-info {
+            animation: contactPulse 4s ease-in-out infinite 2s;
+        }
+        
         .contact-info:hover {
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
             transform: translateY(-8px) scale(1.02);
+            animation-play-state: paused;
         }
         
         .contact-info h3 {
@@ -497,7 +622,8 @@
             font-weight: 500;
             opacity: 0;
             transform: translateY(10px);
-            transition: opacity 0.6s 0.9s, transform 0.6s 0.9s;
+            transition: opacity 0.7s 0.9s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.7s 0.9s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .section-card.animated .contact-info h3 {
@@ -508,7 +634,8 @@
         .contact-info p {
             opacity: 0;
             transform: translateY(10px);
-            transition: opacity 0.6s 1s, transform 0.6s 1s;
+            transition: opacity 0.7s 1s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.7s 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .section-card.animated .contact-info p {
@@ -520,10 +647,26 @@
             font-size: 1.5rem;
             font-weight: 500;
             color: var(--primary-color);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-block;
             padding: 5px 0;
             position: relative;
+        }
+        
+        /* ANIMACIÓN EN BUCLE para el número */
+        @keyframes phonePulse {
+            0%, 100% {
+                color: var(--primary-color);
+                transform: scale(1);
+            }
+            50% {
+                color: var(--accent-color);
+                transform: scale(1.03);
+            }
+        }
+        
+        .section-card.animated .phone-number {
+            animation: phonePulse 3s ease-in-out infinite 2.5s;
         }
         
         .phone-number::after {
@@ -534,7 +677,7 @@
             width: 0;
             height: 2px;
             background-color: var(--accent-color);
-            transition: width 0.3s ease;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .phone-number:hover::after {
@@ -544,22 +687,23 @@
         .phone-number:hover {
             color: var(--accent-color);
             transform: translateX(5px);
+            animation-play-state: paused;
         }
         
         .phone-icon {
             color: var(--accent-color);
             margin-right: 20px;
             font-size: 1.4rem;
-            animation: pulse 2s infinite;
+            animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-block;
         }
         
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.15); }
         }
         
-        /* Footer formal */
+        /* Footer */
         footer {
             text-align: center;
             padding: 50px 20px;
@@ -569,7 +713,8 @@
             position: relative;
             opacity: 0;
             transform: translateY(50px);
-            transition: opacity 0.8s 0.5s, transform 0.8s 0.5s;
+            transition: opacity 0.9s 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.9s 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         footer.visible {
@@ -587,7 +732,7 @@
             background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
             transform: scaleX(0);
             transform-origin: left;
-            transition: transform 1s 0.7s;
+            transition: transform 1.2s 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         footer.animated::before {
@@ -601,7 +746,8 @@
             font-weight: 300;
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.8s 0.8s, transform 0.8s 0.8s;
+            transition: opacity 0.9s 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.9s 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         footer.animated .footer-text {
@@ -609,7 +755,7 @@
             transform: translateY(0);
         }
         
-        /* Efecto de partículas sutiles */
+        /* Efecto de partículas sutiles EN BUCLE */
         .particles {
             position: absolute;
             width: 100%;
@@ -622,7 +768,7 @@
         
         .particle {
             position: absolute;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.08);
             border-radius: 50%;
             animation: floatParticle linear infinite;
         }
@@ -657,28 +803,72 @@
             }
         }
         
-        /* Mejoras de espaciado */
-        .spacing-large {
-            margin-top: 100px;
-            margin-bottom: 100px;
-        }
-        
-        /* Animación de carga */
-        .loading-bar {
+        /* Barra de progreso de scroll smooth */
+        .smooth-scroll-progress {
             position: fixed;
             top: 0;
             left: 0;
             width: 0;
             height: 3px;
             background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+            z-index: 10000;
+            transition: width 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Clase para animaciones smooth de scroll */
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+        
+        /* Indicador visual de scroll suave */
+        .scroll-visual {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 100px;
+            background: rgba(26, 188, 156, 0.2);
+            border-radius: 2px;
             z-index: 1000;
-            transition: width 0.3s ease;
+            opacity: 0;
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scroll-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: var(--accent-color);
+            border-radius: 2px;
+            animation: scrollIndicator 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        
+        @keyframes scrollIndicator {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateY(70px);
+                opacity: 1;
+            }
+        }
+        
+        .scroll-visual.visible {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
-    <!-- Barra de progreso de carga -->
-    <div class="loading-bar"></div>
+    <!-- Barra de progreso de scroll smooth -->
+    <div class="smooth-scroll-progress"></div>
+    
+    <!-- Indicador visual de scroll -->
+    <div class="scroll-visual"></div>
     
     <!-- Partículas sutiles -->
     <div class="particles" id="particles"></div>
@@ -697,7 +887,7 @@
                 
                 <p class="tagline">Viví tu alimentación de una forma distinta, cambiando tus hábitos y mejorando tu estilo de vida sin renunciar al placer de comer rico!</p>
                 
-                <a href="#oferta" class="btn">COMENZÁ HOY</a>
+                <a href="#oferta" class="btn" id="smoothScrollBtn">COMENZÁ HOY</a>
             </div>
         </div>
         
@@ -755,53 +945,165 @@
     </footer>
     
     <script>
-        // Efecto parallax en el header
-        window.addEventListener('scroll', function() {
-            const parallaxBg = document.getElementById('parallaxBg');
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            parallaxBg.style.transform = 'translate3d(0px, ' + rate + 'px, 0px)';
+        // ============================================
+        // SCROLL SUPER SMOOTH PERSONALIZADO
+        // ============================================
+        
+        // Configuración de velocidad de scroll
+        const SCROLL_SPEED = 1200; // ms - cuanto más alto, más lento
+        const SCROLL_EASING = 'cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        // Función de scroll suave mejorada
+        function smoothScrollTo(targetElement, duration = SCROLL_SPEED) {
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition - 80; // Offset para header
+            const startTime = performance.now();
             
-            // Barra de progreso
-            const scrollTop = window.pageYOffset;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercent = scrollTop / docHeight * 100;
-            document.querySelector('.loading-bar').style.width = scrollPercent + '%';
+            // Efecto visual del botón al iniciar scroll
+            const btn = document.getElementById('smoothScrollBtn');
+            if (btn) {
+                btn.style.transform = 'scale(0.95)';
+                btn.style.transition = 'transform 0.3s ' + SCROLL_EASING;
+                
+                setTimeout(() => {
+                    btn.style.transform = 'scale(1)';
+                }, 300);
+            }
+            
+            // Función de easing personalizada
+            function ease(t, b, c, d) {
+                t /= d/2;
+                if (t < 1) return c/2 * t * t + b;
+                t--;
+                return -c/2 * (t * (t - 2) - 1) + b;
+            }
+            
+            function animation(currentTime) {
+                const timeElapsed = currentTime - startTime;
+                const run = ease(timeElapsed, startPosition, distance, duration);
+                
+                window.scrollTo(0, run);
+                
+                // Actualizar barra de progreso
+                const scrollProgress = (run / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                document.querySelector('.smooth-scroll-progress').style.width = scrollProgress + '%';
+                
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                } else {
+                    // Efecto visual al llegar al destino
+                    targetElement.style.boxShadow = '0 0 0 10px rgba(26, 188, 156, 0.3)';
+                    setTimeout(() => {
+                        targetElement.style.boxShadow = '';
+                    }, 800);
+                }
+            }
+            
+            requestAnimationFrame(animation);
+        }
+        
+        // Aplicar scroll suave a todos los enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Añadir efecto de onda al botón
+                    if (this.classList.contains('btn')) {
+                        const ripple = document.createElement('span');
+                        const rect = this.getBoundingClientRect();
+                        const size = Math.max(rect.width, rect.height);
+                        const x = e.clientX - rect.left - size/2;
+                        const y = e.clientY - rect.top - size/2;
+                        
+                        ripple.style.cssText = `
+                            position: absolute;
+                            border-radius: 50%;
+                            background: rgba(255, 255, 255, 0.7);
+                            transform: scale(0);
+                            animation: ripple 0.6s linear;
+                            width: ${size}px;
+                            height: ${size}px;
+                            top: ${y}px;
+                            left: ${x}px;
+                        `;
+                        
+                        this.appendChild(ripple);
+                        
+                        setTimeout(() => ripple.remove(), 600);
+                    }
+                    
+                    // Iniciar scroll suave
+                    smoothScrollTo(targetElement);
+                }
+            });
         });
         
-        // Animación de partículas
+        // ============================================
+        // ANIMACIONES EN BUCLE
+        // ============================================
+        
+        // Activar animaciones en bucle después de la carga
+        window.addEventListener('load', function() {
+            // Título principal
+            setTimeout(() => {
+                document.querySelector('.main-title').classList.add('loaded');
+            }, 500);
+            
+            // Botón con animación en bucle
+            setTimeout(() => {
+                document.getElementById('smoothScrollBtn').classList.add('animated');
+            }, 2500);
+            
+            // Crear partículas
+            createParticles();
+        });
+        
+        // Crear partículas flotantes
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
+            const particleCount = 25;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
                 // Tamaño aleatorio
-                const size = Math.random() * 4 + 1;
+                const size = Math.random() * 3 + 1;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
                 // Posición aleatoria
                 particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100 + 100}%`;
                 
                 // Duración de animación aleatoria
-                const duration = Math.random() * 20 + 10;
+                const duration = Math.random() * 25 + 15;
                 particle.style.animationDuration = `${duration}s`;
                 
                 // Retraso aleatorio
                 const delay = Math.random() * 5;
                 particle.style.animationDelay = `${delay}s`;
                 
+                // Opacidad aleatoria
+                const opacity = Math.random() * 0.05 + 0.03;
+                particle.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
+                
                 particlesContainer.appendChild(particle);
             }
         }
         
-        // Observador de intersección para animaciones al hacer scroll
+        // ============================================
+        // OBSERVER PARA ANIMACIONES AL SCROLL
+        // ============================================
+        
         const observerOptions = {
-            threshold: 0.2,
+            threshold: 0.15,
             rootMargin: '0px 0px -50px 0px'
         };
         
@@ -809,6 +1111,11 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    
+                    // Mostrar indicador visual de scroll
+                    if (entry.target.tagName === 'SECTION' && entry.target.id === 'oferta') {
+                        document.querySelector('.scroll-visual').classList.add('visible');
+                    }
                     
                     // Añadir clase animated para elementos internos
                     if (entry.target.classList.contains('section-card') || entry.target.tagName === 'SECTION') {
@@ -818,7 +1125,7 @@
                         if (card) {
                             setTimeout(() => {
                                 card.classList.add('animated');
-                            }, 200);
+                            }, 300);
                         }
                     }
                     
@@ -826,7 +1133,7 @@
                     if (entry.target.tagName === 'FOOTER') {
                         setTimeout(() => {
                             entry.target.classList.add('animated');
-                        }, 300);
+                        }, 400);
                     }
                 }
             });
@@ -837,134 +1144,113 @@
             observer.observe(el);
         });
         
-        // Scroll suave mejorado para enlaces internos
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const headerOffset = 80;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Agregar efecto de "pulse" al elemento de destino
-                    targetElement.style.boxShadow = '0 0 0 5px rgba(26, 188, 156, 0.3)';
-                    setTimeout(() => {
-                        targetElement.style.boxShadow = '';
-                    }, 1000);
-                }
-            });
-        });
+        // ============================================
+        // PARALLAX MEJORADO
+        // ============================================
         
-        // Animación de escritura para el título
-        const titleWords = document.querySelectorAll('.title-word');
-        titleWords.forEach((word, index) => {
-            word.style.opacity = '0';
-            word.style.transform = 'translateY(30px)';
-        });
-        
-        // Efecto hover en botón con ondas
-        document.querySelectorAll('.btn').forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                this.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            });
-            
-            button.addEventListener('click', function(e) {
-                // Crear efecto de onda al hacer clic
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-                
-                ripple.style.width = ripple.style.height = size + 'px';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.classList.add('ripple');
-                
-                this.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            });
-        });
-        
-        // Efecto de scroll suave para toda la página
-        let lastScrollTop = 0;
         let ticking = false;
+        let lastScrollY = 0;
+        
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const parallaxBg = document.getElementById('parallaxBg');
+            const headerContent = document.querySelector('.header-content');
+            
+            // Parallax para el fondo
+            if (parallaxBg) {
+                const rate = scrolled * -0.3;
+                parallaxBg.style.transform = `translate3d(0px, ${rate}px, 0px)`;
+            }
+            
+            // Efecto sutil en el contenido del header
+            if (headerContent && scrolled < window.innerHeight) {
+                const opacity = 1 - (scrolled / (window.innerHeight * 0.7));
+                const scale = 1 - (scrolled / (window.innerHeight * 2));
+                const translateY = scrolled * 0.2;
+                
+                headerContent.style.opacity = Math.max(opacity, 0.3);
+                headerContent.style.transform = `translateY(${translateY}px) scale(${scale})`;
+            }
+            
+            // Barra de progreso de scroll
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = scrollTop / docHeight * 100;
+            document.querySelector('.smooth-scroll-progress').style.width = scrollPercent + '%';
+            
+            // Mostrar/ocultar indicador visual
+            const scrollVisual = document.querySelector('.scroll-visual');
+            if (scrollTop > window.innerHeight * 0.3 && scrollTop < docHeight * 0.9) {
+                scrollVisual.classList.add('visible');
+            } else {
+                scrollVisual.classList.remove('visible');
+            }
+            
+            lastScrollY = scrolled;
+            ticking = false;
+        }
         
         window.addEventListener('scroll', function() {
             if (!ticking) {
-                window.requestAnimationFrame(function() {
-                    const st = window.pageYOffset || document.documentElement.scrollTop;
-                    
-                    // Efecto de aparición gradual en el header al hacer scroll hacia arriba
-                    const headerContent = document.querySelector('.header-content');
-                    if (st > lastScrollTop) {
-                        // Scroll hacia abajo
-                        headerContent.style.transform = 'translateY(-' + Math.min(st * 0.1, 50) + 'px)';
-                    } else {
-                        // Scroll hacia arriba
-                        headerContent.style.transform = 'translateY(0)';
-                    }
-                    
-                    lastScrollTop = st <= 0 ? 0 : st;
-                    ticking = false;
-                });
-                
+                requestAnimationFrame(updateParallax);
                 ticking = true;
             }
         });
         
-        // Inicializar efectos cuando la página carga
-        window.addEventListener('load', function() {
-            // Crear partículas
-            createParticles();
-            
-            // Animación inicial de elementos
-            setTimeout(() => {
-                document.querySelector('header').classList.add('loaded');
-            }, 500);
-            
-            // Inicializar la barra de carga
-            setTimeout(() => {
-                document.querySelector('.loading-bar').style.width = '100%';
-                setTimeout(() => {
-                    document.querySelector('.loading-bar').style.opacity = '0';
-                }, 500);
-            }, 100);
-        });
+        // ============================================
+        // EFECTO RIPPLE PARA BOTONES
+        // ============================================
         
-        // Efecto ripple para botones
-        const style = document.createElement('style');
-        style.textContent = `
-            .ripple {
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.6);
-                transform: scale(0);
-                animation: ripple-animation 0.6s linear;
-            }
-            
-            @keyframes ripple-animation {
+        // Añadir estilo para ripple
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
+            @keyframes ripple {
                 to {
                     transform: scale(4);
                     opacity: 0;
                 }
             }
         `;
-        document.head.appendChild(style);
+        document.head.appendChild(rippleStyle);
+        
+        // ============================================
+        // SCROLL SUAVE CON RUEDITA DEL MOUSE
+        // ============================================
+        
+        let wheelTimeout;
+        window.addEventListener('wheel', function(e) {
+            // Prevenir scroll nativo si hay animación en curso
+            clearTimeout(wheelTimeout);
+            
+            // Suavizar el scroll con rueda
+            wheelTimeout = setTimeout(() => {
+                const delta = e.deltaY;
+                const currentScroll = window.pageYOffset;
+                const targetScroll = currentScroll + (delta * 0.7);
+                
+                window.scrollTo({
+                    top: targetScroll,
+                    behavior: 'smooth'
+                });
+            }, 50);
+        }, { passive: true });
+        
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        
+        // Inicializar animaciones
+        updateParallax();
+        
+        // Asegurar que el scroll al cargar la página sea suave
+        if (window.location.hash) {
+            setTimeout(() => {
+                const targetElement = document.querySelector(window.location.hash);
+                if (targetElement) {
+                    smoothScrollTo(targetElement, 800);
+                }
+            }, 1000);
+        }
     </script>
 </body>
 </html>
-
