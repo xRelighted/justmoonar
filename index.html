@@ -182,7 +182,7 @@
             }
         }
         
-        /* Botón con ANIMACIÓN EN BUCLE y efecto smooth mejorado - AHORA VISIBLE */
+        /* Botón con ANIMACIÓN EN BUCLE y efecto smooth mejorado - CON ANIMACIÓN DE DESAPARICIÓN */
         .btn {
             display: inline-block;
             background-color: var(--accent-color);
@@ -224,6 +224,24 @@
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
+        }
+        
+        /* ANIMACIÓN DE DESAPARICIÓN para el botón */
+        @keyframes fadeOutBtn {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.9);
+                visibility: hidden;
+            }
+        }
+        
+        .btn.hidden {
+            animation: fadeOutBtn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            pointer-events: none;
         }
         
         .btn::before {
@@ -904,6 +922,40 @@
         .scroll-visual.visible {
             opacity: 1;
         }
+        
+        /* Botón de volver arriba */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(26, 188, 156, 0.3);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background-color: #16a085;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(26, 188, 156, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -912,6 +964,11 @@
     
     <!-- Indicador visual de scroll -->
     <div class="scroll-visual"></div>
+    
+    <!-- Botón para volver arriba -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
     
     <!-- Partículas sutiles -->
     <div class="particles" id="particles"></div>
@@ -996,6 +1053,109 @@
     
     <script>
         // ============================================
+        // SCROLL SIEMPRE ARRIBA AL CARGAR
+        // ============================================
+        
+        // Forzar scroll al tope cuando la página se carga
+        window.addEventListener('load', function() {
+            // Scroll inmediato al tope
+            window.scrollTo(0, 0);
+            
+            // También forzar scroll al tope en caso de recarga
+            if (window.history && window.history.scrollRestoration) {
+                window.history.scrollRestoration = 'manual';
+            }
+            
+            // Para iOS Safari
+            setTimeout(function() {
+                window.scrollTo(0, 0);
+            }, 100);
+            
+            // Para Chrome y otros
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        });
+        
+        // También forzar scroll al tope cuando se vuelve a la página
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // ============================================
+        // BOTÓN "COMENZÁ HOY" QUE DESAPARECE
+        // ============================================
+        
+        // Obtener el botón
+        const comenzarBtn = document.getElementById('smoothScrollBtn');
+        
+        // Función para hacer desaparecer el botón después de su animación
+        function hideComenzarBtn() {
+            // Primero, remover la animación de flotación si existe
+            comenzarBtn.classList.remove('animated');
+            
+            // Añadir clase para animación de desaparición
+            comenzarBtn.classList.add('hidden');
+            
+            // Después de que termine la animación de desaparición, remover el botón completamente
+            setTimeout(() => {
+                comenzarBtn.style.display = 'none';
+            }, 1000); // Tiempo igual a la duración de la animación fadeOutBtn
+        }
+        
+        // Programar la desaparición del botón
+        // El botón aparece después de 1.3s (delay de popIn) + 0.8s (duración de popIn) = 2.1s
+        // Le damos 4 segundos adicionales para que el usuario pueda verlo y después desaparece
+        setTimeout(hideComenzarBtn, 6000); // 6 segundos después de cargar la página
+        
+        // ============================================
+        // BOTÓN PARA VOLVER ARRIBA
+        // ============================================
+        
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        // Mostrar/ocultar botón al hacer scroll
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        // Acción del botón para volver arriba
+        backToTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            smoothScrollToTop();
+        });
+        
+        // Función para scroll suave al tope
+        function smoothScrollToTop() {
+            const startPosition = window.pageYOffset;
+            const duration = 800; // ms
+            const startTime = performance.now();
+            
+            function ease(t, b, c, d) {
+                t /= d/2;
+                if (t < 1) return c/2 * t * t + b;
+                t--;
+                return -c/2 * (t * (t - 2) - 1) + b;
+            }
+            
+            function animation(currentTime) {
+                const timeElapsed = currentTime - startTime;
+                const run = ease(timeElapsed, startPosition, -startPosition, duration);
+                
+                window.scrollTo(0, run);
+                
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                }
+            }
+            
+            requestAnimationFrame(animation);
+        }
+        
+        // ============================================
         // SCROLL SUPER SMOOTH PERSONALIZADO
         // ============================================
         
@@ -1009,17 +1169,6 @@
             const startPosition = window.pageYOffset;
             const distance = targetPosition - startPosition - 80; // Offset para header
             const startTime = performance.now();
-            
-            // Efecto visual del botón al iniciar scroll
-            const btn = document.getElementById('smoothScrollBtn');
-            if (btn) {
-                btn.style.transform = 'scale(0.95)';
-                btn.style.transition = 'transform 0.3s ' + SCROLL_EASING;
-                
-                setTimeout(() => {
-                    btn.style.transform = 'scale(1)';
-                }, 300);
-            }
             
             // Función de easing personalizada
             function ease(t, b, c, d) {
@@ -1055,6 +1204,9 @@
         
         // Aplicar scroll suave a todos los enlaces internos
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            // Excluir el botón de volver arriba si queremos que use la función especial
+            if (anchor.id === 'backToTop') return;
+            
             anchor.addEventListener('click', function(e) {
                 // Si el enlace tiene target="_blank", no hacer scroll suave
                 if (this.getAttribute('target') === '_blank') return;
@@ -1066,32 +1218,6 @@
                 
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    // Añadir efecto de onda al botón
-                    if (this.classList.contains('btn')) {
-                        const ripple = document.createElement('span');
-                        const rect = this.getBoundingClientRect();
-                        const size = Math.max(rect.width, rect.height);
-                        const x = e.clientX - rect.left - size/2;
-                        const y = e.clientY - rect.top - size/2;
-                        
-                        ripple.style.cssText = `
-                            position: absolute;
-                            border-radius: 50%;
-                            background: rgba(255, 255, 255, 0.7);
-                            transform: scale(0);
-                            animation: ripple 0.6s linear;
-                            width: ${size}px;
-                            height: ${size}px;
-                            top: ${y}px;
-                            left: ${x}px;
-                        `;
-                        
-                        this.appendChild(ripple);
-                        
-                        setTimeout(() => ripple.remove(), 600);
-                    }
-                    
-                    // Iniciar scroll suave
                     smoothScrollTo(targetElement);
                 }
             });
@@ -1108,9 +1234,9 @@
                 document.querySelector('.main-title').classList.add('loaded');
             }, 500);
             
-            // Botón con animación en bucle
+            // Botón con animación en bucle (antes de desaparecer)
             setTimeout(() => {
-                document.getElementById('smoothScrollBtn').classList.add('animated');
+                comenzarBtn.classList.add('animated');
             }, 2500);
             
             // Crear partículas
