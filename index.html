@@ -15,9 +15,10 @@
         }
         
         body {
-            background-color: #f9f9f9;
+            background: linear-gradient(135deg, #f9f9f9 0%, #e8f5e9 100%);
             color: #333;
             line-height: 1.6;
+            min-height: 100vh;
         }
         
         .container {
@@ -28,70 +29,104 @@
         
         /* Header */
         header {
-            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
             color: white;
-            padding: 80px 20px;
+            padding: 90px 20px;
             text-align: center;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 25px 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #FF9800, #FFEB3B, #FF9800);
+            animation: slideHeader 3s infinite linear;
+        }
+        
+        @keyframes slideHeader {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
         
         .main-title {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            font-size: 3rem;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .tagline {
             font-size: 1.3rem;
             max-width: 800px;
-            margin: 0 auto 30px;
+            margin: 0 auto 35px;
+            animation: fadeIn 1s ease-out 0.3s both;
         }
         
         .btn {
             display: inline-block;
-            background-color: #FF9800;
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
             color: white;
-            padding: 15px 35px;
+            padding: 16px 40px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 15px rgba(245, 124, 0, 0.3);
+            animation: fadeIn 1s ease-out 0.6s both;
         }
         
         .btn:hover {
-            background-color: #F57C00;
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 20px rgba(245, 124, 0, 0.4);
+            background: linear-gradient(135deg, #F57C00 0%, #FF9800 100%);
         }
         
         /* Sección de oferta */
         .offer-section {
             padding: 80px 20px;
             text-align: center;
-            background-color: white;
-            margin: 40px 0;
+            background: white;
+            margin: 50px 0;
             border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .offer-section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .section-title {
             color: #2E7D32;
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             margin-bottom: 30px;
             position: relative;
             display: inline-block;
         }
         
-        .section-title:after {
+        .section-title::after {
             content: '';
             position: absolute;
             width: 70px;
             height: 4px;
-            background-color: #FF9800;
-            bottom: -10px;
+            background: linear-gradient(90deg, #FF9800, #4CAF50);
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 2px;
@@ -105,13 +140,18 @@
         }
         
         .purpose-box {
-            background-color: #E8F5E9;
+            background: linear-gradient(145deg, #E8F5E9 0%, #C8E6C9 100%);
             padding: 40px;
             border-radius: 15px;
             max-width: 900px;
             margin: 0 auto;
             text-align: left;
             border-left: 5px solid #4CAF50;
+            transition: transform 0.3s ease;
+        }
+        
+        .purpose-box:hover {
+            transform: translateY(-5px);
         }
         
         /* Sección de perfil */
@@ -121,22 +161,55 @@
             gap: 40px;
             align-items: center;
             margin: 60px 0;
-            padding: 40px;
-            background-color: white;
+            padding: 50px 40px;
+            background: white;
             border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .profile-section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .profile-img {
             flex: 1;
             min-width: 300px;
             text-align: center;
+            position: relative;
+        }
+        
+        .profile-img::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #4CAF50, #FF9800);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0.5;
+            animation: rotateColors 8s linear infinite;
+        }
+        
+        @keyframes rotateColors {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
         }
         
         .profile-img img {
             max-width: 100%;
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-img img:hover {
+            transform: scale(1.02);
         }
         
         .profile-info {
@@ -146,8 +219,12 @@
         
         .profile-name {
             color: #2E7D32;
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 10px;
+            background: linear-gradient(to right, #2E7D32, #4CAF50);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         
         .profile-title {
@@ -160,9 +237,35 @@
         .contact-info {
             margin-top: 30px;
             padding: 20px;
-            background-color: #F1F8E9;
+            background: #F1F8E9;
             border-radius: 10px;
             display: inline-block;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #4CAF50, #FF9800);
+            border-radius: 12px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .contact-info:hover::before {
+            opacity: 1;
+        }
+        
+        .contact-info:hover {
+            transform: translateY(-3px);
         }
         
         .contact-info i {
@@ -175,16 +278,21 @@
             font-size: 1.3rem;
             font-weight: bold;
             color: #2E7D32;
+            transition: transform 0.3s ease;
+        }
+        
+        .phone-number:hover {
+            transform: scale(1.05);
         }
         
         /* Footer */
         footer {
-            background-color: #2E7D32;
+            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
             color: white;
             text-align: center;
             padding: 30px 20px;
             margin-top: 60px;
-            border-radius: 20px 20px 0 0;
+            border-radius: 25px 25px 0 0;
         }
         
         .footer-text {
@@ -196,7 +304,7 @@
         /* Responsive */
         @media (max-width: 768px) {
             .main-title {
-                font-size: 2.2rem;
+                font-size: 2.3rem;
             }
             
             .profile-section {
@@ -213,13 +321,10 @@
     <!-- Header con título principal -->
     <header>
         <div class="container">
-            <!-- CAMBIAR: Título principal -->
             <h1 class="main-title">Mantené un estilo de vida saludable</h1>
             
-            <!-- CAMBIAR: Subtítulo o tagline -->
             <p class="tagline">Viví tu alimentación de una forma distinta, cambiando tus hábitos y mejorando tu estilo de vida sin renunciar al placer de comer rico!</p>
             
-            <!-- CAMBIAR: Texto del botón de llamado a la acción -->
             <a href="#contact" class="btn">COMENZÁ HOY</a>
         </div>
     </header>
@@ -227,17 +332,13 @@
     <main class="container">
         <!-- Sección de lo que ofrezco -->
         <section class="offer-section">
-            <!-- CAMBIAR: Título de la sección -->
             <h2 class="section-title">LO QUE TE OFREZCO</h2>
             
-            <!-- CAMBIAR: Texto introductorio de la oferta -->
             <p class="offer-text">Si te alimentás mejor, podes disfrutar de una vida saludable</p>
             
             <div class="purpose-box">
-                <!-- CAMBIAR: Descripción del propósito -->
                 <p>Mi propósito es acompañarte a transitar el proceso de cambio de hábitos de forma amigable y a desarrollar un vínculo sano con la comida y tu cuerpo.</p>
                 <br>
-                <!-- CAMBIAR: Descripción del enfoque personalizado -->
                 <p>Cada persona es diferente, por lo que adapto mi forma de trabajar al contexto, necesidades y objetivos de cada individuo, uniendo la ciencia, la experiencia y la cercanía para que te sientas acompañada (o) durante todo el proceso. Combinando el tratamiento dietético - nutricional y de estilo de vida con un aprendizaje que te permitirá adquirir las herramientas que necesitas para lograr y mantener tus objetivos para siempre.</p>
             </div>
         </section>
@@ -245,25 +346,19 @@
         <!-- Sección de perfil profesional -->
         <section class="profile-section">
             <div class="profile-img">
-                <!-- CAMBIAR: Imagen del profesional (reemplazar URL) -->
-                <img src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/c9c9034c485398e4ce0ae69ac28fa096~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=4b7ab61a&x-expires=1770166800&x-signature=ytnyj%2BcQFqgfC146DbzttA4Yy6Y%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=sg1" alt="Profesional de nutrición">
+                <img src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/c9c9034c485398e4ce0ae69ac28fa096~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=4b7ab61a&x-expires=1770166800&x-signature=ytnyj%2BcQFqgfC146DbzttA4Yy6Y%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=sg1" alt="Andrea Gomez - Licenciada en Nutrición">
             </div>
             
             <div class="profile-info">
-                <!-- CAMBIAR: Nombre del profesional -->
                 <h2 class="profile-name">Andrea Gomez</h2>
                 
-                <!-- CAMBIAR: Título profesional -->
                 <p class="profile-title">Licenciada en Nutrición</p>
                 
-                <!-- CAMBIAR: Descripción adicional (opcional) -->
                 <p>Especializada en cambios de hábitos alimenticios de forma sostenible y amigable. Mi enfoque se centra en crear planes personalizados que se adapten a tu estilo de vida, preferencias y objetivos de salud.</p>
                 
-                <!-- CAMBIAR: Información de contacto -->
                 <div class="contact-info" id="contact">
                     <h3>Más información sin compromiso</h3>
                     <p><i class="fas fa-phone-alt"></i> <span class="phone-number"> +595 971 316019</span></p>
-                    <!-- Añadir más información de contacto si es necesario -->
                 </div>
             </div>
         </section>
@@ -271,7 +366,6 @@
     
     <footer>
         <div class="container">
-            <!-- CAMBIAR: Información del pie de página -->
             <p></p>
             <p class="footer-text">Licenciada en nutricion</p>
         </div>
@@ -289,37 +383,28 @@
                 const targetElement = document.querySelector(targetId);
                 if(targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 20,
+                        top: targetElement.offsetTop - 100,
                         behavior: 'smooth'
                     });
                 }
             });
         });
         
-        // Animación simple para elementos al aparecer
-        const observerOptions = {
-            threshold: 0.1
-        };
-        
+        // Animación de aparición al hacer scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
         
-        // Aplicar animación a secciones principales
-        document.querySelectorAll('.offer-section, .profile-section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(20px)';
-            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(section);
-        });
+        // Observar las secciones para animarlas
+        const offerSection = document.querySelector('.offer-section');
+        const profileSection = document.querySelector('.profile-section');
+        
+        if(offerSection) observer.observe(offerSection);
+        if(profileSection) observer.observe(profileSection);
     </script>
 </body>
 </html>
-
-
-
