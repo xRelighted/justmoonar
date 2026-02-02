@@ -1,901 +1,322 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Moonar - Roblox Studio Animator</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html, body {
-      overflow: hidden;
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      touch-action: none;
-    }
-
-    /* FONDO ILUSTRADO VISIBLE */
-    .hu-tao-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      background-image: url('https://images.wallpapersden.com/image/download/genshin-impact-hu-tao-2023-art_bW5lZ2eUmZqaraWkpJRobWllrWdma2U.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      filter: brightness(0.85) contrast(1.1);
-    }
-
-    /* VENTANA FLOTANTE ARRASTRABLE */
-    .draggable-window {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(1);
-      width: 100%;
-      max-width: 900px;
-      background: rgba(25, 25, 35, 0.65); /* Más transparente */
-      backdrop-filter: blur(25px) saturate(180%);
-      -webkit-backdrop-filter: blur(25px) saturate(180%);
-      border-radius: 20px;
-      padding: 40px 35px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      cursor: grab;
-      transition: transform 0.15s cubic-bezier(0.18, 0.89, 0.32, 1.28),
-                  box-shadow 0.2s ease;
-      will-change: transform, left, top;
-      z-index: 100;
-      overflow: hidden;
-    }
-
-    /* Efecto al agarrar */
-    .draggable-window:active {
-      cursor: grabbing;
-      transform: translate(-50%, -50%) scale(1.01); /* Zoom mínimo */
-      box-shadow: 
-        0 25px 60px rgba(0, 0, 0, 0.7), /* Sombra más intensa */
-        0 0 30px rgba(255, 100, 100, 0.1);
-    }
-
-    /* Contorno luminoso */
-    .draggable-window::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 20px;
-      padding: 1px;
-      background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.08),
-        rgba(255, 255, 255, 0.04),
-        rgba(255, 255, 255, 0.02)
-      );
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-    }
-
-    /* Áreas no arrastrables */
-    .no-drag, .no-drag * {
-      cursor: default !important;
-      user-select: text !important;
-      -webkit-user-select: text !important;
-    }
-
-    .btn, button, a {
-      cursor: pointer !important;
-    }
-
-    /* Contenido dentro de la ventana */
-    .window-content {
-      pointer-events: auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: transparent;
-      color: #FFFFFF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      overflow: hidden;
-      padding: 20px;
-      opacity: 0;
-      animation: fadeInBody 0.8s ease 1s forwards;
-      position: relative;
-      touch-action: none;
-    }
-    
-    @keyframes fadeInBody {
-      to { opacity: 1; }
-    }
-    
-    /* Puertas de entrada */
-    .door-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1000;
-      display: flex;
-      pointer-events: none;
-    }
-    
-    .door {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(5px);
-      transform: scaleY(1);
-      transform-origin: top;
-      animation: doorOpen 0.8s ease 1s forwards;
-    }
-    
-    .door-left {
-      transform-origin: left;
-      animation: doorOpenLeft 0.8s ease 1s forwards;
-    }
-    
-    .door-right {
-      transform-origin: right;
-      animation: doorOpenRight 0.8s ease 1s forwards;
-    }
-    
-    @keyframes doorOpenLeft {
-      0% { transform: scaleX(1); }
-      100% { transform: scaleX(0); }
-    }
-    
-    @keyframes doorOpenRight {
-      0% { transform: scaleX(1); }
-      100% { transform: scaleX(0); }
-    }
-    
-    header {
-      text-align: center;
-      padding: 20px 0 30px;
-      max-width: 800px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slideUpFade 0.8s ease 1s forwards;
-      margin: 0 auto;
-    }
-    
-    @keyframes slideUpFade {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    header h1 {
-      font-size: 3.5rem;
-      margin-bottom: 10px;
-      background: linear-gradient(90deg, #FFFFFF, #FF9999, #FFFFFF);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient 4s ease infinite;
-      text-shadow: 0 2px 15px rgba(255, 150, 150, 0.3);
-      letter-spacing: 1px;
-      font-weight: 700;
-    }
-    
-    @keyframes gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    
-    header p {
-      font-size: 1.3rem;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 20px;
-      font-weight: 300;
-      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-    }
-    
-    .description {
-      background: rgba(40, 40, 50, 0.4);
-      backdrop-filter: blur(15px);
-      border-radius: 16px;
-      padding: 25px;
-      margin: 20px auto 40px;
-      max-width: 800px;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slideUpFade 0.8s ease 1.2s forwards;
-    }
-    
-    .description h2 {
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      color: #FFFFFF;
-      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-      font-weight: 500;
-    }
-    
-    .description p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.85);
-    }
-    
-    .buttons {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 20px;
-      margin-bottom: 40px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slideUpFade 0.8s ease 1.4s forwards;
-    }
-    
-    .btn {
-      padding: 14px 32px;
-      background: rgba(50, 50, 60, 0.5);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      color: #FFFFFF;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 
-        0 8px 20px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 100, 100, 0.15), transparent);
-      transition: all 0.8s ease;
-    }
-    
-    .btn:hover {
-      background: rgba(70, 70, 80, 0.6);
-      border-color: rgba(255, 150, 150, 0.25);
-      box-shadow: 
-        0 12px 25px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
-    }
-    
-    .btn:hover::before {
-      left: 100%;
-    }
-    
-    .btn-animations {
-      background: rgba(60, 40, 50, 0.5);
-      border-color: rgba(255, 120, 120, 0.25);
-    }
-    
-    .btn-animations:hover {
-      background: rgba(80, 50, 60, 0.6);
-      border-color: rgba(255, 140, 140, 0.35);
-    }
-    
-    .btn-prices {
-      background: rgba(50, 40, 60, 0.5);
-      border-color: rgba(200, 100, 150, 0.25);
-    }
-    
-    .btn-prices:hover {
-      background: rgba(70, 50, 80, 0.6);
-      border-color: rgba(220, 120, 170, 0.35);
-    }
-    
-    /* Modal de precios */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(15px);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-    
-    .modal.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-    
-    .modal-content {
-      background: rgba(30, 30, 40, 0.8);
-      backdrop-filter: blur(30px) saturate(180%);
-      border-radius: 18px;
-      padding: 30px;
-      max-width: 500px;
-      width: 90%;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      position: relative;
-      transform: scale(0.9) translateY(-20px);
-      opacity: 0;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    
-    .modal.active .modal-content {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-    
-    .close-modal {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 1.5rem;
-      color: rgba(255, 255, 255, 0.7);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
-    }
-    
-    .close-modal:hover {
-      color: #FFFFFF;
-      transform: rotate(90deg);
-      background: rgba(255, 255, 255, 0.1);
-    }
-    
-    .modal h2 {
-      text-align: center;
-      margin-bottom: 25px;
-      color: #FFFFFF;
-      font-size: 1.8rem;
-      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-      font-weight: 500;
-    }
-    
-    .price-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    
-    .price-item {
-      background: rgba(50, 50, 60, 0.5);
-      backdrop-filter: blur(10px);
-      border-radius: 10px;
-      padding: 20px;
-      border-left: 3px solid rgba(255, 120, 120, 0.5);
-      transform: translateX(-20px);
-      opacity: 0;
-      transition: all 0.4s ease;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-    
-    .modal.active .price-item:nth-child(1) {
-      animation: slideInRight 0.5s ease 0.2s forwards;
-    }
-    
-    .modal.active .price-item:nth-child(2) {
-      animation: slideInRight 0.5s ease 0.4s forwards;
-    }
-    
-    @keyframes slideInRight {
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-    
-    .price-item h3 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-      color: #FFFFFF;
-      font-weight: 500;
-    }
-    
-    .price-item p {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.8);
-      font-weight: 400;
-    }
-    
-    .modal-note {
-      margin-top: 20px;
-      text-align: center;
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.6);
-      font-style: italic;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.4s ease 0.6s;
-    }
-    
-    .modal.active .modal-note {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.9rem;
-      padding-bottom: 20px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slideUpFade 0.8s ease 1.6s forwards;
-    }
-    
-    .discord {
-      margin-top: 10px;
-      color: #FFFFFF;
-      font-weight: 600;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: all 0.4s ease;
-      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-    }
-    
-    .discord:hover {
-      transform: scale(1.05);
-      color: #FFCCCC;
-    }
-    
-    .discord-icon {
-      width: 26px;
-      height: 26px;
-      fill: #FFFFFF;
-      transition: all 0.4s ease;
-      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
-    }
-    
-    .discord:hover .discord-icon {
-      transform: rotate(10deg) scale(1.2);
-      fill: #FFCCCC;
-    }
-    
-    .publisher-note {
-      margin-top: 10px;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.9rem;
-      font-style: italic;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.8rem;
-      }
-      
-      header p {
-        font-size: 1.1rem;
-      }
-      
-      .description h2 {
-        font-size: 1.6rem;
-      }
-      
-      .description p {
-        font-size: 1rem;
-      }
-      
-      .btn {
-        padding: 12px 24px;
-        font-size: 1rem;
-      }
-      
-      .modal-content {
-        padding: 25px;
-      }
-      
-      .draggable-window {
-        padding: 35px 25px;
-        border-radius: 18px;
-        max-width: 95%;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-      
-      .buttons {
-        flex-direction: column;
-        width: 100%;
-        max-width: 300px;
-      }
-      
-      .btn {
-        width: 100%;
-        justify-content: center;
-      }
-      
-      .draggable-window {
-        padding: 30px 20px;
-        border-radius: 16px;
-      }
-      
-      /* En móviles, limitar el arrastre para no perder la ventana */
-      .draggable-window {
-        max-width: 90%;
-        touch-action: none;
-      }
-    }
-
-    /* Deshabilitar zoom y scroll en toda la página */
-    @media (hover: none) and (pointer: coarse) {
-      body {
-        touch-action: none;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrición Amigable - Tania León</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #FF9800;
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            background-color: #F57C00;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Sección de oferta */
+        .offer-section {
+            padding: 80px 20px;
+            text-align: center;
+            background-color: white;
+            margin: 40px 0;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            color: #2E7D32;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background-color: #FF9800;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .offer-text {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            color: #555;
+        }
+        
+        .purpose-box {
+            background-color: #E8F5E9;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+            border-left: 5px solid #4CAF50;
+        }
+        
+        /* Sección de perfil */
+        .profile-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            margin: 60px 0;
+            padding: 40px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .profile-img {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .profile-img img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-info {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .profile-name {
+            color: #2E7D32;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .profile-title {
+            color: #FF9800;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        
+        .contact-info {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #F1F8E9;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        .contact-info i {
+            color: #4CAF50;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .phone-number {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2E7D32;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2E7D32;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .profile-section {
+                padding: 30px 20px;
+            }
+            
+            .purpose-box {
+                padding: 25px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Fondo ilustrado -->
-  <div class="hu-tao-background"></div>
-  
-  <!-- Puertas de entrada -->
-  <div class="door-overlay">
-    <div class="door door-left"></div>
-    <div class="door door-right"></div>
-  </div>
-  
-  <!-- VENTANA ARRASTRABLE -->
-  <div class="draggable-window" id="draggableWindow">
-    <div class="window-content">
-      <header>
-        <h1>Moonar</h1>
-        <p>@just_moonar</p>
-      </header>
-      
-      <section class="description">
-        <h2>Roblox Studio Animator</h2>
-        <p>I'm Moonar, a Roblox Studio animator. I use Blender and Moon Animator. DM me for more info.</p>
-      </section>
-
-      <div class="buttons">
-        <a href="https://discord.gg/KEApvz9Cew" target="_blank" class="btn btn-animations no-drag">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <circle cx="11.5" cy="14.5" r="2.5"></circle>
-            <path d="M13.25 16.25 15 18"></path>
-          </svg>
-          Animations
-        </a>
-        <button id="pricesBtn" class="btn btn-prices no-drag">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="1" x2="12" y2="23"></line>
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-          </svg>
-          Prices
-        </button>
-      </div>
-      
-      <footer class="no-drag">
-        <p>discord:</p>
-        <div class="discord">
-          <svg class="discord-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36">
-            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
-          </svg>
-          just_moonar
+    <!-- Header con título principal -->
+    <header>
+        <div class="container">
+            <!-- CAMBIAR: Título principal -->
+            <h1 class="main-title">Mantené un estilo de vida AMIGABLE</h1>
+            
+            <!-- CAMBIAR: Subtítulo o tagline -->
+            <p class="tagline">Viví tu alimentación de una forma distinta, cambiando tus hábitos y mejorando tu estilo de vida sin renunciar al placer de comer rico!</p>
+            
+            <!-- CAMBIAR: Texto del botón de llamado a la acción -->
+            <a href="#contact" class="btn">COMENZÁ HOY</a>
         </div>
-        <p class="publisher-note"> </p>
-      </footer>
-    </div>
-  </div>
-  
-  <!-- Modal de precios -->
-  <div id="pricesModal" class="modal">
-    <div class="modal-content">
-      <span class="close-modal">&times;</span>
-      <h2>Animations Prices</h2>
-      <div class="price-list">
-        <div class="price-item">
-          <h3>Rig Animation</h3>
-          <p>Negotiable via DM</p>
+    </header>
+    
+    <main class="container">
+        <!-- Sección de lo que ofrezco -->
+        <section class="offer-section">
+            <!-- CAMBIAR: Título de la sección -->
+            <h2 class="section-title">LO QUE TE OFREZCO</h2>
+            
+            <!-- CAMBIAR: Texto introductorio de la oferta -->
+            <p class="offer-text">Si te alimentás mejor, podes disfrutar de una vida saludable</p>
+            
+            <div class="purpose-box">
+                <!-- CAMBIAR: Descripción del propósito -->
+                <p>Mi propósito es acompañarte a transitar el proceso de cambio de hábitos de forma amigable y a desarrollar un vínculo sano con la comida y tu cuerpo.</p>
+                <br>
+                <!-- CAMBIAR: Descripción del enfoque personalizado -->
+                <p>Cada persona es diferente, por lo que adapto mi forma de trabajar al contexto, necesidades y objetivos de cada individuo, uniendo la ciencia, la experiencia y la cercanía para que te sientas acompañada (o) durante todo el proceso. Combinando el tratamiento dietético - nutricional y de estilo de vida con un aprendizaje que te permitirá adquirir las herramientas que necesitas para lograr y mantener tus objetivos para siempre.</p>
+            </div>
+        </section>
+        
+        <!-- Sección de perfil profesional -->
+        <section class="profile-section">
+            <div class="profile-img">
+                <!-- CAMBIAR: Imagen del profesional (reemplazar URL) -->
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Profesional de nutrición">
+            </div>
+            
+            <div class="profile-info">
+                <!-- CAMBIAR: Nombre del profesional -->
+                <h2 class="profile-name">Tania León</h2>
+                
+                <!-- CAMBIAR: Título profesional -->
+                <p class="profile-title">Licenciada en Nutrición</p>
+                
+                <!-- CAMBIAR: Descripción adicional (opcional) -->
+                <p>Especializada en cambios de hábitos alimenticios de forma sostenible y amigable. Mi enfoque se centra en crear planes personalizados que se adapten a tu estilo de vida, preferencias y objetivos de salud.</p>
+                
+                <!-- CAMBIAR: Información de contacto -->
+                <div class="contact-info" id="contact">
+                    <h3>Más información sin compromiso</h3>
+                    <p><i class="fas fa-phone-alt"></i> <span class="phone-number">📞 +595 971 693 166</span></p>
+                    <!-- Añadir más información de contacto si es necesario -->
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <!-- CAMBIAR: Información del pie de página -->
+            <p>© 2023 Nutrición Amigable. Todos los derechos reservados.</p>
+            <p class="footer-text">Consultoría nutricional personalizada para un estilo de vida saludable y equilibrado.</p>
         </div>
-        <div class="price-item">
-          <h3>Animation with 2 rigs or cinematic animation</h3>
-          <p>Negotiable via DM</p>
-        </div>
-      </div>
-      <p class="modal-note">* Prices may vary depending on the complexity of the project.</p>
-    </div>
-  </div>
-
-  <script>
-    // ========== SISTEMA DE ARRASTRE CON INERCIA ==========
-    class DraggableWindow {
-      constructor(element) {
-        this.window = element;
-        this.isDragging = false;
-        this.currentX = 0;
-        this.currentY = 0;
-        this.initialX = 0;
-        this.initialY = 0;
-        this.velocityX = 0;
-        this.velocityY = 0;
-        this.lastX = 0;
-        this.lastY = 0;
-        this.timestamp = 0;
-        this.animationId = null;
-        
-        // Posición inicial centrada
-        this.window.style.left = '50%';
-        this.window.style.top = '50%';
-        
-        this.bindEvents();
-        this.startInertiaLoop();
-      }
-      
-      bindEvents() {
-        // Solo arrastrar desde áreas no marcadas como no-drag
-        this.window.addEventListener('mousedown', this.startDrag.bind(this));
-        this.window.addEventListener('touchstart', this.startDrag.bind(this), { passive: false });
-        
-        document.addEventListener('mousemove', this.drag.bind(this));
-        document.addEventListener('touchmove', this.drag.bind(this), { passive: false });
-        
-        document.addEventListener('mouseup', this.stopDrag.bind(this));
-        document.addEventListener('touchend', this.stopDrag.bind(this));
-        
-        // Prevenir arrastre desde botones
-        document.querySelectorAll('.no-drag, .btn, button, a').forEach(el => {
-          el.addEventListener('mousedown', e => e.stopPropagation());
-          el.addEventListener('touchstart', e => e.stopPropagation());
+    </footer>
+    
+    <script>
+        // Suavizar el desplazamiento al hacer clic en enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
-      }
-      
-      startDrag(e) {
-        // No arrastrar si se hace clic en un botón o enlace
-        if (e.target.closest('.no-drag') || e.target.closest('.btn') || 
-            e.target.closest('button') || e.target.closest('a') || 
-            e.target.closest('.close-modal')) {
-          return;
-        }
         
-        this.isDragging = true;
-        this.window.style.cursor = 'grabbing';
-        this.window.classList.add('dragging');
-        
-        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-        const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
-        
-        // Obtener posición actual de la ventana
-        const rect = this.window.getBoundingClientRect();
-        this.initialX = clientX - rect.left;
-        this.initialY = clientY - rect.top;
-        
-        // Resetear velocidad
-        this.velocityX = 0;
-        this.velocityY = 0;
-        this.lastX = clientX;
-        this.lastY = clientY;
-        this.timestamp = Date.now();
-        
-        e.preventDefault();
-      }
-      
-      drag(e) {
-        if (!this.isDragging) return;
-        
-        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-        const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
-        
-        // Calcular nueva posición
-        const newX = clientX - this.initialX;
-        const newY = clientY - this.initialY;
-        
-        // Calcular velocidad (para inercia)
-        const now = Date.now();
-        const deltaTime = now - this.timestamp;
-        
-        if (deltaTime > 0) {
-          this.velocityX = (clientX - this.lastX) / deltaTime * 16;
-          this.velocityY = (clientY - this.lastY) / deltaTime * 16;
-        }
-        
-        this.lastX = clientX;
-        this.lastY = clientY;
-        this.timestamp = now;
-        
-        // Aplicar posición
-        this.window.style.left = newX + 'px';
-        this.window.style.top = newY + 'px';
-        this.window.style.transform = 'translate(0, 0) scale(1.01)';
-        
-        e.preventDefault();
-      }
-      
-      stopDrag() {
-        if (!this.isDragging) return;
-        
-        this.isDragging = false;
-        this.window.style.cursor = 'grab';
-        this.window.classList.remove('dragging');
-        this.window.style.transform = 'translate(0, 0) scale(1)';
-        
-        // Aplicar inercia
-        this.applyInertia();
-      }
-      
-      applyInertia() {
-        const inertiaStrength = 0.92; // Suavidad de la inercia
-        const minVelocity = 0.1;
-        
-        const applyInertiaFrame = () => {
-          if (Math.abs(this.velocityX) < minVelocity && Math.abs(this.velocityY) < minVelocity) {
-            this.velocityX = 0;
-            this.velocityY = 0;
-            return;
-          }
-          
-          // Aplicar velocidad actual
-          const rect = this.window.getBoundingClientRect();
-          const newX = rect.left + this.velocityX;
-          const newY = rect.top + this.velocityY;
-          
-          // Mantener dentro de los límites de la pantalla (opcional)
-          const boundedX = Math.max(0, Math.min(window.innerWidth - rect.width, newX));
-          const boundedY = Math.max(0, Math.min(window.innerHeight - rect.height, newY));
-          
-          this.window.style.left = boundedX + 'px';
-          this.window.style.top = boundedY + 'px';
-          
-          // Reducir velocidad gradualmente
-          this.velocityX *= inertiaStrength;
-          this.velocityY *= inertiaStrength;
-          
-          // Continuar animación
-          this.animationId = requestAnimationFrame(applyInertiaFrame);
+        // Animación simple para elementos al aparecer
+        const observerOptions = {
+            threshold: 0.1
         };
         
-        // Iniciar loop de inercia
-        this.animationId = requestAnimationFrame(applyInertiaFrame);
-      }
-      
-      startInertiaLoop() {
-        // Loop para suavizar movimientos
-        const smoothLoop = () => {
-          // Aquí podríamos agregar más efectos de smooth
-          requestAnimationFrame(smoothLoop);
-        };
-        smoothLoop();
-      }
-    }
-
-    // ========== INICIALIZAR ARRASTRE ==========
-    document.addEventListener('DOMContentLoaded', () => {
-      const draggableWindow = new DraggableWindow(document.getElementById('draggableWindow'));
-      
-      // ========== MODAL DE PRECIOS ==========
-      const pricesBtn = document.getElementById('pricesBtn');
-      const pricesModal = document.getElementById('pricesModal');
-      const closeModal = document.querySelector('.close-modal');
-      
-      pricesBtn.addEventListener('click', () => {
-        pricesModal.style.display = 'flex';
-        setTimeout(() => {
-          pricesModal.classList.add('active');
-        }, 10);
-      });
-      
-      closeModal.addEventListener('click', () => {
-        pricesModal.classList.remove('active');
-        setTimeout(() => {
-          pricesModal.style.display = 'none';
-        }, 400);
-      });
-      
-      window.addEventListener('click', (event) => {
-        if (event.target === pricesModal) {
-          pricesModal.classList.remove('active');
-          setTimeout(() => {
-            pricesModal.style.display = 'none';
-          }, 400);
-        }
-      });
-      
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-          pricesModal.classList.remove('active');
-          setTimeout(() => {
-            pricesModal.style.display = 'none';
-          }, 400);
-        }
-      });
-      
-      // ========== REMOVER PUERTAS ==========
-      setTimeout(() => {
-        document.querySelector('.door-overlay').style.display = 'none';
-      }, 2000);
-      
-      // ========== PREVENIR ZOOM Y SCROLL ==========
-      document.addEventListener('wheel', (e) => {
-        if (e.ctrlKey) {
-          e.preventDefault();
-          return false;
-        }
-      }, { passive: false });
-      
-      document.addEventListener('touchmove', (e) => {
-        if (e.scale !== 1) {
-          e.preventDefault();
-        }
-      }, { passive: false });
-      
-      document.addEventListener('gesturestart', (e) => {
-        e.preventDefault();
-      });
-      
-      document.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-      });
-      
-      // Deshabilitar selección de texto en toda la página excepto donde sea necesario
-      document.addEventListener('selectstart', (e) => {
-        if (!e.target.closest('.no-drag')) {
-          e.preventDefault();
-        }
-      });
-    });
-  </script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Aplicar animación a secciones principales
+        document.querySelectorAll('.offer-section, .profile-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
