@@ -182,7 +182,7 @@
             }
         }
         
-        /* Botón con ANIMACIÓN EN BUCLE y efecto smooth mejorado */
+        /* Botón con ANIMACIÓN EN BUCLE y efecto smooth mejorado - AHORA VISIBLE */
         .btn {
             display: inline-block;
             background-color: var(--accent-color);
@@ -202,6 +202,7 @@
             animation: popIn 0.8s 1.3s forwards;
             position: relative;
             overflow: hidden;
+            z-index: 10;
         }
         
         /* ANIMACIÓN EN BUCLE para el botón */
@@ -703,7 +704,7 @@
             50% { transform: scale(1.15); }
         }
         
-        /* Footer */
+        /* Footer mejorado con ubicación */
         footer {
             text-align: center;
             padding: 50px 20px;
@@ -739,6 +740,13 @@
             transform: scaleX(1);
         }
         
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
         .footer-text {
             font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.8);
@@ -753,6 +761,46 @@
         footer.animated .footer-text {
             opacity: 1;
             transform: translateY(0);
+        }
+        
+        .location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.9s 1s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.9s 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        footer.animated .location {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .location i {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            animation: locationPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes locationPulse {
+            0%, 100% {
+                transform: scale(1);
+                color: var(--accent-color);
+            }
+            50% {
+                transform: scale(1.2);
+                color: #ffffff;
+            }
+        }
+        
+        .location-text {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
         }
         
         /* Efecto de partículas sutiles EN BUCLE */
@@ -813,11 +861,6 @@
             background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
             z-index: 10000;
             transition: width 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        /* Clase para animaciones smooth de scroll */
-        .scroll-smooth {
-            scroll-behavior: smooth;
         }
         
         /* Indicador visual de scroll suave */
@@ -887,7 +930,8 @@
                 
                 <p class="tagline">Viví tu alimentación de una forma distinta, cambiando tus hábitos y mejorando tu estilo de vida sin renunciar al placer de comer rico!</p>
                 
-                <a href="#oferta" class="btn" id="smoothScrollBtn">COMENZÁ HOY</a>
+                <!-- Botón COMENZÁ HOY ahora visible y con enlace -->
+                <a href="https://justmoonar.vercel.app/#oferta" class="btn" id="smoothScrollBtn" target="_blank">COMENZÁ HOY</a>
             </div>
         </div>
         
@@ -940,7 +984,13 @@
     
     <footer>
         <div class="container">
-            <p class="footer-text">Licenciada en nutrición</p>
+            <div class="footer-content">
+                <p class="footer-text">Licenciada en nutrición</p>
+                <div class="location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="location-text">Asunción, Paraguay</span>
+                </div>
+            </div>
         </div>
     </footer>
     
@@ -1006,6 +1056,9 @@
         // Aplicar scroll suave a todos los enlaces internos
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
+                // Si el enlace tiene target="_blank", no hacer scroll suave
+                if (this.getAttribute('target') === '_blank') return;
+                
                 e.preventDefault();
                 
                 const targetId = this.getAttribute('href');
