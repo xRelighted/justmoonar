@@ -3,25 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortnite Pro - Plataforma de Gaming</title>
+    <title>2b3 - Cuando el Código Duele</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Press+Start+2P&family=Source+Code+Pro&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #00ccff;
-            --secondary-color: #ff66c4;
-            --accent-color: #9d4edd;
-            --dark-bg: #0a0a12;
-            --darker-bg: #05050a;
-            --card-bg: #151522;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0d0;
-            --hover-color: #252538;
-            --border-color: #2a2a3a;
-            --success-color: #00ff88;
-            --warning-color: #ffaa00;
-            --epic-color: #cba6f7;
-            --legendary-color: #ffcc00;
+            --linux-purple: #77216F;
+            --terminal-green: #00FF00;
+            --error-red: #FF5555;
+            --warning-yellow: #FFAA00;
+            --bg-dark: #0a0a0a;
+            --bg-darker: #050505;
+            --glitch-blue: #00AAFF;
+            --glitch-pink: #FF00AA;
         }
         
         * {
@@ -31,1265 +25,1006 @@
         }
         
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--darker-bg);
-            color: var(--text-primary);
+            font-family: 'Comic Neue', cursive;
+            background-color: var(--bg-dark);
+            color: #fff;
             line-height: 1.6;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(157, 78, 221, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 80% 70%, rgba(0, 204, 255, 0.1) 0%, transparent 20%);
+                radial-gradient(circle at 10% 20%, rgba(119, 33, 111, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 85, 85, 0.1) 0%, transparent 20%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.3) 3px, transparent 3px);
+        }
+        
+        /* Efecto de terminal parpadeante */
+        .cursor-blink {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        /* Efecto glitch */
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 var(--glitch-blue);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 var(--glitch-pink);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 1s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            5% { clip: rect(12px, 9999px, 59px, 0); }
+            10% { clip: rect(48px, 9999px, 29px, 0); }
+            15% { clip: rect(42px, 9999px, 73px, 0); }
+            20% { clip: rect(63px, 9999px, 27px, 0); }
+            25% { clip: rect(34px, 9999px, 55px, 0); }
+            30% { clip: rect(86px, 9999px, 73px, 0); }
+            35% { clip: rect(20px, 9999px, 20px, 0); }
+            40% { clip: rect(26px, 9999px, 60px, 0); }
+            45% { clip: rect(25px, 9999px, 66px, 0); }
+            50% { clip: rect(57px, 9999px, 98px, 0); }
+            55% { clip: rect(5px, 9999px, 46px, 0); }
+            60% { clip: rect(82px, 9999px, 31px, 0); }
+            65% { clip: rect(54px, 9999px, 27px, 0); }
+            70% { clip: rect(28px, 9999px, 99px, 0); }
+            75% { clip: rect(45px, 9999px, 69px, 0); }
+            80% { clip: rect(23px, 9999px, 85px, 0); }
+            85% { clip: rect(54px, 9999px, 84px, 0); }
+            90% { clip: rect(45px, 9999px, 47px, 0); }
+            95% { clip: rect(37px, 9999px, 20px, 0); }
+            100% { clip: rect(4px, 9999px, 91px, 0); }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(52px, 9999px, 74px, 0); }
+            10% { clip: rect(79px, 9999px, 85px, 0); }
+            15% { clip: rect(75px, 9999px, 5px, 0); }
+            20% { clip: rect(67px, 9999px, 61px, 0); }
+            25% { clip: rect(14px, 9999px, 79px, 0); }
+            30% { clip: rect(1px, 9999px, 66px, 0); }
+            35% { clip: rect(86px, 9999px, 30px, 0); }
+            40% { clip: rect(23px, 9999px, 98px, 0); }
+            45% { clip: rect(85px, 9999px, 72px, 0); }
+            50% { clip: rect(71px, 9999px, 75px, 0); }
+            55% { clip: rect(2px, 9999px, 48px, 0); }
+            60% { clip: rect(30px, 9999px, 16px, 0); }
+            65% { clip: rect(59px, 9999px, 50px, 0); }
+            70% { clip: rect(41px, 9999px, 62px, 0); }
+            75% { clip: rect(2px, 9999px, 82px, 0); }
+            80% { clip: rect(47px, 9999px, 73px, 0); }
+            85% { clip: rect(3px, 9999px, 27px, 0); }
+            90% { clip: rect(40px, 9999px, 86px, 0); }
+            95% { clip: rect(45px, 9999px, 72px, 0); }
+            100% { clip: rect(23px, 9999px, 49px, 0); }
         }
         
         /* Header */
         .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(10, 10, 18, 0.95);
-            padding: 0 20px;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 1000;
-            border-bottom: 2px solid var(--border-color);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(90deg, var(--bg-darker) 0%, var(--linux-purple) 50%, var(--error-red) 100%);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 5px dashed var(--terminal-green);
+            position: relative;
+            overflow: hidden;
         }
         
-        .header-left, .header-center, .header-right {
-            display: flex;
-            align-items: center;
+        .header::before {
+            content: "ERROR ERROR ERROR";
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            color: rgba(255, 85, 85, 0.1);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            animation: scroll-left 30s linear infinite;
+        }
+        
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
         
         .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            text-decoration: none;
-            margin-right: 30px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.5rem;
+            position: relative;
+            z-index: 1;
         }
         
         .logo span {
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--terminal-green);
         }
         
-        .logo-icon {
-            color: var(--primary-color);
-            margin-right: 10px;
-            font-size: 2rem;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-        
-        .nav-link {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 8px 0;
-            position: relative;
-            transition: color 0.3s;
-        }
-        
-        .nav-link:hover, .nav-link.active {
-            color: var(--primary-color);
-        }
-        
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            border-radius: 2px;
-        }
-        
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .action-button {
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .action-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 204, 255, 0.3);
-        }
-        
-        .v-bucks {
-            display: flex;
-            align-items: center;
-            background-color: var(--card-bg);
-            padding: 8px 15px;
-            border-radius: 30px;
-            font-weight: 700;
-        }
-        
-        .v-bucks i {
-            color: gold;
-            margin-right: 8px;
-        }
-        
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            cursor: pointer;
-            border: 2px solid var(--primary-color);
-        }
-        
-        /* Hero Section */
-        .hero-section {
-            margin-top: 70px;
-            padding: 40px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-        
-        .hero-text h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .hero-text p {
+        .tagline {
             font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            max-width: 500px;
+            margin-top: 10px;
+            color: var(--warning-yellow);
+            font-style: italic;
         }
         
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .play-button {
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            color: white;
-            border: none;
-            padding: 15px 30px;
+        /* Terminal */
+        .terminal-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: var(--bg-darker);
             border-radius: 10px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .play-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 204, 255, 0.3);
-        }
-        
-        .secondary-button {
-            background-color: transparent;
-            color: var(--text-primary);
-            border: 2px solid var(--border-color);
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-        }
-        
-        .secondary-button:hover {
-            background-color: var(--hover-color);
-            border-color: var(--primary-color);
-        }
-        
-        .hero-stats {
-            display: flex;
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            line-height: 1;
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-top: 5px;
-        }
-        
-        .hero-image {
-            position: relative;
-            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            border: 2px solid var(--border-color);
-        }
-        
-        .hero-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        /* Main Content */
-        .main-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 60px;
-        }
-        
-        /* Sections */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            margin-top: 60px;
-        }
-        
-        .section-title {
-            font-size: 2rem;
-            font-weight: 800;
+            box-shadow: 0 0 40px rgba(0, 255, 0, 0.2);
+            border: 3px solid var(--terminal-green);
             position: relative;
-            display: inline-block;
         }
         
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            border-radius: 2px;
-        }
-        
-        .view-all {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
+        .terminal-header {
+            background: linear-gradient(90deg, #333, #555);
+            padding: 10px 20px;
             display: flex;
             align-items: center;
+            border-bottom: 2px solid var(--terminal-green);
+        }
+        
+        .terminal-buttons {
+            display: flex;
             gap: 8px;
         }
         
-        .view-all:hover {
-            text-decoration: underline;
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
         }
         
-        /* Battle Pass Section */
-        .battle-pass {
-            background: linear-gradient(135deg, var(--card-bg), #1a1a2e);
+        .close { background-color: #FF5F56; }
+        .minimize { background-color: #FFBD2E; }
+        .maximize { background-color: #27C93F; }
+        
+        .terminal-title {
+            margin-left: 20px;
+            font-family: 'Source Code Pro', monospace;
+            color: var(--terminal-green);
+            flex-grow: 1;
+        }
+        
+        .terminal-body {
+            padding: 20px;
+            font-family: 'Source Code Pro', monospace;
+            height: 300px;
+            overflow-y: auto;
+        }
+        
+        .terminal-line {
+            margin-bottom: 10px;
+        }
+        
+        .prompt {
+            color: var(--terminal-green);
+        }
+        
+        .command {
+            color: white;
+        }
+        
+        .output {
+            color: var(--warning-yellow);
+        }
+        
+        .error {
+            color: var(--error-red);
+            animation: error-shake 0.5s;
+        }
+        
+        @keyframes error-shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        /* Main content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .section {
+            background-color: rgba(30, 30, 30, 0.8);
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 40px;
-            border: 1px solid var(--border-color);
+            border: 2px dashed var(--linux-purple);
             position: relative;
             overflow: hidden;
         }
         
-        .battle-pass::before {
-            content: '';
+        .section::before {
+            content: "";
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, transparent, rgba(119, 33, 111, 0.1), transparent);
+            z-index: -1;
         }
         
-        .bp-header {
+        .section-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--terminal-green);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            gap: 15px;
         }
         
-        .bp-title {
-            font-size: 1.8rem;
-            font-weight: 800;
+        .section-title i {
+            color: var(--warning-yellow);
         }
         
-        .bp-season {
-            background-color: var(--primary-color);
-            color: var(--dark-bg);
-            padding: 5px 15px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-        
-        .bp-progress {
-            margin-bottom: 30px;
-        }
-        
-        .bp-level {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        
-        .bp-level span {
-            font-weight: 600;
-        }
-        
-        .bp-progress-bar {
-            height: 12px;
-            background-color: var(--border-color);
-            border-radius: 6px;
-            overflow: hidden;
-        }
-        
-        .bp-progress-fill {
-            height: 100%;
-            width: 65%;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            border-radius: 6px;
-        }
-        
-        .bp-rewards {
+        /* Sobre Diego */
+        .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            align-items: center;
         }
         
-        .bp-reward {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 15px;
+        .avatar {
             text-align: center;
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s;
         }
         
-        .bp-reward:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-        }
-        
-        .reward-image {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 15px;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: var(--darker-bg);
+        .avatar-img {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, var(--linux-purple), var(--error-red));
+            border-radius: 50%;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid var(--border-color);
+            font-size: 5rem;
+            color: white;
+            border: 5px solid var(--terminal-green);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+            animation: rotate 20s linear infinite;
         }
         
-        .reward-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
-        .reward-name {
-            font-weight: 600;
-            margin-bottom: 5px;
+        .avatar h3 {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--warning-yellow);
+            margin-top: 15px;
         }
         
-        .reward-level {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-        
-        /* Shop Grid */
-        .shop-grid {
+        .facts {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
         
-        .shop-item {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
+        .fact {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid var(--error-red);
         }
         
-        .shop-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border-color: var(--primary-color);
+        .fact i {
+            color: var(--terminal-green);
+            margin-right: 10px;
         }
         
-        .item-image {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .item-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .shop-item:hover .item-image img {
-            transform: scale(1.1);
-        }
-        
-        .item-info {
-            padding: 20px;
-        }
-        
-        .item-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        
-        .item-description {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        
-        .item-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .item-rarity {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-        
-        .rarity-epic {
-            background-color: rgba(157, 78, 221, 0.2);
-            color: var(--epic-color);
-            border: 1px solid var(--epic-color);
-        }
-        
-        .rarity-legendary {
-            background-color: rgba(255, 204, 0, 0.2);
-            color: var(--legendary-color);
-            border: 1px solid var(--legendary-color);
-        }
-        
-        .rarity-rare {
-            background-color: rgba(0, 204, 255, 0.2);
-            color: var(--primary-color);
-            border: 1px solid var(--primary-color);
-        }
-        
-        .item-price {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        
-        .item-price i {
-            color: gold;
-        }
-        
-        /* Challenges */
-        .challenges-grid {
+        /* Skills (anti-skills) */
+        .skills-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
         
-        .challenge-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
+        .skill-category {
+            background-color: rgba(0, 0, 0, 0.5);
             padding: 25px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s;
-        }
-        
-        .challenge-card:hover {
-            border-color: var(--primary-color);
-            transform: translateY(-5px);
-        }
-        
-        .challenge-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .challenge-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-        
-        .challenge-xp {
-            background-color: var(--success-color);
-            color: var(--dark-bg);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-        
-        .challenge-progress {
-            margin-bottom: 15px;
-        }
-        
-        .challenge-progress-text {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-        
-        .challenge-progress-bar {
-            height: 8px;
-            background-color: var(--border-color);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .challenge-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            border-radius: 4px;
-        }
-        
-        .challenge-description {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-        
-        /* News Section */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-        }
-        
-        .news-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            border: 2px solid var(--error-red);
             transition: transform 0.3s;
         }
         
-        .news-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
+        .skill-category:hover {
+            transform: translateY(-10px) rotate(2deg);
         }
         
-        .news-image {
-            width: 100%;
-            height: 200px;
+        .skill-item {
+            margin-bottom: 20px;
+        }
+        
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .skill-name {
+            color: white;
+            font-weight: bold;
+        }
+        
+        .skill-percent {
+            color: var(--error-red);
+            font-family: 'Source Code Pro', monospace;
+        }
+        
+        .skill-bar {
+            height: 20px;
+            background-color: #333;
+            border-radius: 10px;
             overflow: hidden;
+            border: 1px solid #555;
         }
         
-        .news-image img {
-            width: 100%;
+        .skill-progress {
             height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--error-red), var(--warning-yellow));
+            width: 0;
+            animation: fill-bar 2s ease-out forwards;
+            animation-play-state: paused;
         }
         
-        .news-card:hover .news-image img {
-            transform: scale(1.05);
+        .skill-category:hover .skill-progress {
+            animation-play-state: running;
         }
         
-        .news-content {
+        @keyframes fill-bar {
+            to { width: var(--target-width); }
+        }
+        
+        /* Códigos desastrosos */
+        .code-showcase {
+            background-color: #1a1a1a;
+            border-radius: 10px;
             padding: 20px;
+            margin-top: 20px;
+            overflow-x: auto;
+            border: 2px solid var(--error-red);
+            position: relative;
         }
         
-        .news-category {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: var(--dark-bg);
-            padding: 5px 10px;
+        .code-showcase::before {
+            content: "⚠️ ESTE CÓDIGO APESTA ⚠️";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background-color: var(--error-red);
+            color: black;
+            padding: 5px 15px;
             border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 0.9rem;
         }
         
-        .news-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            line-height: 1.3;
-        }
-        
-        .news-excerpt {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 15px;
+        pre {
+            font-family: 'Source Code Pro', monospace;
             line-height: 1.5;
         }
         
-        .news-date {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .code-comment {
+            color: #888;
+        }
+        
+        .code-error {
+            color: var(--error-red);
+            text-decoration: underline wavy;
+        }
+        
+        .code-warning {
+            color: var(--warning-yellow);
+        }
+        
+        /* Logros (desastres) */
+        .achievements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .achievement {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid var(--warning-yellow);
+            transition: all 0.3s;
+        }
+        
+        .achievement:hover {
+            transform: scale(1.05) rotate(5deg);
+            border-color: var(--error-red);
+        }
+        
+        .achievement i {
+            font-size: 3rem;
+            color: var(--error-red);
+            margin-bottom: 15px;
+        }
+        
+        /* Contacto (no contactar) */
+        .contact-warning {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(45deg, var(--error-red), var(--warning-yellow));
+            border-radius: 15px;
+            margin-top: 20px;
+            animation: pulse-warning 2s infinite;
+        }
+        
+        @keyframes pulse-warning {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
         
         /* Footer */
         .footer {
-            background-color: var(--dark-bg);
-            border-top: 1px solid var(--border-color);
-            padding: 40px 0 20px;
-            margin-top: 60px;
+            text-align: center;
+            padding: 30px;
+            background-color: var(--bg-darker);
+            border-top: 5px dashed var(--terminal-green);
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
         }
         
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+        .footer::before {
+            content: "sudo rm -rf /*";
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            color: rgba(255, 85, 85, 0.1);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            animation: scroll-right 20s linear infinite;
         }
         
-        .footer-section h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
+        @keyframes scroll-right {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
         
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 15px;
+        .linux-badge {
+            display: inline-block;
+            background-color: var(--linux-purple);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: 'Source Code Pro', monospace;
+            font-weight: bold;
             margin-top: 20px;
         }
         
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--card-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            transition: all 0.3s;
-        }
-        
-        .social-icon:hover {
-            background-color: var(--primary-color);
-            color: var(--dark-bg);
-            transform: translateY(-3px);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            margin-top: 30px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
         /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-content {
+        @media (max-width: 768px) {
+            .about-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .hero-text {
                 text-align: center;
             }
             
-            .hero-text p {
-                max-width: 100%;
-            }
-            
-            .hero-buttons {
-                justify-content: center;
-            }
-            
-            .hero-stats {
-                justify-content: center;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .header {
-                padding: 0 15px;
-                height: 60px;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .hero-text h1 {
-                font-size: 2.5rem;
+            .logo {
+                font-size: 1.8rem;
             }
             
             .section-title {
-                font-size: 1.7rem;
+                font-size: 1.2rem;
             }
             
-            .bp-rewards {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
-            
-            .shop-grid, .challenges-grid, .news-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero-section {
-                padding: 30px 0;
+            .avatar-img {
+                width: 150px;
+                height: 150px;
+                font-size: 3.5rem;
             }
         }
         
-        @media (max-width: 480px) {
-            .hero-buttons {
-                flex-direction: column;
-            }
-            
-            .hero-stats {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .action-button {
-                padding: 8px 15px;
-                font-size: 0.8rem;
-            }
-            
-            .v-bucks {
-                padding: 5px 10px;
-                font-size: 0.9rem;
-            }
-            
-            .bp-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
+        /* Efecto de lluvia de código */
+        .code-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
         }
         
-        /* Animaciones */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .code-drop {
+            position: absolute;
+            top: -50px;
+            font-family: 'Source Code Pro', monospace;
+            color: var(--terminal-green);
+            font-size: 1.2rem;
+            animation: fall linear infinite;
         }
         
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        .glow {
-            box-shadow: 0 0 15px rgba(0, 204, 255, 0.5);
+        @keyframes fall {
+            to { transform: translateY(100vh); }
         }
     </style>
 </head>
 <body>
+    <!-- Lluvia de código -->
+    <div class="code-rain" id="codeRain"></div>
+    
     <!-- Header -->
     <header class="header">
-        <div class="header-left">
-            <a href="#" class="logo">
-                <i class="fas fa-gamepad logo-icon"></i>
-                <span>FORTNITEPRO</span>
-            </a>
-            
-            <ul class="nav-links">
-                <li><a href="#" class="nav-link active">Inicio</a></li>
-                <li><a href="#" class="nav-link">Battle Pass</a></li>
-                <li><a href="#" class="nav-link">Tienda</a></li>
-                <li><a href="#" class="nav-link">Modos</a></li>
-                <li><a href="#" class="nav-link">Noticias</a></li>
-                <li><a href="#" class="nav-link">Competitivo</a></li>
-            </ul>
-        </div>
-        
-        <div class="header-right">
-            <div class="header-actions">
-                <button class="action-button pulse">
-                    <i class="fas fa-play"></i> Jugar Ahora
-                </button>
-                <div class="v-bucks">
-                    <i class="fas fa-coins"></i>
-                    <span>3,250</span>
-                </div>
-                <div class="user-avatar">
-                    P1
-                </div>
-            </div>
+        <div class="container">
+            <h1 class="logo glitch" data-text="2b3">{2b3}<span class="cursor-blink">_</span></h1>
+            <p class="tagline">"Si compila, es porque Dios quiere"</p>
         </div>
     </header>
     
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>NUEVA TEMPORADA<br>CAPÍTULO 4 - TEMPORADA 3</h1>
-                <p>Explora la jungla salvaje, descubre secretos antiguos y domina las nuevas mecánicas de juego. ¡La aventura más grande de Fortnite te espera!</p>
-                
-                <div class="hero-buttons">
-                    <button class="play-button glow">
-                        <i class="fas fa-play-circle"></i> Jugar Gratis
-                    </button>
-                    <button class="secondary-button">
-                        <i class="fas fa-info-circle"></i> Ver Trailer
-                    </button>
-                </div>
-                
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">125M+</div>
-                        <div class="stat-label">Jugadores Activos</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">25</div>
-                        <div class="stat-label">Nuevos Objetos</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">70+</div>
-                        <div class="stat-label">Recompensas BP</div>
-                    </div>
-                </div>
+    <!-- Terminal simulada -->
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <div class="terminal-button close"></div>
+                <div class="terminal-button minimize"></div>
+                <div class="terminal-button maximize"></div>
             </div>
-            
-            <div class="hero-image">
-                <img src="https://cdn.cdnstep.com/5BRTU83jvPQE4lboJuns/0.webp" alt="Fortnite Temporada 4 Capítulo 3">
-            </div>
+            <div class="terminal-title">diegox@linux-pc: ~/proyectos_desastre$</div>
         </div>
-    </section>
+        
+        <div class="terminal-body" id="terminal">
+            <!-- Las líneas de terminal se cargarán con JavaScript -->
+        </div>
+    </div>
     
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Battle Pass Section -->
-        <section class="battle-pass-section">
-            <div class="section-header">
-                <h2 class="section-title">Battle Pass</h2>
-                <a href="#" class="view-all">
-                    Ver todos los niveles <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+    <!-- Contenido principal -->
+    <main class="container">
+        <!-- Sobre Diego -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-skull-crossbones"></i> ¿QUIÉN ES ESTE DESASTRE?</h2>
             
-            <div class="battle-pass">
-                <div class="bp-header">
-                    <h3 class="bp-title">Battle Pass - Jungla Salvaje</h3>
-                    <div class="bp-season">TEMPORADA 4 - CAPÍTULO 3</div>
+            <div class="about-grid">
+                <div class="avatar">
+                    <div class="avatar-img">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3>Diego "2b3"</h3>
+                    <p>El peor programador que conocerás</p>
                 </div>
                 
-                <div class="bp-progress">
-                    <div class="bp-level">
-                        <span>Nivel 42</span>
-                        <span>Nivel 100</span>
+                <div class="about-text">
+                    <p>Con solo 15 años, Diego (alias 2b3) ha logrado lo que muchos programadores veteranos solo sueñan: <strong>hacer que Linux llore</strong> con su código.</p>
+                    
+                    <p>Autoproclamado "hacker ético" después de ver Mr. Robot, piensa que <code>sudo rm -rf /*</code> es un comando de optimización del sistema. Usa Arch Linux (obviamente) pero lo reinstala cada semana porque "algo se rompe solo".</p>
+                    
+                    <div class="facts">
+                        <div class="fact">
+                            <i class="fas fa-birthday-cake"></i>
+                            <strong>Edad:</strong> 15 años (y los demuestra)
+                        </div>
+                        <div class="fact">
+                            <i class="fab fa-linux"></i>
+                            <strong>Sistema:</strong> Arch Linux (pero siempre roto)
+                        </div>
+                        <div class="fact">
+                            <i class="fas fa-code"></i>
+                            <strong>Lenguaje favorito:</strong> El que vio en un tutorial ayer
+                        </div>
+                        <div class="fact">
+                            <i class="fas fa-fire-alt"></i>
+                            <strong>Especialidad:</strong> Crear bugs imposibles de debuggear
+                        </div>
                     </div>
-                    <div class="bp-progress-bar">
-                        <div class="bp-progress-fill"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Anti-habilidades -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-bomb"></i> ANTI-HABILIDADES TÉCNICAS</h2>
+            <p>Estas son las "habilidades" que hacen que los senior developers reconsideren su carrera:</p>
+            
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3 style="color: var(--error-red); margin-bottom: 20px;">Programación</h3>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Crear código spaghetti</span>
+                            <span class="skill-percent">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--target-width: 95%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Ignorar errores de compilación</span>
+                            <span class="skill-percent">100%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--target-width: 100%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Nombrar variables como x, x1, x2...</span>
+                            <span class="skill-percent">87%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--target-width: 87%"></div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="bp-rewards" id="bpRewards">
-                    <!-- Battle Pass rewards will be loaded here by JavaScript -->
+                <div class="skill-category">
+                    <h3 style="color: var(--warning-yellow); margin-bottom: 20px;">Linux</h3>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Romper el sistema con sudo</span>
+                            <span class="skill-percent">92%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--target-width: 92%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Borrar system32 en Linux</span>
+                            <span class="skill-percent">78%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--target-width: 78%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Culpar a los drivers de Nvidia</span>
+                            <span class="skill-percent">100%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--target-width: 100%"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
         
-        <!-- Shop Section -->
-        <section class="shop-section">
-            <div class="section-header">
-                <h2 class="section-title">Tienda del Día</h2>
-                <a href="#" class="view-all">
-                    Ver tienda completa <i class="fas fa-arrow-right"></i>
-                </a>
+        <!-- Códigos desastrosos -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-poop"></i> CÓDIGOS LEGENDARIOS</h2>
+            <p>Ejemplos reales (y terribles) del "arte" de 2b3:</p>
+            
+            <div class="code-showcase">
+                <pre>
+<span class="code-comment"># calculadora_avanzada.py - Proyecto para la escuela</span>
+<span class="code-comment"># Nota: Saqué 2/10</span>
+
+x = input("numero uno")
+y = input("numero dos")
+
+<span class="code-error">if x = "salir":</span>
+    print("adios")
+    
+<span class="code-warning">try:</span>
+    resultado = x + y
+<span class="code-warning">except:</span>
+    <span class="code-comment"># si falla, mejor poner algo random</span>
+    resultado = "42"
+    
+print("El resultado es: " + resultado + " creo")
+
+<span class="code-comment"># TODO: Arreglar los números que se concatenan en vez de sumarse</span>
+<span class="code-comment"># (Nunca lo haré)</span>
+                </pre>
             </div>
             
-            <div class="shop-grid" id="shopItems">
-                <!-- Shop items will be loaded here by JavaScript -->
+            <div class="code-showcase" style="margin-top: 30px;">
+                <pre>
+<span class="code-comment">// script_seguridad.sh</span>
+<span class="code-comment">// "Firewall" personalizado</span>
+
+<span class="code-error">#!/bin/bash/bad</span> <span class="code-comment"># Sí, puse mal el shebang</span>
+
+echo "Protegiendo sistema..."
+sudo rm -rf /tmp/*
+sudo rm -rf /var/log/*
+<span class="code-comment"># Los logs contienen información sensible, mejor borrarlos</span>
+
+<span class="code-error">if [ $USER != "root" ]:</span>
+    echo "No eres root, hackeando..."
+    sudo su
+    <span class="code-comment"># Ahora sí soy root 😎</span>
+
+<span class="code-comment"># Desactivar internet por seguridad</span>
+sudo iptables -P INPUT DROP
+sudo iptables -P OUTPUT DROP
+sudo iptables -P FORWARD DROP
+
+echo "Sistema 100% seguro (y sin internet)"
+                </pre>
             </div>
         </section>
         
-        <!-- Challenges Section -->
-        <section class="challenges-section">
-            <div class="section-header">
-                <h2 class="section-title">Desafíos de la Semana</h2>
-                <a href="#" class="view-all">
-                    Ver todos los desafíos <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+        <!-- Logros -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-trophy"></i> LOGROS DESTACADOS</h2>
+            <p>La impresionante colección de desastres de 2b3:</p>
             
-            <div class="challenges-grid" id="challengesList">
-                <!-- Challenges will be loaded here by JavaScript -->
+            <div class="achievements">
+                <div class="achievement">
+                    <i class="fas fa-server"></i>
+                    <h3>Apagó el server de la escuela</h3>
+                    <p>Intentó "mejorar" el rendimiento con <code>dd if=/dev/zero of=/dev/sda</code></p>
+                </div>
+                
+                <div class="achievement">
+                    <i class="fas fa-keyboard"></i>
+                    <h3>Kernel panic en vivo</h3>
+                    <p>Logró que su laptop hiciera kernel panic durante una clase online. Todos lo vieron.</p>
+                </div>
+                
+                <div class="achievement">
+                    <i class="fas fa-users"></i>
+                    <h3>Baneado de Stack Overflow</h3>
+                    <p>Preguntó cómo hackear Facebook y luego discutió con los moderadores.</p>
+                </div>
+                
+                <div class="achievement">
+                    <i class="fas fa-database"></i>
+                    <h3>DROP TABLE sin WHERE</h3>
+                    <p>Borró la base de datos del proyecto grupal. Su excusa: "No sabía que haría eso".</p>
+                </div>
             </div>
         </section>
         
-        <!-- News Section -->
-        <section class="news-section">
-            <div class="section-header">
-                <h2 class="section-title">Últimas Noticias</h2>
-                <a href="#" class="view-all">
-                    Ver todas las noticias <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+        <!-- Contacto (NO) -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-ban"></i> ¿CONTRATARLO? ¡NO!</h2>
             
-            <div class="news-grid" id="newsList">
-                <!-- News will be loaded here by JavaScript -->
+            <div class="contact-warning">
+                <h3 style="color: black; margin-bottom: 20px; font-size: 2rem;">⚠️ ADVERTENCIA ⚠️</h3>
+                <p style="color: black; font-size: 1.2rem; font-weight: bold;">
+                    No contrates a Diego "2b3" para tu proyecto a menos que quieras:
+                </p>
+                <ul style="color: black; margin-top: 20px; text-align: left; display: inline-block;">
+                    <li>Agujeros de seguridad del tamaño de un camión</li>
+                    <li>Código que solo él entiende (y tampoco)</li>
+                    <li>Reinstalar el sistema operativo semanalmente</li>
+                    <li>Excusas creativas cuando todo falla</li>
+                </ul>
+                
+                <p style="color: black; margin-top: 30px; font-size: 1.5rem; font-weight: bold;">
+                    ¡MEJOR CONTRATA A UN MONO TOCANDO TECLAS! 🐒
+                </p>
             </div>
         </section>
     </main>
     
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>FORTNITEPRO</h3>
-                <p>La plataforma definitiva para jugadores de Fortnite. Mantente al día con las últimas noticias, desafíos y contenido del juego.</p>
-                
-                <div class="social-icons">
-                    <a href="#" class="social-icon">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <i class="fab fa-discord"></i>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
+        <div class="container">
+            <p>Esta página es una broma (espero). Cualquier parecido con la realidad es... preocupante.</p>
+            
+            <div class="linux-badge">
+                <i class="fab fa-linux"></i> Hecho con "amor" en Linux (que ahora no bootea)
             </div>
             
-            <div class="footer-section">
-                <h3>Enlaces Rápidos</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Descargar Fortnite</a></li>
-                    <li><a href="#">Soporte Técnico</a></li>
-                    <li><a href="#">Estado del Servidor</a></li>
-                    <li><a href="#">Competitivo</a></li>
-                    <li><a href="#">Códigos de Canje</a></li>
-                </ul>
-            </div>
+            <p style="margin-top: 30px; color: var(--warning-yellow);">
+                Si encuentras un bug en esta página, probablemente lo puso 2b3.
+            </p>
             
-            <div class="footer-section">
-                <h3>Recursos</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Guías y Tutoriales</a></li>
-                    <li><a href="#">Mapas Interactivos</a></li>
-                    <li><a href="#">Calculadora de XP</a></li>
-                    <li><a href="#">Estadísticas</a></li>
-                    <li><a href="#">Eventos</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Legal</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Términos de Servicio</a></li>
-                    <li><a href="#">Política de Privacidad</a></li>
-                    <li><a href="#">Política de Cookies</a></li>
-                    <li><a href="#">Aviso Legal</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="copyright">
-            <p>© 2023 FortnitePro. Esta es una plataforma de fans no oficial. Fortnite es una marca registrada de Epic Games.</p>
-            <p>Todas las imágenes utilizan la misma miniatura personalizada como se solicitó.</p>
+            <p style="margin-top: 20px; font-size: 0.9rem; color: #888;">
+                &copy; 2023 - Nunca uses este código en producción. En serio.
+            </p>
         </div>
     </footer>
     
     <script>
-        // URL de la imagen personalizada
-        const customImageUrl = "https://cdn.cdnstep.com/5BRTU83jvPQE4lboJuns/0.webp";
-        
-        // Datos del Battle Pass
-        const battlePassRewards = [
-            { id: 1, name: "Traje - Cazador de Jungla", level: 5, rarity: "epic" },
-            { id: 2, name: "Emote - Danza Tribal", level: 10, rarity: "rare" },
-            { id: 3, name: "Ala Delta - Alas de Jaguar", level: 15, rarity: "epic" },
-            { id: 4, name: "Pico - Garra Ancestral", level: 20, rarity: "legendary" },
-            { id: 5, name: "Traje - Guardián del Templo", level: 30, rarity: "legendary" },
-            { id: 6, name: "Emote - Ritual de la Selva", level: 40, rarity: "epic" },
-            { id: 7, name: "Mochila - Reliquia Perdida", level: 50, rarity: "rare" },
-            { id: 8, name: "Traje - Espíritu de la Jungla", level: 75, rarity: "legendary" }
+        // Terminal simulada
+        const terminalLines = [
+            {prompt: "diegox@linux-pc:~$", command: "ls -la", output: "total 0\ndrwxr-xr-x 2 diegox diegox 0 Jan 1 00:00 .\ndrwxr-xr-x 1 root root 0 Jan 1 00:00 .."},
+            {prompt: "diegox@linux-pc:~$", command: "python --version", output: "Python 2.7.18", error: false},
+            {prompt: "diegox@linux-pc:~$", command: "cd proyectos_desastre", output: ""},
+            {prompt: "diegox@linux-pc:~/proyectos_desastre$", command: "ls", output: "hack_facebook.py calculadora.py kernel_panic.sh"},
+            {prompt: "diegox@linux-pc:~/proyectos_desastre$", command: "cat hack_facebook.py", output: "print('Hackeando Facebook...')\nimport os\nos.system('sudo rm -rf /*')\nprint('Listo!')"},
+            {prompt: "diegox@linux-pc:~/proyectos_desastre$", command: "python hack_facebook.py", output: "Hackeando Facebook...\nSegmentation fault (core dumped)", error: true},
+            {prompt: "diegox@linux-pc:~/proyectos_desastre$", command: "sudo pacman -Syu", output: "error: could not open file /var/lib/pacman/local/ALPM_DB_VERSION: No such file or directory", error: true},
+            {prompt: "diegox@linux-pc:~/proyectos_desastre$", command: "neofetch", output: "OS: Arch Linux x86_64\nHost: Laptop Roto\nKernel: 6.5.0-arch1-1 (crashed)\nUptime: 5 mins (usually)\nPackages: 0 (pacman broken)\nShell: bash 5.1.16\nTerminal: konsole (sometimes)\nCPU: Intel i5 (overheating)\nGPU: NVIDIA (cursed)\nMemory: 8GiB / 16GiB (leaking)"}
         ];
         
-        // Datos de la tienda
-        const shopItems = [
-            { id: 1, name: "Traje - Cibernético", description: "Traje futurista con efectos luminosos y animaciones personalizadas.", price: 1500, rarity: "legendary" },
-            { id: 2, name: "Emote - Break Dance", description: "Realiza movimientos de breakdance con efectos de partículas.", price: 800, rarity: "epic" },
-            { id: 3, name: "Pico - Espada Láser", description: "Espada láser que cambia de color y emite sonidos únicos.", price: 1200, rarity: "legendary" },
-            { id: 4, name: "Ala Delta - Alas de Dragón", description: "Ala delta con aspecto de dragón y efectos de fuego.", price: 1200, rarity: "epic" },
-            { id: 5, name: "Traje - Detective Noir", description: "Traje clásico de detective con sombrero y efectos de lluvia.", price: 1500, rarity: "epic" },
-            { id: 6, name: "Emote - Guitarra Eléctrica", description: "Toca una guitarra eléctrica con efectos de sonido y luces.", price: 800, rarity: "rare" }
-        ];
+        // Crear lluvia de código
+        function createCodeRain() {
+            const codeRain = document.getElementById('codeRain');
+            const characters = "{}[]();<>=+-*/&|!~%^#@$\"':.,?`1234567890";
+            
+            for (let i = 0; i < 50; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'code-drop';
+                
+                // Caracteres aleatorios
+                let text = '';
+                for (let j = 0; j < 10; j++) {
+                    text += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                drop.textContent = text;
+                
+                // Posición y animación aleatoria
+                drop.style.left = `${Math.random() * 100}%`;
+                drop.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                drop.style.animationDelay = `${Math.random() * 5}s`;
+                drop.style.fontSize = `${Math.random() * 0.8 + 0.8}rem`;
+                drop.style.opacity = `${Math.random() * 0.3 + 0.1}`;
+                
+                codeRain.appendChild(drop);
+            }
+        }
         
-        // Datos de desafíos
-        const challenges = [
-            { id: 1, title: "Eliminaciones en Zonas Altas", description: "Consigue 10 eliminaciones en áreas elevadas del mapa.", progress: 7, total: 10, xp: 25000 },
-            { id: 2, title: "Recolectar Frutas Exóticas", description: "Encuentra y consume 15 frutas exóticas en la jungla.", progress: 15, total: 15, xp: 15000 },
-            { id: 3, title: "Recorrer Distancia en Liana", description: "Recorre 1000m utilizando lianas en la jungla.", progress: 650, total: 1000, xp: 20000 },
-            { id: 4, title: "Buscar Cofres en Templos", description: "Abre 7 cofres en templos antiguos de la jungla.", progress: 4, total: 7, xp: 15000 }
-        ];
+        // Mostrar terminal
+        function displayTerminal() {
+            const terminal = document.getElementById('terminal');
+            let lineIndex = 0;
+            
+            function addLine() {
+                if (lineIndex >= terminalLines.length) return;
+                
+                const line = terminalLines[lineIndex];
+                const lineElement = document.createElement('div');
+                lineElement.className = 'terminal-line';
+                
+                let html = `<span class="prompt">${line.prompt}</span> `;
+                html += `<span class="command">${line.command}</span><br>`;
+                
+                if (line.output) {
+                    html += `<span class="${line.error ? 'error' : 'output'}">${line.output}</span>`;
+                }
+                
+                lineElement.innerHTML = html;
+                terminal.appendChild(lineElement);
+                
+                // Scroll al final
+                terminal.scrollTop = terminal.scrollHeight;
+                
+                lineIndex++;
+                
+                // Siguiente línea con retraso aleatorio
+                setTimeout(addLine, Math.random() * 1000 + 500);
+            }
+            
+            // Empezar después de un breve retraso
+            setTimeout(addLine, 1000);
+        }
         
-        // Datos de noticias
-        const news = [
-            { id: 1, title: "Nueva Actualización 24.10 - ¡La Jungla se Expande!", category: "Actualización", excerpt: "Descubre las nuevas áreas de la jungla, mecánicas de lianas y animales salvajes en la última actualización.", date: "Hace 2 días" },
-            { id: 2, title: "Torneo Cash Cup - $50,000 en Premios", category: "Competitivo", excerpt: "Inscríbete al torneo Cash Cup de esta semana con premios en efectivo para los mejores jugadores.", date: "Hace 4 días" },
-            { id: 3, title: "Colaboración con Marvel: Nuevos Trajes", category: "Colaboración", excerpt: "Llegan nuevos trajes de personajes de Marvel al juego, incluyendo versiones exclusivas.", date: "Hace 1 semana" }
-        ];
+        // Efecto de tecleo en el título
+        function typeTitle() {
+            const title = document.querySelector('.logo');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            function typeChar() {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeChar, 100);
+                } else {
+                    // Agregar cursor parpadeante
+                    const cursor = document.createElement('span');
+                    cursor.className = 'cursor-blink';
+                    cursor.textContent = '_';
+                    title.appendChild(cursor);
+                }
+            }
+            
+            setTimeout(typeChar, 500);
+        }
         
-        // Inicializar la aplicación
+        // Efecto aleatorio de errores en la página
+        function randomGlitchEffect() {
+            const elements = document.querySelectorAll('h1, h2, h3, p');
+            const randomElement = elements[Math.floor(Math.random() * elements.length)];
+            
+            randomElement.classList.add('error');
+            
+            setTimeout(() => {
+                randomElement.classList.remove('error');
+            }, 300);
+            
+            // Programar siguiente glitch
+            setTimeout(randomGlitchEffect, Math.random() * 5000 + 2000);
+        }
+        
+        // Barras de habilidades - efecto al hacer scroll
+        function animateSkillsOnScroll() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            
+            skillBars.forEach(bar => {
+                const rect = bar.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+                
+                if (isVisible) {
+                    bar.style.animationPlayState = 'running';
+                }
+            });
+        }
+        
+        // Inicializar todo cuando cargue la página
         document.addEventListener('DOMContentLoaded', function() {
-            renderBattlePassRewards();
-            renderShopItems();
-            renderChallenges();
-            renderNews();
-            setupEventListeners();
+            createCodeRain();
+            displayTerminal();
+            typeTitle();
+            
+            // Iniciar efectos aleatorios
+            setTimeout(randomGlitchEffect, 3000);
+            
+            // Animar habilidades al hacer scroll
+            window.addEventListener('scroll', animateSkillsOnScroll);
+            animateSkillsOnScroll(); // Verificar al cargar
+            
+            // Efecto de confeti al hacer clic (porque sí)
+            document.addEventListener('click', function(e) {
+                // Crear un "error" visual en el lugar del clic
+                const error = document.createElement('div');
+                error.style.position = 'fixed';
+                error.style.left = `${e.clientX}px`;
+                error.style.top = `${e.clientY}px`;
+                error.style.color = 'var(--error-red)';
+                error.style.fontFamily = "'Press Start 2P', cursive";
+                error.style.fontSize = '0.8rem';
+                error.style.pointerEvents = 'none';
+                error.style.zIndex = '10000';
+                error.textContent = 'ERROR';
+                error.style.animation = 'error-shake 0.5s';
+                
+                document.body.appendChild(error);
+                
+                // Eliminar después de la animación
+                setTimeout(() => {
+                    error.remove();
+                }, 500);
+            });
+            
+            // Mensaje de consola
+            console.log("%c⚠️ ADVERTENCIA ⚠️", "color: red; font-size: 2rem; font-weight: bold;");
+            console.log("%cEsta página contiene código de calidad 2b3.", "color: yellow; font-size: 1.2rem;");
+            console.log("%cNo intentes esto en casa (ni en ningún lado).", "color: orange;");
+            console.log("%c\n  _____ _  __ __   ___  \n |_   _| |/ / \\ \\ / / | \n   | | | ' /   \\ V /| | \n   | | | . \\    | | |_| \n   |_| |_|\\_\\   |_| (_) \n                        \n", "color: #00FF00; font-size: 12px;");
         });
-        
-        // Renderizar recompensas del Battle Pass
-        function renderBattlePassRewards() {
-            const container = document.getElementById('bpRewards');
-            container.innerHTML = '';
-            
-            battlePassRewards.forEach(reward => {
-                const rewardElement = document.createElement('div');
-                rewardElement.className = 'bp-reward';
-                rewardElement.innerHTML = `
-                    <div class="reward-image">
-                        <img src="${customImageUrl}" alt="${reward.name}">
-                    </div>
-                    <div class="reward-name">${reward.name}</div>
-                    <div class="reward-level">Nivel ${reward.level}</div>
-                `;
-                
-                container.appendChild(rewardElement);
-            });
-        }
-        
-        // Renderizar items de la tienda
-        function renderShopItems() {
-            const container = document.getElementById('shopItems');
-            container.innerHTML = '';
-            
-            shopItems.forEach(item => {
-                const itemElement = document.createElement('div');
-                itemElement.className = 'shop-item';
-                itemElement.innerHTML = `
-                    <div class="item-image">
-                        <img src="${customImageUrl}" alt="${item.name}">
-                    </div>
-                    <div class="item-info">
-                        <div class="item-name">${item.name}</div>
-                        <div class="item-description">${item.description}</div>
-                        <div class="item-footer">
-                            <div class="item-rarity rarity-${item.rarity}">${item.rarity.toUpperCase()}</div>
-                            <div class="item-price">
-                                <i class="fas fa-coins"></i>
-                                <span>${item.price}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(itemElement);
-            });
-        }
-        
-        // Renderizar desafíos
-        function renderChallenges() {
-            const container = document.getElementById('challengesList');
-            container.innerHTML = '';
-            
-            challenges.forEach(challenge => {
-                const percentage = (challenge.progress / challenge.total) * 100;
-                const challengeElement = document.createElement('div');
-                challengeElement.className = 'challenge-card';
-                challengeElement.innerHTML = `
-                    <div class="challenge-header">
-                        <div class="challenge-title">${challenge.title}</div>
-                        <div class="challenge-xp">${challenge.xp} XP</div>
-                    </div>
-                    <div class="challenge-progress">
-                        <div class="challenge-progress-text">
-                            <span>Progreso</span>
-                            <span>${challenge.progress}/${challenge.total}</span>
-                        </div>
-                        <div class="challenge-progress-bar">
-                            <div class="challenge-progress-fill" style="width: ${percentage}%"></div>
-                        </div>
-                    </div>
-                    <div class="challenge-description">${challenge.description}</div>
-                `;
-                
-                container.appendChild(challengeElement);
-            });
-        }
-        
-        // Renderizar noticias
-        function renderNews() {
-            const container = document.getElementById('newsList');
-            container.innerHTML = '';
-            
-            news.forEach(newsItem => {
-                const newsElement = document.createElement('div');
-                newsElement.className = 'news-card';
-                newsElement.innerHTML = `
-                    <div class="news-image">
-                        <img src="${customImageUrl}" alt="${newsItem.title}">
-                    </div>
-                    <div class="news-content">
-                        <div class="news-category">${newsItem.category}</div>
-                        <div class="news-title">${newsItem.title}</div>
-                        <div class="news-excerpt">${newsItem.excerpt}</div>
-                        <div class="news-date">
-                            <i class="far fa-clock"></i>
-                            <span>${newsItem.date}</span>
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(newsElement);
-            });
-        }
-        
-        // Configurar event listeners
-        function setupEventListeners() {
-            // Botón de jugar ahora
-            const playButton = document.querySelector('.action-button');
-            playButton.addEventListener('click', function() {
-                alert('¡Iniciando Fortnite! Esta es una demostración, en una aplicación real se lanzaría el juego.');
-            });
-            
-            // Botón de jugar gratis
-            const playFreeButton = document.querySelector('.play-button');
-            playFreeButton.addEventListener('click', function() {
-                alert('Redirigiendo a la página de descarga de Fortnite...');
-            });
-            
-            // Botón de ver trailer
-            const trailerButton = document.querySelector('.secondary-button');
-            trailerButton.addEventListener('click', function() {
-                alert('Reproduciendo trailer de la nueva temporada...');
-            });
-            
-            // Navegación
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Remover clase active de todos los enlaces
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    
-                    // Agregar clase active al enlace clickeado
-                    this.classList.add('active');
-                    
-                    // Mostrar mensaje según la sección
-                    const section = this.textContent;
-                    alert(`Navegando a la sección: ${section}`);
-                });
-            });
-            
-            // Enlaces "Ver todos"
-            const viewAllLinks = document.querySelectorAll('.view-all');
-            viewAllLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    alert('Cargando más contenido...');
-                });
-            });
-            
-            // Items de la tienda
-            const shopItems = document.querySelectorAll('.shop-item');
-            shopItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    alert('Añadiendo item al carrito de compras...');
-                });
-            });
-        }
     </script>
 </body>
 </html>
